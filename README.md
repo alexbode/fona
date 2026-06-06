@@ -57,3 +57,9 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+## How to build for github pages
+* `https://gemini.google.com/app/dbbb80dda28a4814`
+* ng build --base-href /<repository-name>/
+* cp dist/<your-project-name>/browser docs/
+* touch docs/.nojekyll
