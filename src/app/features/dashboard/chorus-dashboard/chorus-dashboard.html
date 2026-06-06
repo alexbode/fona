@@ -1,0 +1,22 @@
+<p>chorus-dashboard works!</p>
+<!-- <p>{{ sentenceText() }}</p> -->
+<!-- <p>{{ sentenceIpa() }}</p> -->
+<!-- <p>isPlaying: {{ isPlaying() }}</p> -->
+<!-- <p>Plays:{{ playCount() }}</p> -->
+<app-sentence-text
+  [language]="language()"
+  [accent]="accent()"
+  [sentenceId]="sentenceId()"
+></app-sentence-text>
+<button mat-raised-button (click)="previousSentence()" [disabled]="disablePreviousButton()">
+  Previous Sentence
+</button>
+<button mat-raised-button (click)="nextSentence()" [disabled]="disableNextButton()">
+  Next Sentence
+</button>
+
+<app-audio-player
+  [language]="language()"
+  [accent]="accent()"
+  [sentenceId]="sentenceId()"
+></app-audio-player>
