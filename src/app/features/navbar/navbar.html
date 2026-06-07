@@ -1,34 +1,45 @@
 @if (!isCurrentPathPartOfAuthFlow()) {
-  <mat-toolbar color="primary">
-    <img
-      src="favicon-32x32.png"
-      alt="Company Logo"
-      class="navbar-logo"
-    />
+  <mat-toolbar>
+    <img src="favicon-32x32.png" alt="Company Logo" class="navbar-logo" />
     <span>Repeat With Me</span>
     <span class="navbar-spacer"></span>
-    
+
     @if (isLoggedIn()) {
-      <button mat-button class="navbar-button">
+      <button matFab extended class="navbar-button">
         <mat-icon>settings</mat-icon>
         Settings
       </button>
-      
-      <a mat-button class="navbar-button" [routerLink]="['/', appRoutesHelper.urlPaths.Home]" (click)="logOut()">
+
+      <a
+        matFab
+        extended
+        class="navbar-button"
+        [routerLink]="['/', appRoutesHelper.urlPaths.Home]"
+        (click)="logOut()"
+      >
         <mat-icon>person</mat-icon>
         Log Out
       </a>
     } @else {
-      
-      <a mat-button class="navbar-button" [routerLink]="['/', appRoutesHelper.urlPaths.Signin]">
+      <a
+        matFab
+        extended
+        class="navbar-button"
+        [routerLink]="['/', appRoutesHelper.urlPaths.Signin]"
+      >
         <mat-icon>person</mat-icon>
         Log In
       </a>
-      
-      <a mat-raised-button color="primary" class="navbar-button" [routerLink]="['/', appRoutesHelper.urlPaths.Signup]">
+
+      <a
+        matFab
+        extended
+        class="navbar-button"
+        [routerLink]="['/', appRoutesHelper.urlPaths.Signup]"
+      >
         Sign Up
       </a>
     }
-    <span>Logged in: {{ isLoggedIn() }}</span>
+    <span>LI: {{ isLoggedIn() }}</span>
   </mat-toolbar>
 }

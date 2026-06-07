@@ -32,13 +32,13 @@ export class Navbar {
   protected readonly isCurrentPathPartOfAuthFlow = toSignal(
     this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd),
-      map((event) => this.checkIfAuthFlow(event.urlAfterRedirects))
+      map((event) => this.checkIfAuthFlow(event.urlAfterRedirects)),
     ),
     {
-      // 2. Use Location.path() for the initial value. This catches the URL instantly 
+      // 2. Use Location.path() for the initial value. This catches the URL instantly
       // on a hard refresh, preventing the split-second flicker.
-      initialValue: this.checkIfAuthFlow(this.location.path())
-    }
+      initialValue: this.checkIfAuthFlow(this.location.path()),
+    },
   );
 
   protected logOut() {

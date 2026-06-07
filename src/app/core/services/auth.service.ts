@@ -23,6 +23,7 @@ export class AuthService {
   readonly userRoles = computed(
     () => (jwtDecode(this.jwtToken()) as any)?.app_metadata?.roles || [],
   );
+  readonly userId = computed(() => (this.currentUser()?.id));
   readonly isLoggedIn = computed(() => !!this.currentUser());
 
   constructor() {

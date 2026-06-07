@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '@core/services/auth.service';
 
 @Component({
   selector: 'app-audio-player',
@@ -24,6 +25,7 @@ export class AudioPlayer {
 
   // Services
   // private readonly counterService = inject(CounterService);
+  protected readonly auth = inject(AuthService);
   private readonly dataService = inject(DataService);
   private readonly logger = inject(LoggingService);
 
@@ -54,7 +56,7 @@ export class AudioPlayer {
   private handleAudioEnded = () => {
     this.logger.debug('audio-player.ts handleAudioEnded');
     this.isPlaying.set(false);
-    // this.incrementCounter();
+    this.incrementCounter();
     this.playAudio();
   };
 
@@ -83,10 +85,9 @@ export class AudioPlayer {
     this.isPlaying.set(false);
   }
 
-  // incrementCounter() {
-  //   this.loggingService.debug('AudioPlayer: incrementCounter');
-  //   // this.counterService.incr(this.language(), this.accent(), this.sentenceId());
-  // }
+  incrementCounter() {
+    this.dataService.incrementSentenceCount(this.language(), this.accent(), this.sentenceId());
+  }
 
   protected onSpaceBar() {
     if (this.isPlaying()) {

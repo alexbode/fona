@@ -1,18 +1,14 @@
-<p>chorus-dashboard works!</p>
-<!-- <p>{{ sentenceText() }}</p> -->
-<!-- <p>{{ sentenceIpa() }}</p> -->
-<!-- <p>isPlaying: {{ isPlaying() }}</p> -->
-<!-- <p>Plays:{{ playCount() }}</p> -->
 <app-sentence-text
   [language]="language()"
   [accent]="accent()"
   [sentenceId]="sentenceId()"
 ></app-sentence-text>
-<button mat-raised-button (click)="previousSentence()" [disabled]="disablePreviousButton()">
-  Previous Sentence
+<p>ChorusCount: {{ chorusCount() }}</p>
+<button matMiniFab (click)="previousSentence()" [disabled]="disablePreviousButton()">
+  <mat-icon>skip_previous</mat-icon>
 </button>
-<button mat-raised-button (click)="nextSentence()" [disabled]="disableNextButton()">
-  Next Sentence
+<button matMiniFab (click)="nextSentence()" [disabled]="disableNextButton()">
+  <mat-icon>skip_next</mat-icon>
 </button>
 
 <app-audio-player

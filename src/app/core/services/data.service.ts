@@ -1,6 +1,7 @@
-import { Injectable, inject, signal, ResourceRef, resource, computed } from '@angular/core';
+import { Injectable, inject, signal, Signal, WritableSignal } from '@angular/core';
 import { SupabaseService } from '@core/services/supabase.service';
 import { LoggingService } from '@core/services/logging.service';
+import { AuthService } from '@core/services/auth.service';
 import { Sentence } from '@core/models/sentence';
 
 @Injectable({
@@ -8,21 +9,15 @@ import { Sentence } from '@core/models/sentence';
 })
 export class DataService {
   // Services
-  private readonly client = inject(SupabaseService);
+  private readonly supabase = inject(SupabaseService).getSupabaseClient();
   private readonly logger = inject(LoggingService);
-
-  // Clients
-  private readonly supabase = this.client.getSupabaseClient();
-
-  // Signals
-  protected language = signal<string>('');
-  protected accent = signal<string>('');
-  protected sentenceId = signal<string>('');
+  private readonly auth = inject(AuthService);
 
   // State
-  private presignedUrlCache = new Map<string, Promise<string>>();
   private readonly bucketName = 'repeat-with-me-audio';
+  private presignedUrlCache = new Map<string, Promise<string>>();
   private sentencesCache = new Map<string, Promise<Sentence[]>>();
+  private sentenceCountCache = new Map<string, WritableSignal<number>>();
 
   getSentences(language: string, accent: string, sentenceId: string | number): Promise<Sentence[]> {
     if (!language || !accent || !sentenceId) return Promise.reject([]);
@@ -84,5 +79,62 @@ export class DataService {
       throw error;
     }
     return data.signedUrl;
+  }
+
+  getSentenceCount(
+    language: string,
+    accent: string,
+    sentenceId: string | number,
+  ): WritableSignal<number> {
+    if (!language || !accent || !sentenceId) return signal(0);
+    const key = `${language.toLowerCase()}/${accent.toLowerCase()}/${sentenceId}`;
+    this.logger.debug('data.service.ts getSentenceCount | key:', key);
+    if (this.sentenceCountCache.has(key)) {
+      this.logger.debug('data.service.ts getSentenceCount | Cache Hit!');
+      return this.sentenceCountCache.get(key)!;
+    }
+    this.sentenceCountCache.set(key, signal(0));
+    this.fetchSentenceCount(language, accent, sentenceId).then((count) => {
+        this.sentenceCountCache.get(key)!.update((value) => value + count);
+    });
+    this.logger.debug('dataservice.ts getSentenceCount  Fetch count | ', this.sentenceCountCache.get(key)!)
+    return this.sentenceCountCache.get(key)!;
+  }
+
+  private async fetchSentenceCount(
+    language: string,
+    accent: string,
+    sentenceId: string | number,
+  ): Promise<number> {
+    const { data, error } = await this.supabase
+      .from('chorus_counts')
+      .select(`count, language!inner(language), accent!inner(accent)`)
+      .eq('language.language', language.toLowerCase())
+      .eq('accent.accent', accent.toLowerCase())
+      .eq('sentence_id', sentenceId)
+      .eq('user_id', this.auth.userId()).single();
+
+    if (error) {
+      this.logger.error('data.service.ts fetchSentenceCount | Error loading initial chorus counts:', error);
+      return Promise.reject(0);
+    }
+    this.logger.debug('data.service.ts fetchSentenceCount | data.count', data.count)
+    return data.count;
+  }
+
+  async incrementSentenceCount(language: string, accent: string, sentenceId: string | number) {
+    this.logger.debug('data.service.ts incrementSentenceCount');
+    const key = `${language.toLowerCase()}/${accent.toLowerCase()}/${sentenceId}`;
+    const count: WritableSignal<number> = this.getSentenceCount(language, accent, sentenceId);
+    count?.update((item) => item + 1);
+    const { data, error } = await this.supabase.rpc('increment_rep', {
+        p_user_id: this.auth.currentUser()?.id,
+        p_language: language,
+        p_accent: accent,
+        p_sentence: parseInt(String(sentenceId), 10),
+      });
+      if (error) {
+        this.logger.error('data.service.ts incrmentSentenceCount | Error calling function increment_rep:', error);
+      }
   }
 }

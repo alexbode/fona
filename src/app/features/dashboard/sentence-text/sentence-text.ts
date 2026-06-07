@@ -27,7 +27,7 @@ export class SentenceText {
   });
 
   sentence = computed(() => {
-    if (!this.sentencesResource.hasValue()){
+    if (!this.sentencesResource.hasValue()) {
       return {} as Sentence;
     }
     const s = this.sentencesResource.value()!;

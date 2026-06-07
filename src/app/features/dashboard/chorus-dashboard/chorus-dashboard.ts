@@ -1,10 +1,11 @@
-import { Component, input, inject } from '@angular/core';
+import { Component, input, inject, computed } from '@angular/core';
 import { AudioPlayer } from '@features/dashboard/audio-player/audio-player';
 import { SentenceText } from '@features/dashboard/sentence-text/sentence-text';
 import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { DataService } from '@core/services/data.service';
 
 @Component({
   standalone: true,
@@ -18,6 +19,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
   },
 })
 export class ChorusDashboard {
+  protected dataService = inject(DataService);
   private router = inject(Router);
   protected readonly language = input.required<string>();
   protected readonly accent = input.required<string>();
@@ -44,4 +46,8 @@ export class ChorusDashboard {
   disableNextButton() {
     return Number(this.sentenceId()) === this.maxSentenceId;
   }
+
+  chorusCount = computed(() =>
+    this.dataService.getSentenceCount(this.language(), this.accent(), this.sentenceId())(),
+  );
 }
