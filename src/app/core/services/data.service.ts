@@ -3,6 +3,7 @@ import { SupabaseService } from '@core/services/supabase.service';
 import { LoggingService } from '@core/services/logging.service';
 import { AuthService } from '@core/services/auth.service';
 import { Sentence } from '@core/models/sentence';
+import { LRUCache } from '@core/helpers/lru-cache';
 
 @Injectable({
   providedIn: 'root',
@@ -15,9 +16,10 @@ export class DataService {
 
   // State
   private readonly bucketName = 'repeat-with-me-audio';
-  private presignedUrlCache = new Map<string, Promise<string>>();
-  private sentencesCache = new Map<string, Promise<Sentence[]>>();
-  private sentenceCountCache = new Map<string, WritableSignal<number | null>>();
+  private presignedUrlCache = new LRUCache<string, Promise<string>>();
+  private sentencesCache = new LRUCache<string, Promise<Sentence[]>>();
+  private sentenceCountCache = new LRUCache<string, Promise<number>>();
+  public sentenceCountUpdateTrigger = signal(0);
 
   getSentences(language: string, accent: string, sentenceId: string | number): Promise<Sentence[]> {
     if (!language || !accent || !sentenceId) return Promise.reject([]);
@@ -28,7 +30,7 @@ export class DataService {
       return this.sentencesCache.get(key)!;
     }
     const fetchPromise = this.fetchSentences(language, accent);
-    this.sentencesCache.set(key, fetchPromise);
+    this.sentencesCache.put(key, fetchPromise);
     fetchPromise.catch(() => this.sentencesCache.delete(key));
     return fetchPromise;
   }
@@ -64,7 +66,7 @@ export class DataService {
       return this.presignedUrlCache.get(key)!;
     }
     const fetchPromise = this.fetchAudio(key);
-    this.presignedUrlCache.set(key, fetchPromise);
+    this.presignedUrlCache.put(key, fetchPromise);
     fetchPromise.catch(() => this.presignedUrlCache.delete(key));
     return fetchPromise;
   }
@@ -81,34 +83,18 @@ export class DataService {
     return data.signedUrl;
   }
 
-  getSentenceCount(
-    language: string,
-    accent: string,
-    sentenceId: string | number,
-  ): WritableSignal<number | null> {
-    if (!language || !accent || !sentenceId) return signal(null);
-    const key = `${language.toLowerCase()}/${accent.toLowerCase()}/${sentenceId}`;
-    this.logger.debug('data.service.ts getSentenceCount | key:', key);
-    if (this.sentenceCountCache.has(key)) {
-      this.logger.debug('data.service.ts getSentenceCount | Cache Hit!');
-      return this.sentenceCountCache.get(key)!;
-    }
-    this.sentenceCountCache.set(key, signal(null));
-    this.fetchSentenceCount(language, accent, sentenceId).then((count) => {
-      this.sentenceCountCache.get(key)!.update((value) => value ?? 0 + count);
-    });
-    this.logger.debug(
-      'dataservice.ts getSentenceCount  Fetch count | ',
-      this.sentenceCountCache.get(key)!,
-    );
-    return this.sentenceCountCache.get(key)!;
-  }
-
-  private async fetchSentenceCount(
+  async getSentenceCount(
     language: string,
     accent: string,
     sentenceId: string | number,
   ): Promise<number> {
+    const key = `${language.toLowerCase()}/${accent.toLowerCase()}/${sentenceId}`;
+
+    if (this.sentenceCountCache.has(key)) {
+      this.logger.debug('Cache Hit for count:', key);
+      return this.sentenceCountCache.get(key)!;
+    }
+
     const { data, error } = await this.supabase
       .from('chorus_counts')
       .select(`count, language!inner(language), accent!inner(accent)`)
@@ -117,38 +103,37 @@ export class DataService {
       .eq('sentence_id', sentenceId)
       .eq('user_id', this.auth.userId())
       .single();
-
     if (error) {
       this.logger.error(
         'data.service.ts fetchSentenceCount | Error loading initial chorus counts:',
         error,
         data,
       );
-      return 0;
     }
-    this.logger.debug('data.service.ts fetchSentenceCount | data.count', data.count);
-    return data.count ?? 0;
+    this.sentenceCountCache.put(key, Promise.resolve(data?.count ?? 0));
+    return this.sentenceCountCache.get(key)!;
   }
 
   async incrementSentenceCount(language: string, accent: string, sentenceId: string | number) {
-    this.logger.debug('data.service.ts incrementSentenceCount');
-    const count: WritableSignal<number | null> = this.getSentenceCount(
-      language,
-      accent,
-      sentenceId,
-    );
-    count.update((item) => (item ?? 0) + 1);
-    const { data, error } = await this.supabase.rpc('increment_rep', {
+    const key = `${language.toLowerCase()}/${accent.toLowerCase()}/${sentenceId}`;
+    const currentCount = await this.getSentenceCount(language, accent, sentenceId);
+
+    // 1. Instantly update the global cache so other components see the new value immediately
+    this.sentenceCountCache.put(key, Promise.resolve(currentCount + 1));
+    this.sentenceCountUpdateTrigger.update((v) => v + 1);
+
+    // 2. Perform the backgr97709c1a-4551-4118-813f-01e36dcf4a9cound network request
+    const { error } = await this.supabase.rpc('increment_rep', {
       p_user_id: this.auth.currentUser()?.id,
       p_language: language,
       p_accent: accent,
       p_sentence: parseInt(String(sentenceId), 10),
     });
+
     if (error) {
-      this.logger.error(
-        'data.service.ts incrmentSentenceCount | Error calling function increment_rep:',
-        error,
-      );
+      this.logger.error('Error calling increment_rep:', error);
+      // Optional: Revert the cache if the network request fails
+      this.sentenceCountCache.put(key, Promise.resolve(currentCount));
     }
   }
 }

@@ -1,4 +1,4 @@
-import { Component, input, inject, computed } from '@angular/core';
+import { Component, input, inject, computed, resource } from '@angular/core';
 import { AudioPlayer } from '@features/dashboard/audio-player/audio-player';
 import { SentenceText } from '@features/dashboard/sentence-text/sentence-text';
 import { Router } from '@angular/router';
@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { DataService } from '@core/services/data.service';
 import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   standalone: true,
@@ -18,6 +19,7 @@ import { MatCardModule } from '@angular/material/card';
     AudioPlayer,
     SentenceText,
     MatCardModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './chorus-dashboard.html',
   styleUrl: './chorus-dashboard.scss',
@@ -55,7 +57,16 @@ export class ChorusDashboard {
     return Number(this.sentenceId()) === this.maxSentenceId;
   }
 
-  chorusCount = computed(() =>
-    this.dataService.getSentenceCount(this.language(), this.accent(), this.sentenceId())(),
-  );
+  chorusCountResource = resource({
+    params: () => ({
+      lang: this.language(),
+      acc: this.accent(),
+      id: this.sentenceId(),
+      _refresh: this.dataService.sentenceCountUpdateTrigger(),
+    }),
+    loader: async ({ params }) => {
+      if (!params.lang || !params.acc || !params.id) return null;
+      return await this.dataService.getSentenceCount(params.lang, params.acc, params.id);
+    },
+  });
 }

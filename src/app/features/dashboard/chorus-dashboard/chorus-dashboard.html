@@ -4,7 +4,15 @@
     [accent]="accent()"
     [sentenceId]="sentenceId()"
   ></app-sentence-text>
-  <p>ChorusCount: {{ chorusCount() ?? '-' }}</p>
+  @if (chorusCountResource.isLoading()) {
+    <p>ChorusCount: -</p>
+  }
+  @if (chorusCountResource.hasValue()) {
+    <p>ChorusCount: {{ chorusCountResource.value() }}</p>
+  }
+  @if (chorusCountResource.error()) {
+    <p>ChorusCount: ?</p>
+  }
   <div>
     <button matFab extended (click)="previousSentence()" [disabled]="disablePreviousButton()">
       <mat-icon>skip_previous</mat-icon>
