@@ -4,16 +4,16 @@
     [accent]="accent()"
     [sentenceId]="sentenceId()"
   ></app-sentence-text>
-  <p>ChorusCount: {{ chorusCount() }}</p>
+  <p>ChorusCount: {{ chorusCount() ?? '-' }}</p>
   <div>
-  <button matFab extended (click)="previousSentence()" [disabled]="disablePreviousButton()">
-    <mat-icon>skip_previous</mat-icon>
-    Prev Sentence
-  </button>
-  <button matFab extended (click)="nextSentence()" [disabled]="disableNextButton()">
-    Next Sentence
-    <mat-icon>skip_next</mat-icon>
-  </button>
+    <button matFab extended (click)="previousSentence()" [disabled]="disablePreviousButton()">
+      <mat-icon>skip_previous</mat-icon>
+      Prev Sentence
+    </button>
+    <button matFab extended (click)="nextSentence()" [disabled]="disableNextButton()">
+      Next Sentence
+      <mat-icon>skip_next</mat-icon>
+    </button>
   </div>
 
   <app-audio-player
