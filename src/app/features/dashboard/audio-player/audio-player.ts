@@ -6,11 +6,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '@core/services/auth.service';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-audio-player',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule, MatButtonToggleModule, FormsModule],
+  imports: [
+    MatButtonModule,
+    MatIconModule,
+    MatButtonToggleModule,
+    FormsModule,
+    MatProgressBarModule,
+  ],
   templateUrl: './audio-player.html',
   styleUrl: './audio-player.scss',
   host: {

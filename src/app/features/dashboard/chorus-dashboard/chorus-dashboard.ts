@@ -6,11 +6,19 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { DataService } from '@core/services/data.service';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   standalone: true,
   selector: 'app-chorus-dashboard',
-  imports: [MatButtonModule, MatIconModule, MatButtonToggleModule, AudioPlayer, SentenceText],
+  imports: [
+    MatButtonModule,
+    MatIconModule,
+    MatButtonToggleModule,
+    AudioPlayer,
+    SentenceText,
+    MatCardModule,
+  ],
   templateUrl: './chorus-dashboard.html',
   styleUrl: './chorus-dashboard.scss',
   host: {

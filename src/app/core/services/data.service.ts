@@ -95,9 +95,12 @@ export class DataService {
     }
     this.sentenceCountCache.set(key, signal(0));
     this.fetchSentenceCount(language, accent, sentenceId).then((count) => {
-        this.sentenceCountCache.get(key)!.update((value) => value + count);
+      this.sentenceCountCache.get(key)!.update((value) => value + count);
     });
-    this.logger.debug('dataservice.ts getSentenceCount  Fetch count | ', this.sentenceCountCache.get(key)!)
+    this.logger.debug(
+      'dataservice.ts getSentenceCount  Fetch count | ',
+      this.sentenceCountCache.get(key)!,
+    );
     return this.sentenceCountCache.get(key)!;
   }
 
@@ -112,13 +115,17 @@ export class DataService {
       .eq('language.language', language.toLowerCase())
       .eq('accent.accent', accent.toLowerCase())
       .eq('sentence_id', sentenceId)
-      .eq('user_id', this.auth.userId()).single();
+      .eq('user_id', this.auth.userId())
+      .single();
 
     if (error) {
-      this.logger.error('data.service.ts fetchSentenceCount | Error loading initial chorus counts:', error);
+      this.logger.error(
+        'data.service.ts fetchSentenceCount | Error loading initial chorus counts:',
+        error,
+      );
       return Promise.reject(0);
     }
-    this.logger.debug('data.service.ts fetchSentenceCount | data.count', data.count)
+    this.logger.debug('data.service.ts fetchSentenceCount | data.count', data.count);
     return data.count;
   }
 
@@ -128,13 +135,16 @@ export class DataService {
     const count: WritableSignal<number> = this.getSentenceCount(language, accent, sentenceId);
     count?.update((item) => item + 1);
     const { data, error } = await this.supabase.rpc('increment_rep', {
-        p_user_id: this.auth.currentUser()?.id,
-        p_language: language,
-        p_accent: accent,
-        p_sentence: parseInt(String(sentenceId), 10),
-      });
-      if (error) {
-        this.logger.error('data.service.ts incrmentSentenceCount | Error calling function increment_rep:', error);
-      }
+      p_user_id: this.auth.currentUser()?.id,
+      p_language: language,
+      p_accent: accent,
+      p_sentence: parseInt(String(sentenceId), 10),
+    });
+    if (error) {
+      this.logger.error(
+        'data.service.ts incrmentSentenceCount | Error calling function increment_rep:',
+        error,
+      );
+    }
   }
 }

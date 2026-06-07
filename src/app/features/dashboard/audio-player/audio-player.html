@@ -1,6 +1,24 @@
-<button matMiniFab class="audio-icon" [class.is-playing]="isPlaying()" [disabled]="!auth.isLoggedIn()" (click)="playAudio()"><mat-icon>play_arrow</mat-icon></button>
-<button matMiniFab [disabled]="!auth.isLoggedIn()" (click)="stopAudio()"><mat-icon>stop</mat-icon></button>
-<p>{{ isPlaying() }}</p>
+@if (isPlaying()) {
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+}
+@if (!isPlaying()) {
+  <button matFab extended class="audio-icon" [disabled]="!auth.isLoggedIn()" (click)="playAudio()">
+    <mat-icon>play_arrow</mat-icon>
+    Play
+  </button>
+} @else {
+  <button matFab extended [disabled]="!auth.isLoggedIn()" (click)="stopAudio()">
+    <mat-icon>stop</mat-icon>
+    Stop
+  </button>
+}
+<!-- <button matFab exte<button matFab extended [disabled]="!auth.isLoggedIn()" (click)="stopAudio()">
+  <mat-icon>stop</mat-icon>
+  Stop
+</button>nded [disabled]="!auth.isLoggedIn()" (click)="stopAudio()">
+  <mat-icon>stop</mat-icon>
+  Stop
+</button> -->
 <mat-button-toggle-group
   name="playBackSpeed"
   aria-label="Play Back Speed"
