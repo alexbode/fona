@@ -21,9 +21,5 @@ export class ResponsiveService {
     const state = this.screenState();
     return state ? state.breakpoints[Breakpoints.HandsetPortrait] : false;
   });
-
-  isDesktop = computed(() => {
-    const state = this.screenState();
-    return state ? state.breakpoints[Breakpoints.Web] : true;
-  });
 }
+
