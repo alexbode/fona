@@ -10,7 +10,6 @@
           <mat-icon>settings</mat-icon>
           Settings
         </button>
-
         <a
           matFab
           extended
@@ -41,7 +40,19 @@
           Sign Up
         </a>
       }
-    <span>LI: {{ isLoggedIn() }}</span>
+      <span>LI: {{ isLoggedIn() }}</span>
+    } @else {
+      @if (!isLoggedIn()) {
+        <a
+          matFab
+          extended
+          class="navbar-button"
+          [routerLink]="['/', appRoutesHelper.urlPaths.Signin]"
+        >
+          <mat-icon>person</mat-icon>
+          Log In
+        </a>
+      }
     }
   </mat-toolbar>
 }

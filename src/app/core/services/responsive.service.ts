@@ -22,4 +22,3 @@ export class ResponsiveService {
     return state ? state.breakpoints[Breakpoints.HandsetPortrait] : false;
   });
 }
-
