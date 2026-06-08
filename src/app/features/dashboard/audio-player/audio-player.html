@@ -1,6 +1,6 @@
-@if (isPlaying()) {
+<!-- @if (isPlaying()) {
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-}
+} -->
 @if (!isPlaying()) {
   <button matFab extended class="audio-icon" [disabled]="!auth.isLoggedIn()" (click)="playAudio()">
     <mat-icon>play_arrow</mat-icon>
@@ -12,14 +12,8 @@
     Stop
   </button>
 }
-<!-- <button matFab exte<button matFab extended [disabled]="!auth.isLoggedIn()" (click)="stopAudio()">
-  <mat-icon>stop</mat-icon>
-  Stop
-</button>nded [disabled]="!auth.isLoggedIn()" (click)="stopAudio()">
-  <mat-icon>stop</mat-icon>
-  Stop
-</button> -->
-<mat-button-toggle-group
+
+<!-- <mat-button-toggle-group
   name="playBackSpeed"
   aria-label="Play Back Speed"
   [(ngModel)]="playbackSpeed"
@@ -30,4 +24,4 @@
   <mat-button-toggle value="90">90%</mat-button-toggle>
   <mat-button-toggle value="100">100%</mat-button-toggle>
   <mat-button-toggle value="110">110%</mat-button-toggle>
-</mat-button-toggle-group>
+</mat-button-toggle-group> -->

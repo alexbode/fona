@@ -26,7 +26,7 @@ export class DataService {
     const key = `${language.toLowerCase()}/${accent.toLowerCase()}`;
     this.logger.debug('data.service.ts getSentences | key:', key);
     if (this.sentencesCache.has(key)) {
-      this.logger.debug('data.service.ts getSentences | sentencesCache Hit!');
+      this.logger.debug('data.service.ts getSentences | cache:', 'hit');
       return this.sentencesCache.get(key)!;
     }
     const fetchPromise = this.fetchSentences(language, accent);
@@ -36,14 +36,14 @@ export class DataService {
   }
 
   private async fetchSentences(language: string, accent: string): Promise<Sentence[]> {
-    this.logger.debug(`data.service.ts fetchSentences | ${language} ${accent}`);
+    this.logger.debug('data.service.ts fetchSentences | language, accent:', language, accent);
     const { data, error } = await this.supabase
       .from('sentences')
       .select(`text, ipa, pinyin, sentence_id, language!inner(language), accent!inner(accent)`)
       .eq('language.language', language)
       .eq('accent.accent', accent);
     if (error) {
-      this.logger.error('data.service.ts sentences | Supabase query failed:', error.message);
+      this.logger.error('data.service.ts fetchSentences | error:', error);
       throw error;
     }
     return data.map(
@@ -58,11 +58,11 @@ export class DataService {
   }
 
   getPresignedUrl(language: string, accent: string, sentenceId: string | number): Promise<string> {
-    if (!language || !accent || !sentenceId) return Promise.reject('No key provided');
+    if (!language || !accent || !sentenceId) return Promise.reject('');
     const key = `${language.toLowerCase()}/${accent.toLowerCase()}/sentence_${sentenceId}.wav`;
     this.logger.debug('data.service.ts getPresignedUrl | key:', key);
     if (this.presignedUrlCache.has(key)) {
-      this.logger.debug('data.service.ts getPresignedUrl | presignedUrlCache Hit!');
+      this.logger.debug('data.service.ts getPresignedUrl | cache:', 'hit');
       return this.presignedUrlCache.get(key)!;
     }
     const fetchPromise = this.fetchAudio(key);
@@ -77,7 +77,7 @@ export class DataService {
       .from(this.bucketName)
       .createSignedUrl(key, 3600);
     if (error) {
-      this.logger.error('data.service.ts fetchAudio | Error:', error.message);
+      this.logger.error('data.service.ts fetchAudio | error:', error);
       throw error;
     }
     return data.signedUrl;
@@ -89,9 +89,10 @@ export class DataService {
     sentenceId: string | number,
   ): Promise<number> {
     const key = `${language.toLowerCase()}/${accent.toLowerCase()}/${sentenceId}`;
+    this.logger.debug('data.service.ts getSentenceCount | key:', key);
 
     if (this.sentenceCountCache.has(key)) {
-      this.logger.debug('Cache Hit for count:', key);
+      this.logger.debug('data.service.ts getSentenceCount | cache:', 'hit');
       return this.sentenceCountCache.get(key)!;
     }
 
@@ -102,13 +103,10 @@ export class DataService {
       .eq('accent.accent', accent.toLowerCase())
       .eq('sentence_id', sentenceId)
       .eq('user_id', this.auth.userId())
-      .single();
+      .maybeSingle();
     if (error) {
-      this.logger.error(
-        'data.service.ts fetchSentenceCount | Error loading initial chorus counts:',
-        error,
-        data,
-      );
+      this.logger.error('data.service.ts getSentenceCount | error:', error, data);
+      throw error;
     }
     this.sentenceCountCache.put(key, Promise.resolve(data?.count ?? 0));
     return this.sentenceCountCache.get(key)!;
@@ -116,13 +114,15 @@ export class DataService {
 
   async incrementSentenceCount(language: string, accent: string, sentenceId: string | number) {
     const key = `${language.toLowerCase()}/${accent.toLowerCase()}/${sentenceId}`;
-    const currentCount = await this.getSentenceCount(language, accent, sentenceId);
+    this.logger.debug('data.service.ts incrementSentenceCount | key:', key);
+    const currentCount = (await this.getSentenceCount(language, accent, sentenceId)) ?? 0;
 
-    // 1. Instantly update the global cache so other components see the new value immediately
+    // Instantly update the global cache so other components see the new value immediately
     this.sentenceCountCache.put(key, Promise.resolve(currentCount + 1));
+    // Trigger singal so any 'resource' used in a component can be updated.
     this.sentenceCountUpdateTrigger.update((v) => v + 1);
 
-    // 2. Perform the backgr97709c1a-4551-4118-813f-01e36dcf4a9cound network request
+    // Perform the backgr97709c1a-4551-4118-813f-01e36dcf4a9cound network request
     const { error } = await this.supabase.rpc('increment_rep', {
       p_user_id: this.auth.currentUser()?.id,
       p_language: language,
@@ -131,7 +131,7 @@ export class DataService {
     });
 
     if (error) {
-      this.logger.error('Error calling increment_rep:', error);
+      this.logger.error('data.service.ts incrementSentenceCount | error:', error);
       // Optional: Revert the cache if the network request fails
       this.sentenceCountCache.put(key, Promise.resolve(currentCount));
     }

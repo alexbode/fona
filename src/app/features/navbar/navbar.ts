@@ -9,6 +9,7 @@ import { AppRoutesHelper } from '@app/app.routes';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+import { ResponsiveService } from '@app/core/services/responsive.service';
 
 @Component({
   selector: 'app-navbar',
@@ -21,6 +22,7 @@ export class Navbar {
   private readonly router = inject(Router);
   private readonly location = inject(Location);
   private readonly authService = inject(AuthService);
+  protected readonly responsive = inject(ResponsiveService);
 
   protected readonly currentUser = this.authService.currentUser;
   protected readonly isLoggedIn = this.authService.isLoggedIn;
@@ -28,14 +30,14 @@ export class Navbar {
 
   protected readonly appRoutesHelper = AppRoutesHelper;
 
-  // 1. Reactively listen to Router events
+  // eactively listen to Router events
   protected readonly isCurrentPathPartOfAuthFlow = toSignal(
     this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd),
       map((event) => this.checkIfAuthFlow(event.urlAfterRedirects)),
     ),
     {
-      // 2. Use Location.path() for the initial value. This catches the URL instantly
+      // Use Location.path() for the initial vaconvert your layout observableslue. This catches the URL instantly
       // on a hard refresh, preventing the split-second flicker.
       initialValue: this.checkIfAuthFlow(this.location.path()),
     },

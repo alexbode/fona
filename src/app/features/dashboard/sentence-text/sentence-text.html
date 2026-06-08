@@ -1,5 +1,5 @@
-<p>text: {{ text() }}</p>
-<p>ipa: {{ ipa() }}</p>
+<p class="main-text">{{ text() }}</p>
+<p class="ipa-text">{{ ipa() }}</p>
 @if (hasPinyin()) {
-  <p>pinyin: {{ pinyin() }}</p>
+  <p class="other-text">pinyin: {{ pinyin() }}</p>
 }

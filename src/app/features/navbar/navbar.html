@@ -4,42 +4,44 @@
     <span>Repeat With Me</span>
     <span class="navbar-spacer"></span>
 
-    @if (isLoggedIn()) {
-      <button matFab extended class="navbar-button">
-        <mat-icon>settings</mat-icon>
-        Settings
-      </button>
+    @if (!responsive.isMobile()) {
+      @if (isLoggedIn()) {
+        <button matFab extended class="navbar-button">
+          <mat-icon>settings</mat-icon>
+          Settings
+        </button>
 
-      <a
-        matFab
-        extended
-        class="navbar-button"
-        [routerLink]="['/', appRoutesHelper.urlPaths.Home]"
-        (click)="logOut()"
-      >
-        <mat-icon>person</mat-icon>
-        Log Out
-      </a>
-    } @else {
-      <a
-        matFab
-        extended
-        class="navbar-button"
-        [routerLink]="['/', appRoutesHelper.urlPaths.Signin]"
-      >
-        <mat-icon>person</mat-icon>
-        Log In
-      </a>
+        <a
+          matFab
+          extended
+          class="navbar-button"
+          [routerLink]="['/', appRoutesHelper.urlPaths.Home]"
+          (click)="logOut()"
+        >
+          <mat-icon>person</mat-icon>
+          Log Out
+        </a>
+      } @else {
+        <a
+          matFab
+          extended
+          class="navbar-button"
+          [routerLink]="['/', appRoutesHelper.urlPaths.Signin]"
+        >
+          <mat-icon>person</mat-icon>
+          Log In
+        </a>
 
-      <a
-        matFab
-        extended
-        class="navbar-button"
-        [routerLink]="['/', appRoutesHelper.urlPaths.Signup]"
-      >
-        Sign Up
-      </a>
-    }
+        <a
+          matFab
+          extended
+          class="navbar-button"
+          [routerLink]="['/', appRoutesHelper.urlPaths.Signup]"
+        >
+          Sign Up
+        </a>
+      }
     <span>LI: {{ isLoggedIn() }}</span>
+    }
   </mat-toolbar>
 }
