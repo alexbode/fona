@@ -4,3 +4,10 @@
 .navbar-button {
   margin: 0 0.5rem;
 }
+
+.navbar-logo {
+  height: 40px; /* Set your target logo height */
+  width: auto; /* Maintains original aspect ratio */
+  max-width: 100%; /* Prevents overflow on smaller screens */
+  object-fit: contain; /* Ensures the image scales cleanly */
+}

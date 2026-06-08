@@ -2,10 +2,11 @@ import { Component, inject, input, resource, computed } from '@angular/core';
 import { DataService } from '@app/core/services/data.service';
 import { Sentence } from '@core/models/sentence';
 import { LoggingService } from '@core/services/logging.service';
+import { MatListModule } from '@angular/material/list';
 
 @Component({
   selector: 'app-sentence-text',
-  imports: [],
+  imports: [MatListModule],
   templateUrl: './sentence-text.html',
   styleUrl: './sentence-text.scss',
 })
@@ -18,11 +19,11 @@ export class SentenceText {
   readonly sentenceId = input.required<string>();
 
   sentencesResource = resource({
-    params: () => ({ lang: this.language(), acc: this.accent(), id: this.sentenceId() }),
+    params: () => ({ lang: this.language(), acc: this.accent() }),
 
     loader: async ({ params }) => {
-      if (!params.lang || !params.acc || !params.id) return undefined;
-      return await this.dataService.getSentences(params.lang, params.acc, params.id);
+      if (!params.lang || !params.acc) return undefined;
+      return await this.dataService.getSentences(params.lang, params.acc);
     },
   });
 
@@ -37,5 +38,5 @@ export class SentenceText {
   text = computed(() => this.sentence()?.text);
   ipa = computed(() => this.sentence()?.ipa);
   pinyin = computed(() => this.sentence()?.pinyin);
-  hasPinyin = computed(() => this.pinyin.length > 1);
+  hasPinyin = computed(() => this.pinyin !== null);
 }

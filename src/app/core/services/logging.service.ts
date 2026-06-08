@@ -1,4 +1,5 @@
-import { Injectable, Inject, isDevMode } from '@angular/core';
+import { Injectable, isDevMode, inject } from '@angular/core';
+import { NotificationService } from './notification.service';
 
 enum LogLevel {
   DEBUG = 0,
@@ -14,6 +15,7 @@ enum LogLevel {
 export class LoggingService {
   // Only log everything in development mode. Tighten up in production.
   private minLevel: LogLevel = isDevMode() ? LogLevel.DEBUG : LogLevel.WARN;
+  private notification = inject(NotificationService);
 
   debug(msg: string, ...optionalParams: any[]) {
     this.writeLog(LogLevel.DEBUG, msg, optionalParams);
@@ -49,6 +51,7 @@ export class LoggingService {
         break;
       case LogLevel.ERROR:
         console.error(prefix, msg, ...params);
+        if (isDevMode()) this.notification.show(msg);
         break;
     }
   }

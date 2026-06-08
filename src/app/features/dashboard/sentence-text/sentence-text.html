@@ -1,5 +1,7 @@
-<p class="main-text">{{ text() }}</p>
-<p class="ipa-text">{{ ipa() }}</p>
-@if (hasPinyin()) {
-  <p class="other-text">pinyin: {{ pinyin() }}</p>
-}
+<mat-list class="mat-list">
+  <mat-list-item role="listitem" class="main-text">{{ text() }}</mat-list-item>
+  <mat-list-item role="listitem" class="ipa-text">{{ ipa() }}</mat-list-item>
+  @if (hasPinyin()) {
+    <mat-list-item role="listitem" class="other-text">{{ pinyin() }}</mat-list-item>
+  }
+</mat-list>
