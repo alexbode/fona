@@ -37,18 +37,22 @@ export class ChorusDashboard {
   protected readonly sentenceId = input.required<string>();
 
   private readonly maxSentenceId = 20;
-  protected firstLoadCount = signal<number>(0);
+  protected sessionCount = signal<number>(0);
+  private initialChange = true;
 
   constructor() {
     effect(() => {
       const sentenceIdTrigger = this.sentenceId();
-      this.firstLoadCount.set(0);
+      this.sessionCount.set(0);
+      this.initialChange = true;
     });
     effect(() => {
-      const chorusCount = this.chorusCountResource;
-      const firstLoadCount = this.firstLoadCount;
-      if (firstLoadCount() === 0 && chorusCount.hasValue()) {
-        firstLoadCount.set(chorusCount.value()?.valueOf()!);
+      const chorusCount: number | null | undefined = this.chorusCountResource.value();
+      if (chorusCount) {
+        if (!this.initialChange) {
+          this.sessionCount.update((v) => v + 1);
+        }
+        this.initialChange = false;
       }
     });
   }
@@ -87,11 +91,7 @@ export class ChorusDashboard {
     },
   });
 
-  resetTempCount() {
-    this.firstLoadCount.set(0);
+  resetSessionCount() {
+    this.sessionCount.set(0);
   }
-
-  sessionCount = computed(
-    () => (this.chorusCountResource.value() ?? 0) - (this.firstLoadCount() ?? 0),
-  );
 }
