@@ -31,18 +31,24 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 export class ChorusDashboard {
   protected dataService = inject(DataService);
   private router = inject(Router);
+
   protected readonly language = input.required<string>();
   protected readonly accent = input.required<string>();
   protected readonly sentenceId = input.required<string>();
+
   private readonly maxSentenceId = 20;
   protected firstLoadCount = signal<number>(0);
 
   constructor() {
     effect(() => {
-      const firstChorusCount = this.chorusCountResource;
-      if (this.firstLoadCount() === 0 && firstChorusCount.hasValue()) {
-        this.firstLoadCount.set(firstChorusCount.value()?.valueOf()!);
-        console.log("asdasd", this.firstLoadCount());
+      const sentenceIdTrigger = this.sentenceId();
+      this.firstLoadCount.set(0);
+    });
+    effect(() => {
+      const chorusCount = this.chorusCountResource;
+      const firstLoadCount = this.firstLoadCount;
+      if (firstLoadCount() === 0 && chorusCount.hasValue()) {
+        firstLoadCount.set(chorusCount.value()?.valueOf()!);
       }
     });
   }
