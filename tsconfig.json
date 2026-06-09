@@ -6,9 +6,15 @@
     "ignoreDeprecations": "6.0",
     "baseUrl": "./",
     "paths": {
-      "@app/*": ["src/app/*"],
-      "@features/*": ["src/app/features*"],
-      "@core/*": ["src/app/core/*"]
+      "@app/*": [
+        "src/app/*"
+      ],
+      "@features/*": [
+        "src/app/features*"
+      ],
+      "@core/*": [
+        "src/app/core/*"
+      ]
     },
     "strict": true,
     "noImplicitOverride": true,

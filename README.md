@@ -61,7 +61,9 @@ For more information on using the Angular CLI, including detailed command refere
 ## How to build for github pages
 
 - `https://gemini.google.com/app/dbbb80dda28a4814`
-- `ng build --base-href /RepeatWithMe/`
-- `cp -r dist/repeat-with-me/browser/* docs`
+- `ng build --base-href /fona/`
+- `rm -rf docs/`
+- `mkdir docs/`
+- `cp -r dist/fona/browser/* docs`
 - `cp docs/index.html docs/404.html`
 - `touch docs/.nojekyll`

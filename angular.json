@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "repeat-with-me": {
+    "fona": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -59,10 +59,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "repeat-with-me:build:production"
+              "buildTarget": "fona:build:production"
             },
             "development": {
-              "buildTarget": "repeat-with-me:build:development"
+              "buildTarget": "fona:build:development"
             }
           },
           "defaultConfiguration": "development"
