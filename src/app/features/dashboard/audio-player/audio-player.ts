@@ -55,6 +55,7 @@ export class AudioPlayer {
 
     loader: async ({ params }) => {
       if (!params.lang || !params.acc || !params.id) return undefined;
+      this.logger.debug('audio-player.ts audioResource | params:', params);
       const url = await this.dataService.getPresignedUrl(params.lang, params.acc, params.id);
       return new Audio(url);
     },
@@ -71,8 +72,10 @@ export class AudioPlayer {
     this.logger.debug('audio-player.ts playAudio');
     if (!this.isPlaying()) {
       this.audio = this.audioResource.value() || new Audio('');
+      if (this.audio.ended) {
+        this.audio.currentTime = 0;
+      }
       this.audio.onended = this.handleAudioEnded;
-      this.audio.load();
       this.audio.playbackRate = parseInt(this.playbackSpeed, 10) / 100;
       this.audio.play();
       this.isPlaying.set(true);

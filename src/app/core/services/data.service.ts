@@ -23,7 +23,12 @@ export class DataService {
 
   // State
   private readonly bucketName = 'repeat-with-me-audio';
-  private presignedUrlCache = new LRUCache<string, Promise<string>>();
+  private readonly presignedUrlCacheSize = 1000;
+  private readonly presignedUrlTtlSeconds = 3600;
+  private presignedUrlCache = new LRUCache<string, Promise<string>>(
+    this.presignedUrlCacheSize,
+    this.presignedUrlTtlSeconds,
+  );
   private sentencesCache = new LRUCache<string, Promise<Sentence[]>>();
   private sentenceCountCache = new LRUCache<string, Promise<number>>();
   public sentenceCountUpdateTrigger = signal(0);
@@ -94,7 +99,7 @@ export class DataService {
     this.logger.debug('data.service.ts fetchAudio | key:', key);
     const { data, error } = await this.supabase.storage
       .from(this.bucketName)
-      .createSignedUrl(key, 3600);
+      .createSignedUrl(key, this.presignedUrlTtlSeconds + 100);
 
     if (error) {
       this.logger.error('data.service.ts fetchAudio | error:', error);

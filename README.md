@@ -1,4 +1,4 @@
-# Fona
+# fona
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.12.
 
@@ -60,7 +60,6 @@ For more information on using the Angular CLI, including detailed command refere
 
 ## How to build for github pages
 
-- `https://gemini.google.com/app/dbbb80dda28a4814`
 - `ng build`
 - `rm -rf docs/`
 - `mkdir docs/`

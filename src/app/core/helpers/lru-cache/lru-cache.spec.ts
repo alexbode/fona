@@ -1,4 +1,5 @@
 import { LRUCache } from '@core/helpers/lru-cache/lru-cache';
+import { fakeAsync, tick } from '@angular/core/testing';
 
 describe('LRUCache', () => {
   it('should initialize with default capacity', () => {
@@ -86,4 +87,24 @@ describe('LRUCache', () => {
     expect(cache.has('c')).toBeTruthy();
     expect(cache.has('d')).toBeTruthy();
   });
+
+  it('should respect the ttl and return null for expired keys', fakeAsync(() => {
+    const cache = new LRUCache<string, string>(3, 10); // 10 seconds TTL
+    cache.put('a', '1');
+
+    expect(cache.has('a')).toBeTruthy();
+    expect(cache.get('a')).toBe('1');
+
+    // Advance time by 5 seconds
+    tick(5000);
+
+    expect(cache.has('a')).toBeTruthy();
+    expect(cache.get('a')).toBe('1');
+
+    // Advance time by another 6 seconds (total 11 seconds elapsed)
+    tick(6000);
+
+    expect(cache.has('a')).toBeFalsy();
+    expect(cache.get('a')).toBeNull();
+  }));
 });
