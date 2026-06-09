@@ -8,29 +8,35 @@
       ></app-sentence-text>
     </mat-card-header>
     <mat-card-content>
-      @if (chorusCountResource.isLoading()) {
-        <p>ChorusCount: -</p>
-      }
-      @if (chorusCountResource.hasValue()) {
-        <p>ChorusCount: {{ chorusCountResource.value() }}</p>
-      }
-      @if (chorusCountResource.error()) {
-        <p>ChorusCount: ?</p>
-      }
+      <div class="chorus-count-row">
+        <div class="chorus-count-col">
+          @if (chorusCountResource.isLoading()) {
+            <p>ChorusCount: -</p>
+          } @else if (chorusCountResource.hasValue()) {
+            <p>ChorusCount: {{ chorusCountResource.value() }}</p>
+          } @else if (chorusCountResource.error()) {
+            <p>ChorusCount: ?</p>
+          }
+          <p>SessionCount: {{sessionCount()}}</p>
+        </div>
+        <button matMiniFab (click)="resetTempCount()">
+          <mat-icon>refresh</mat-icon>
+        </button>
+      </div>
       <button matFab extended (click)="previousSentence()" [disabled]="disablePreviousButton()">
         <mat-icon>skip_previous</mat-icon>
         Prev Sentence
       </button>
 
+      <button matFab extended (click)="nextSentence()" [disabled]="disableNextButton()">
+        Next Sentence
+        <mat-icon>skip_next</mat-icon>
+      </button>
       <app-audio-player
         [language]="language()"
         [accent]="accent()"
         [sentenceId]="sentenceId()"
       ></app-audio-player>
-      <button matFab extended (click)="nextSentence()" [disabled]="disableNextButton()">
-        Next Sentence
-        <mat-icon>skip_next</mat-icon>
-      </button>
     </mat-card-content>
   </mat-card>
 </div>

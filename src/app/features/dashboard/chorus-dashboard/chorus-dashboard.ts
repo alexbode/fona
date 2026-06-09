@@ -1,4 +1,4 @@
-import { Component, input, inject, computed, resource } from '@angular/core';
+import { Component, input, inject, signal, resource, effect, computed } from '@angular/core';
 import { AudioPlayer } from '@features/dashboard/audio-player/audio-player';
 import { SentenceText } from '@features/dashboard/sentence-text/sentence-text';
 import { Router } from '@angular/router';
@@ -35,6 +35,17 @@ export class ChorusDashboard {
   protected readonly accent = input.required<string>();
   protected readonly sentenceId = input.required<string>();
   private readonly maxSentenceId = 20;
+  protected firstLoadCount = signal<number>(0);
+
+  constructor() {
+    effect(() => {
+      const firstChorusCount = this.chorusCountResource;
+      if (this.firstLoadCount() === 0 && firstChorusCount.hasValue()) {
+        this.firstLoadCount.set(firstChorusCount.value()?.valueOf()!);
+        console.log("asdasd", this.firstLoadCount());
+      }
+    });
+  }
 
   previousSentence() {
     if (Number(this.sentenceId()) > 1) {
@@ -69,4 +80,12 @@ export class ChorusDashboard {
       return await this.dataService.getSentenceCount(params.lang, params.acc, params.id);
     },
   });
+
+  resetTempCount() {
+    this.firstLoadCount.set(0);
+  }
+
+  sessionCount = computed(
+    () => (this.chorusCountResource.value() ?? 0) - (this.firstLoadCount() ?? 0),
+  );
 }

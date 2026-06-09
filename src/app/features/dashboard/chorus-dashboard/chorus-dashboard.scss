@@ -4,3 +4,13 @@
   justify-content: center;
   align-items: center;
 }
+
+.chorus-count-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.chorus-count-row {
+  display: flex;
+  flex-direction: row;
+}
