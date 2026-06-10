@@ -9,5 +9,5 @@ export interface CourseConfig {
 }
 
 export interface DetailConfig {
-  sentences: Sentence[];
+  sentences: number[];
 }

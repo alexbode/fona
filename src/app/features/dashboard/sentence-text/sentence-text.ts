@@ -18,25 +18,31 @@ export class SentenceText {
   readonly accent = input.required<string>();
   readonly sentenceIndex = input.required<string>();
 
-  sentencesResource = resource({
-    params: () => ({ lang: this.language(), acc: this.accent() }),
-
+  configResource = resource({
+    params: () => ({ language: this.language(), accent: this.accent() }),
     loader: async ({ params }) => {
-      if (!params.lang || !params.acc) return undefined;
-      return await this.dataService.getSentences(params.lang, params.acc);
+      if (!params.language || !params.accent) return undefined;
+      return await this.dataService.getCourseConfig(params.language, params.accent);
     },
   });
 
-  sentence = computed(() => {
-    if (!this.sentencesResource.hasValue()) {
-      return {} as Sentence;
-    }
-    const s = this.sentencesResource.value()!;
-    return s.find((item: Sentence) => String(item.sentenceId) === this.sentenceIndex());
+  sentenceId = computed(() => {
+    const config = this.configResource.value();
+    if (config) return config.chorus.sentences[parseInt(this.sentenceIndex(), 10) - 1];
+    return undefined;
   });
 
-  text = computed(() => this.sentence()?.text);
-  ipa = computed(() => this.sentence()?.ipa);
-  pinyin = computed(() => this.sentence()?.pinyin);
-  hasPinyin = computed(() => this.pinyin !== null);
+  sentenceResource = resource({
+    params: () => ({ id: this.sentenceId() }),
+
+    loader: async ({ params }) => {
+      if (!params.id) return undefined;
+      return await this.dataService.getSentence(params.id);
+    },
+  });
+
+  text = computed(() => this.sentenceResource.value()?.text);
+  ipa = computed(() => this.sentenceResource.value()?.ipa);
+  pinyin = computed(() => this.sentenceResource.value()?.pinyin);
+  hasPinyin = computed(() => this.pinyin !== null && this.pinyin !== undefined);
 }

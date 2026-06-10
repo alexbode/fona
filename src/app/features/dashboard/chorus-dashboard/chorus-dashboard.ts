@@ -36,26 +36,42 @@ export class ChorusDashboard {
   protected readonly accent = input.required<string>();
   protected readonly sentenceIndex = input.required<string>();
 
-  private readonly maxSentenceId = 20;
   protected sessionCount = signal<number>(0);
-  private initialChange = true;
 
   constructor() {
     effect(() => {
       const sentenceIdTrigger = this.sentenceIndex();
       this.sessionCount.set(0);
-      this.initialChange = true;
     });
     effect(() => {
       const chorusCount: number | null | undefined = this.chorusCountResource.value();
       if (chorusCount) {
-        if (!this.initialChange) {
-          this.sessionCount.update((v) => v + 1);
-        }
-        this.initialChange = false;
+        this.sessionCount.update((v) => v + 1);
       }
     });
   }
+
+  configResource = resource({
+    params: () => ({ language: this.language(), accent: this.accent() }),
+    loader: async ({ params }) => {
+      if (!params.language || !params.accent) return undefined;
+      return await this.dataService.getCourseConfig(params.language, params.accent);
+    },
+  });
+
+  sentenceId = computed(() => {
+    const config = this.configResource.value();
+    if (config) return config.chorus.sentences[parseInt(this.sentenceIndex(), 10) - 1];
+    return undefined;
+  });
+
+  numSentences = computed(() => {
+    const config = this.configResource.value();
+    if (config){
+      return config.chorus.sentences.length;
+    }
+    return 0;
+  });
 
   previousSentence() {
     if (Number(this.sentenceIndex()) > 1) {
@@ -65,7 +81,7 @@ export class ChorusDashboard {
   }
 
   nextSentence() {
-    if (Number(this.sentenceIndex()) < this.maxSentenceId) {
+    if (Number(this.sentenceIndex()) < this.numSentences()) {
       this.router.navigate([this.language(), this.accent(), Number(this.sentenceIndex()) + 1]);
     }
   }
@@ -75,32 +91,21 @@ export class ChorusDashboard {
   }
 
   disableNextButton() {
-    return Number(this.sentenceIndex()) === this.maxSentenceId;
+    return Number(this.sentenceIndex()) === this.numSentences();
   }
 
   chorusCountResource = resource({
     params: () => ({
-      lang: this.language(),
-      acc: this.accent(),
-      id: this.sentenceIndex(),
+      id: this.sentenceId(),
       _refresh: this.dataService.sentenceCountUpdateTrigger(),
     }),
     loader: async ({ params }) => {
-      if (!params.lang || !params.acc || !params.id) return null;
-      return await this.dataService.getSentenceCount(params.lang, params.acc, params.id);
+      if (!params.id) return null;
+      return await this.dataService.getSentenceCount(params.id);
     },
   });
 
   resetSessionCount() {
     this.sessionCount.set(0);
   }
-
-  /// NEW index based schema
-  // sentencesIndexes = resource({
-  //   params: () => ({ lang: this.language(), acc: this.accent() }),
-  //   loader: async ({ params }) => {
-  //     if (!params.lang || !params.acc) return [];
-  //     return await this.dataService.getSentences(params.lang, params.acc);
-  //   },
-  // })
 }

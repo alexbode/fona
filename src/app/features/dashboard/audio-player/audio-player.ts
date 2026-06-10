@@ -1,4 +1,4 @@
-import { Component, input, inject, signal, resource, effect } from '@angular/core';
+import { Component, input, inject, computed, signal, resource, effect } from '@angular/core';
 import { DataService } from '@core/services/data.service';
 import { LoggingService } from '@core/services/logging.service';
 import { MatButtonModule } from '@angular/material/button';
@@ -49,14 +49,27 @@ export class AudioPlayer {
       this.stopAudio();
     });
   }
+  configResource = resource({
+    params: () => ({ language: this.language(), accent: this.accent() }),
+    loader: async ({ params }) => {
+      if (!params.language || !params.accent) return undefined;
+      return await this.dataService.getCourseConfig(params.language, params.accent);
+    },
+  });
+
+  sentenceId = computed(() => {
+    const config = this.configResource.value();
+    if (config) return config.chorus.sentences[parseInt(this.sentenceIndex(), 10) - 1];
+    return undefined;
+  });
 
   audioResource = resource({
-    params: () => ({ lang: this.language(), acc: this.accent(), id: this.sentenceIndex() }),
+    params: () => ({id: this.sentenceId()}),
 
     loader: async ({ params }) => {
-      if (!params.lang || !params.acc || !params.id) return undefined;
+      if (!params.id) return undefined;
       this.logger.debug('audio-player.ts audioResource | params:', params);
-      const url = await this.dataService.getPresignedUrl(params.lang, params.acc, params.id);
+      const url = await this.dataService.getPresignedUrl(params.id);
       return new Audio(url);
     },
   });
@@ -96,7 +109,10 @@ export class AudioPlayer {
   }
 
   incrementCounter() {
-    this.dataService.incrementSentenceCount(this.language(), this.accent(), this.sentenceIndex());
+    const sentenceId = this.sentenceId();
+    if (sentenceId) {
+      this.dataService.incrementSentenceCount(sentenceId);
+    }
   }
 
   protected onSpaceBar() {
