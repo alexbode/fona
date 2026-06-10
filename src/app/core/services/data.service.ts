@@ -1,16 +1,10 @@
-import { Injectable, inject, signal, Signal, WritableSignal } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { SupabaseService } from '@core/services/supabase.service';
 import { LoggingService } from '@core/services/logging.service';
 import { AuthService } from '@core/services/auth.service';
-import { Sentence } from '@core/models/sentence';
+import { Sentence, DbSentence } from '@core/models/sentence';
 import { LRUCache } from '@app/core/helpers/lru-cache/lru-cache';
-
-interface DbSentence {
-  text: string;
-  ipa: string;
-  pinyin: string | null;
-  sentence_id: string | number;
-}
+import { CourseConfig } from '@core/models/config';
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +26,35 @@ export class DataService {
   private sentencesCache = new LRUCache<string, Promise<Sentence[]>>();
   private sentenceCountCache = new LRUCache<string, Promise<number>>();
   public sentenceCountUpdateTrigger = signal(0);
+  private courseConfigCache = new LRUCache<string, Promise<CourseConfig>>();
+
+  async getCourseConfig(language: string, accent: string): Promise<CourseConfig> {
+    const key = `${language.toLowerCase()}/${accent.toLowerCase()}`;
+    this.logger.debug('data.service.ts getCourseConfig | key:', key);
+
+    if (this.courseConfigCache.has(key)) {
+      this.logger.debug('data.service.ts getCourseConfig | cache: hit');
+      return this.courseConfigCache.get(key)!;
+    }
+
+    const fetchPromise = this.fetchCourse(language, accent);
+    this.courseConfigCache.put(key, fetchPromise);
+    return fetchPromise;
+  }
+
+  async fetchCourse(language: string, accent: string): Promise<CourseConfig> {
+    const { data, error } = await this.supabase
+      .from('course')
+      .select('config, language!inner(language), accent!inner(accent)')
+      .eq('language.language', language)
+      .eq('accent.accent', accent)
+      .single();
+    if (error) {
+      this.logger.error('data.service.ts fetchCourse | error:', error);
+      throw error;
+    }
+    return data.config as CourseConfig;
+  }
 
   getSentences(language: string, accent: string): Promise<Sentence[]> {
     if (!language || !accent) return Promise.reject([]);
@@ -55,8 +78,8 @@ export class DataService {
     this.logger.debug('data.service.ts fetchSentences | language, accent:', language, accent);
 
     const { data, error } = await this.supabase
-      .from('sentences')
-      .select(`text, ipa, pinyin, sentence_id, language!inner(language), accent!inner(accent)`)
+      .from('sentence')
+      .select('text, ipa, pinyin, sentence_id, language!inner(language), accent!inner(accent)')
       .eq('language.language', language)
       .eq('accent.accent', accent);
 
@@ -128,7 +151,7 @@ export class DataService {
       .eq('language.language', language.toLowerCase())
       .eq('accent.accent', accent.toLowerCase())
       .eq('sentence_id', sentenceId)
-      .eq('user_id', this.auth.userId()) // Standardized to userId()
+      .eq('user_id', this.auth.userId())
       .maybeSingle();
 
     if (error) {

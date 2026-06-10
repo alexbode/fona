@@ -34,7 +34,7 @@ export class ChorusDashboard {
 
   protected readonly language = input.required<string>();
   protected readonly accent = input.required<string>();
-  protected readonly sentenceId = input.required<string>();
+  protected readonly sentenceIndex = input.required<string>();
 
   private readonly maxSentenceId = 20;
   protected sessionCount = signal<number>(0);
@@ -42,7 +42,7 @@ export class ChorusDashboard {
 
   constructor() {
     effect(() => {
-      const sentenceIdTrigger = this.sentenceId();
+      const sentenceIdTrigger = this.sentenceIndex();
       this.sessionCount.set(0);
       this.initialChange = true;
     });
@@ -58,31 +58,31 @@ export class ChorusDashboard {
   }
 
   previousSentence() {
-    if (Number(this.sentenceId()) > 1) {
-      this.router.navigate([this.language(), this.accent(), Number(this.sentenceId()) - 1]);
-      this.router.navigate([this.language(), this.accent(), Number(this.sentenceId()) - 1]);
+    if (Number(this.sentenceIndex()) > 1) {
+      this.router.navigate([this.language(), this.accent(), Number(this.sentenceIndex()) - 1]);
+      this.router.navigate([this.language(), this.accent(), Number(this.sentenceIndex()) - 1]);
     }
   }
 
   nextSentence() {
-    if (Number(this.sentenceId()) < this.maxSentenceId) {
-      this.router.navigate([this.language(), this.accent(), Number(this.sentenceId()) + 1]);
+    if (Number(this.sentenceIndex()) < this.maxSentenceId) {
+      this.router.navigate([this.language(), this.accent(), Number(this.sentenceIndex()) + 1]);
     }
   }
 
   disablePreviousButton() {
-    return Number(this.sentenceId()) === 1;
+    return Number(this.sentenceIndex()) === 1;
   }
 
   disableNextButton() {
-    return Number(this.sentenceId()) === this.maxSentenceId;
+    return Number(this.sentenceIndex()) === this.maxSentenceId;
   }
 
   chorusCountResource = resource({
     params: () => ({
       lang: this.language(),
       acc: this.accent(),
-      id: this.sentenceId(),
+      id: this.sentenceIndex(),
       _refresh: this.dataService.sentenceCountUpdateTrigger(),
     }),
     loader: async ({ params }) => {
@@ -94,4 +94,15 @@ export class ChorusDashboard {
   resetSessionCount() {
     this.sessionCount.set(0);
   }
+
+
+
+  /// NEW index based schema
+  // sentencesIndexes = resource({
+  //   params: () => ({ lang: this.language(), acc: this.accent() }),
+  //   loader: async ({ params }) => {
+  //     if (!params.lang || !params.acc) return [];
+  //     return await this.dataService.getSentences(params.lang, params.acc);
+  //   },
+  // })
 }

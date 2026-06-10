@@ -5,7 +5,7 @@ export class AppRoutesHelper {
     Home: '',
     Signup: 'signup',
     Signin: 'signin',
-    ChorusDashboard: ':language/:accent/:sentenceId',
+    ChorusDashboard: ':language/:accent/:sentenceIndex',
   } as const;
 
   static readonly authFlowPaths = [

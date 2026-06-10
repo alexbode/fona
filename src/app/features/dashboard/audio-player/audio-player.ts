@@ -28,7 +28,7 @@ export class AudioPlayer {
   // Inputs
   readonly language = input.required<string>();
   readonly accent = input.required<string>();
-  readonly sentenceId = input.required<string>();
+  readonly sentenceIndex = input.required<string>();
 
   // Services
   // private readonly counterService = inject(CounterService);
@@ -45,13 +45,13 @@ export class AudioPlayer {
 
   constructor() {
     effect(() => {
-      const id = this.sentenceId();
+      const id = this.sentenceIndex();
       this.stopAudio();
     });
   }
 
   audioResource = resource({
-    params: () => ({ lang: this.language(), acc: this.accent(), id: this.sentenceId() }),
+    params: () => ({ lang: this.language(), acc: this.accent(), id: this.sentenceIndex() }),
 
     loader: async ({ params }) => {
       if (!params.lang || !params.acc || !params.id) return undefined;
@@ -96,7 +96,7 @@ export class AudioPlayer {
   }
 
   incrementCounter() {
-    this.dataService.incrementSentenceCount(this.language(), this.accent(), this.sentenceId());
+    this.dataService.incrementSentenceCount(this.language(), this.accent(), this.sentenceIndex());
   }
 
   protected onSpaceBar() {

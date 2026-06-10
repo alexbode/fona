@@ -16,7 +16,7 @@ export class SentenceText {
 
   readonly language = input.required<string>();
   readonly accent = input.required<string>();
-  readonly sentenceId = input.required<string>();
+  readonly sentenceIndex = input.required<string>();
 
   sentencesResource = resource({
     params: () => ({ lang: this.language(), acc: this.accent() }),
@@ -32,7 +32,7 @@ export class SentenceText {
       return {} as Sentence;
     }
     const s = this.sentencesResource.value()!;
-    return s.find((item: Sentence) => String(item.sentenceId) === this.sentenceId());
+    return s.find((item: Sentence) => String(item.sentenceId) === this.sentenceIndex());
   });
 
   text = computed(() => this.sentence()?.text);
