@@ -95,8 +95,6 @@ export class ChorusDashboard {
     this.sessionCount.set(0);
   }
 
-
-
   /// NEW index based schema
   // sentencesIndexes = resource({
   //   params: () => ({ lang: this.language(), acc: this.accent() }),

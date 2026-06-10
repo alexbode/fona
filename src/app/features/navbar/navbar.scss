@@ -17,3 +17,37 @@
   font-weight: 700;
   letter-spacing: 0.01em;
 }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 300ms ease-in;
+}
+
+.fade-out {
+  animation: fadeOut 300ms ease-out;
+}
+.hover-container {
+  display: inline-grid;
+}
+
+/* 2. Force both spans to occupy the exact same grid cell so they never push each other */
+.hover-container span {
+  grid-area: 1 / 1 / 2 / 2;
+}

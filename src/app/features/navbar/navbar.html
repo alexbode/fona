@@ -1,12 +1,23 @@
 @if (!isCurrentPathPartOfAuthFlow()) {
   <mat-toolbar class="bg-slate-900">
     <img src="logo.png" alt="Company Logo" class="navbar-logo" />
-    <span class="logo-text">speakfona</span>
+    <!-- <span class="logo-text">speakfona</span> -->
     <!-- <span class="logo-text">/spiːk ˈfoʊnə/</span> -->
+    <div class="hover-container" (mouseenter)="isHovered = true" (mouseleave)="isHovered = false">
+      @if (!isHovered) {
+        <span animate.enter="fade-in" animate.leave="fade-out" class="logo-text"> speakfona </span>
+      } @else {
+        <span animate.enter="fade-in" animate.leave="fade-out" class="logo-text">
+          spiːk ˈfoʊnə
+        </span>
+      }
+    </div>
     <span class="navbar-spacer"></span>
 
     @if (!responsive.isMobile()) {
+      /spiːk ˈfoʊnə/
       @if (isLoggedIn()) {
+        /spiːk ˈfoʊnə/
         <button matFab extended class="navbar-button">
           <mat-icon>settings</mat-icon>
           Settings

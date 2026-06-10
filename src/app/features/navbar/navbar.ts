@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop'; // Added
 import { Router, NavigationEnd, RouterLink } from '@angular/router'; // Added NavigationEnd & RouterLink
 import { Location } from '@angular/common'; // Added
@@ -29,6 +29,8 @@ export class Navbar {
   protected readonly userRoles = this.authService.userRoles;
 
   protected readonly appRoutesHelper = AppRoutesHelper;
+
+  isHovered = false;
 
   // eactively listen to Router events
   protected readonly isCurrentPathPartOfAuthFlow = toSignal(
