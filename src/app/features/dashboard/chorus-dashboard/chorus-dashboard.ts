@@ -37,15 +37,21 @@ export class ChorusDashboard {
   protected readonly sentenceIndex = input.required<string>();
 
   protected sessionCount = signal<number>(0);
+  private trackedSentenceId: number = -1;
 
   constructor() {
     effect(() => {
-      const sentenceIdTrigger = this.sentenceIndex();
-      this.sessionCount.set(0);
-    });
-    effect(() => {
-      const chorusCount: number | null | undefined = this.chorusCountResource.value();
-      if (chorusCount) {
+      const count = this.sentenceCountResource.value();
+      const isLoading = this.sentenceCountResource.isLoading();
+      const currentSentenceId = this.sentenceId();
+      if (isLoading || count === null || count === undefined || !currentSentenceId) {
+        return;
+      }
+      if (this.trackedSentenceId !== currentSentenceId) {
+        this.sessionCount.set(0);
+        this.trackedSentenceId = currentSentenceId; // Mark this sentence as initialized
+      } 
+      else {
         this.sessionCount.update((v) => v + 1);
       }
     });
@@ -94,7 +100,7 @@ export class ChorusDashboard {
     return Number(this.sentenceIndex()) === this.numSentences();
   }
 
-  chorusCountResource = resource({
+  sentenceCountResource = resource({
     params: () => ({
       id: this.sentenceId(),
       _refresh: this.dataService.sentenceCountUpdateTrigger(),
