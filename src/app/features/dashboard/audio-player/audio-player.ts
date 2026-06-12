@@ -64,7 +64,7 @@ export class AudioPlayer {
   });
 
   audioResource = resource({
-    params: () => ({id: this.sentenceId()}),
+    params: () => ({ id: this.sentenceId() }),
 
     loader: async ({ params }) => {
       if (!params.id) return undefined;

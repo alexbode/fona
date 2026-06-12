@@ -24,6 +24,11 @@
           <mat-icon>refresh</mat-icon>
         </button>
       </div>
+      <app-audio-player
+        [language]="language()"
+        [accent]="accent()"
+        [sentenceIndex]="sentenceIndex()"
+      ></app-audio-player>
       <button matFab extended (click)="previousSentence()" [disabled]="disablePreviousButton()">
         <mat-icon>skip_previous</mat-icon>
         Prev Sentence
@@ -33,11 +38,6 @@
         Next Sentence
         <mat-icon>skip_next</mat-icon>
       </button>
-      <app-audio-player
-        [language]="language()"
-        [accent]="accent()"
-        [sentenceIndex]="sentenceIndex()"
-      ></app-audio-player>
     </mat-card-content>
   </mat-card>
 </div>

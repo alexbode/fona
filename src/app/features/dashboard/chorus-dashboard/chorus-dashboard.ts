@@ -50,8 +50,7 @@ export class ChorusDashboard {
       if (this.trackedSentenceId !== currentSentenceId) {
         this.sessionCount.set(0);
         this.trackedSentenceId = currentSentenceId; // Mark this sentence as initialized
-      } 
-      else {
+      } else {
         this.sessionCount.update((v) => v + 1);
       }
     });
@@ -73,7 +72,7 @@ export class ChorusDashboard {
 
   numSentences = computed(() => {
     const config = this.configResource.value();
-    if (config){
+    if (config) {
       return config.chorus.sentences.length;
     }
     return 0;

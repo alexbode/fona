@@ -163,7 +163,9 @@ export class DataService {
     this.sentenceCountUpdateTrigger.update((v) => v + 1);
 
     // Background network request
-    const { error } = await this.supabase.rpc('increment_sentence_count', { p_sentence_id: sentenceId });
+    const { error } = await this.supabase.rpc('increment_sentence_count', {
+      p_sentence_id: sentenceId,
+    });
 
     // Revert on error
     if (error) {
