@@ -4,10 +4,19 @@ export interface CourseConfig {
   id: string;
   language: string;
   accent: string;
-  chorus: DetailConfig;
-  pair: DetailConfig;
+  chorus: ChorusConfig;
+  pairs: PairsConfig[];
 }
 
-export interface DetailConfig {
+export interface ChorusConfig {
   sentences: number[];
+}
+
+export interface PairsConfig {
+  ipa_a: string;
+  ipa_b: string;
+  words_a: string[];
+  words_b: string[];
+  sentences: number[];
+  num_examples: number;
 }

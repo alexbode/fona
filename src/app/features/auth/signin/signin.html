@@ -56,7 +56,7 @@
         </button>
       </form>
       <span
-        >Don't have an account? <a href="{{ appRoutesHelper.urlPaths.Signup }}">Sign Up</a></span
+        >Don't have an account? <a [routerLink]="appRoutesHelper.getSignupRoute()">Sign Up</a></span
       >
     </mat-card-content>
   </mat-card>

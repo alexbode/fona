@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { LoggingService } from '@app/core/services/logging.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -24,6 +25,7 @@ import { LoggingService } from '@app/core/services/logging.service';
     MatDividerModule,
     MatListModule,
     MatIconModule,
+    RouterLink,
   ],
   templateUrl: './signup.html',
   styleUrl: './signup.scss',
@@ -63,7 +65,7 @@ export class Signup {
       if (error) throw error;
 
       // Navigate to your protected route on success
-      this.router.navigateByUrl(this.appRoutesHelper.urlPaths.Home);
+      this.router.navigateByUrl(this.appRoutesHelper.routes.Home);
     } catch (error: any) {
       this.logger.error('signup.ts onSubmit | message: ', error.message);
       this.errorMessage.set(error.message || 'An error occurred during login.');

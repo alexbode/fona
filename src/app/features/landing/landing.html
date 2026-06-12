@@ -1,3 +1,12 @@
-<a href="chinese/putonghua/1">Chinese</a>
-<a href="spanish/spain/1">Spanish</a>
-<a href="french/paris/1">French</a>
+<h1>Chorus Dashboard</h1>
+<a [routerLink]="appRoutesHelper.getChorusDashboardRoute('chinese', 'putonghua', 1)">Chinese</a>
+<br />
+<a [routerLink]="appRoutesHelper.getChorusDashboardRoute('french', 'paris', 1)">French</a>
+<br />
+<a [routerLink]="appRoutesHelper.getChorusDashboardRoute('spanish', 'spain', 1)">Spanish</a>
+<h1>Pairs Dashboard</h1>
+<a [routerLink]="appRoutesHelper.getPairsDashboardRoute('chinese', 'putonghua', 1, 1)">Chinese</a>
+<br />
+<a [routerLink]="appRoutesHelper.getPairsDashboardRoute('french', 'paris', 1, 1)">French</a>
+<br />
+<a [routerLink]="appRoutesHelper.getPairsDashboardRoute('spanish', 'spain', 1, 1)">Spanish</a>

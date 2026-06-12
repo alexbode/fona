@@ -3,17 +3,20 @@
     <img src="logo.png" alt="Company Logo" class="navbar-logo" />
     <!-- <span class="logo-text">speakfona</span> -->
     <!-- <span class="logo-text">/spiːk ˈfoʊnə/</span> -->
-      <a [routerLink]="['/']" class="hover-container" (mouseenter)="isHovered = true" (mouseleave)="isHovered = false">
-        @if (!isHovered) {
-          <span animate.enter="fade-in" animate.leave="fade-out" class="logo-text">
-            speakfona
-          </span>
-        } @else {
-          <span animate.enter="fade-in" animate.leave="fade-out" class="logo-text">
-            spiːk ˈfoʊnə
-          </span>
-        }
-      </a>
+    <a
+      [routerLink]="['/']"
+      class="hover-container"
+      (mouseenter)="isHovered = true"
+      (mouseleave)="isHovered = false"
+    >
+      @if (!isHovered) {
+        <span animate.enter="fade-in" animate.leave="fade-out" class="logo-text"> speakfona </span>
+      } @else {
+        <span animate.enter="fade-in" animate.leave="fade-out" class="logo-text">
+          spiːk ˈfoʊnə
+        </span>
+      }
+    </a>
     <span class="navbar-spacer"></span>
 
     @if (!responsive.isMobile()) {
@@ -26,40 +29,25 @@
           matFab
           extended
           class="navbar-button"
-          [routerLink]="['/', appRoutesHelper.urlPaths.Home]"
+          [routerLink]="appRoutesHelper.getHomeRoute()"
           (click)="logOut()"
         >
           <mat-icon>person</mat-icon>
           Log Out
         </a>
       } @else {
-        <a
-          matFab
-          extended
-          class="navbar-button"
-          [routerLink]="['/', appRoutesHelper.urlPaths.Signin]"
-        >
+        <a matFab extended class="navbar-button" [routerLink]="appRoutesHelper.getSigninRoute()">
           <mat-icon>person</mat-icon>
           Log In
         </a>
-        <a
-          matFab
-          extended
-          class="navbar-button"
-          [routerLink]="['/', appRoutesHelper.urlPaths.Signup]"
-        >
+        <a matFab extended class="navbar-button" [routerLink]="appRoutesHelper.getSignupRoute()">
           Sign Up
         </a>
       }
       <span>LI: {{ isLoggedIn() }}</span>
     } @else {
       @if (!isLoggedIn()) {
-        <a
-          matFab
-          extended
-          class="navbar-button"
-          [routerLink]="['/', appRoutesHelper.urlPaths.Signin]"
-        >
+        <a matFab extended class="navbar-button" [routerLink]="appRoutesHelper.getSigninRoute()">
           <mat-icon>person</mat-icon>
           Log In
         </a>

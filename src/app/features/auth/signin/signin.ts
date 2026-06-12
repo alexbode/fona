@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { LoggingService } from '@app/core/services/logging.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
@@ -24,6 +25,7 @@ import { LoggingService } from '@app/core/services/logging.service';
     MatDividerModule,
     MatListModule,
     MatIconModule,
+    RouterLink,
   ],
   templateUrl: './signin.html',
   styleUrl: './signin.scss',
@@ -57,7 +59,7 @@ export class Signin {
     try {
       const { data, error } = await this.authService.signIn(email, password);
       if (error) throw error;
-      this.router.navigateByUrl(this.appRoutesHelper.urlPaths.Home);
+      this.router.navigateByUrl(this.appRoutesHelper.routes.Home);
     } catch (error: any) {
       this.logger.error('signin.ts onSubmit | message: ', error.message);
       this.errorMessage.set(error.message || 'An error occurred during login.');

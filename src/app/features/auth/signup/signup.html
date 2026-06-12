@@ -56,7 +56,8 @@
         </button>
       </form>
       <span
-        >Already have an account? <a href="{{ appRoutesHelper.urlPaths.Signin }}">Sign In</a></span
+        >Already have an account?
+        <a [routerLink]="appRoutesHelper.getSigninRoute()">Sign In</a></span
       >
     </mat-card-content>
   </mat-card>

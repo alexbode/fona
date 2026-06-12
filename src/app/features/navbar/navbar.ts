@@ -53,6 +53,6 @@ export class Navbar {
   private checkIfAuthFlow(url: string): boolean {
     // Strip query parameters and remove the leading slash so it matches your routing array
     const cleanUrl = url.split('?')[0].replace(/^\//, '');
-    return this.appRoutesHelper.authFlowPaths.map(String).includes(cleanUrl);
+    return this.appRoutesHelper.authFlowRoutes.map(String).includes(cleanUrl);
   }
 }

@@ -34,7 +34,6 @@ export class SentenceText {
 
   sentenceResource = resource({
     params: () => ({ id: this.sentenceId() }),
-
     loader: async ({ params }) => {
       if (!params.id) return undefined;
       return await this.dataService.getSentence(params.id);
