@@ -1,16 +1,27 @@
-import { Component, input, inject, signal, resource, effect, computed } from '@angular/core';
+import {
+  Component,
+  input,
+  inject,
+  signal,
+  resource,
+  effect,
+  computed,
+  Signal,
+} from '@angular/core';
 import { AudioPlayer } from '@features/dashboard/audio-player/audio-player';
 import { SentenceText } from '@features/dashboard/sentence-text/sentence-text';
 import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { DataService } from '@core/services/data.service';
 import { MatCardModule } from '@angular/material/card';
+import { DataService } from '@core/services/data.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AppRoutesHelper } from '@app/app.routes';
+import { DataState } from '@app/core/models/state';
+import { CourseConfig } from '@app/core/models/config';
 
 @Component({
-  standalone: true,
   selector: 'app-chorus-dashboard',
   imports: [
     MatButtonModule,
@@ -41,8 +52,8 @@ export class ChorusDashboard {
 
   constructor() {
     effect(() => {
-      const count = this.sentenceCountResource.value();
-      const isLoading = this.sentenceCountResource.isLoading();
+      const count = this.sentenceCount().value;
+      const isLoading = this.sentenceCount().isLoading;
       const currentSentenceId = this.sentenceId();
       if (isLoading || count === null || count === undefined || !currentSentenceId) {
         return;
@@ -56,23 +67,21 @@ export class ChorusDashboard {
     });
   }
 
-  configResource = resource({
-    params: () => ({ language: this.language(), accent: this.accent() }),
-    loader: async ({ params }) => {
-      if (!params.language || !params.accent) return undefined;
-      return await this.dataService.getCourseConfig(params.language, params.accent);
-    },
+  config: Signal<DataState<CourseConfig>> = computed(() => {
+    const lang = this.language();
+    const acc = this.accent();
+    return this.dataService.getCourseConfig(lang, acc)();
   });
 
-  sentenceId = computed(() => {
-    const config = this.configResource.value();
-    if (config) return config.chorus.sentences[parseInt(this.sentenceIndex(), 10) - 1];
-    return undefined;
+  sentenceId: Signal<number | null> = computed(() => {
+    const config = this.config();
+    if (!config.value || config.isLoading || config.error) return null;
+    return config.value.chorus.sentences[parseInt(this.sentenceIndex(), 10) - 1];
   });
 
   numSentences = computed(() => {
-    const config = this.configResource.value();
-    if (config) {
+    const config = this.config().value;
+    if (config != null) {
       return config.chorus.sentences.length;
     }
     return 0;
@@ -80,14 +89,25 @@ export class ChorusDashboard {
 
   previousSentence() {
     if (Number(this.sentenceIndex()) > 1) {
-      this.router.navigate([this.language(), this.accent(), Number(this.sentenceIndex()) - 1]);
-      this.router.navigate([this.language(), this.accent(), Number(this.sentenceIndex()) - 1]);
+      this.router.navigate(
+        AppRoutesHelper.getChorusDashboardRoute(
+          this.language(),
+          this.accent(),
+          Number(this.sentenceIndex()) - 1,
+        ),
+      );
     }
   }
 
   nextSentence() {
     if (Number(this.sentenceIndex()) < this.numSentences()) {
-      this.router.navigate([this.language(), this.accent(), Number(this.sentenceIndex()) + 1]);
+      this.router.navigate(
+        AppRoutesHelper.getChorusDashboardRoute(
+          this.language(),
+          this.accent(),
+          Number(this.sentenceIndex()) + 1,
+        ),
+      );
     }
   }
 
@@ -99,15 +119,20 @@ export class ChorusDashboard {
     return Number(this.sentenceIndex()) === this.numSentences();
   }
 
-  sentenceCountResource = resource({
-    params: () => ({
-      id: this.sentenceId(),
-      _refresh: this.dataService.sentenceCountUpdateTrigger(),
-    }),
-    loader: async ({ params }) => {
-      if (!params.id) return null;
-      return await this.dataService.getSentenceCount(params.id);
-    },
+  // sentenceCountResource = resource({
+  //   params: () => ({
+  //     id: this.sentenceId(),
+  //     _refresh: this.dataService.sentenceCountUpdateTrigger(),
+  //   }),
+  //   loader: async ({ params }) => {
+  //     if (!params.id) return null;
+  //     return await this.dataService.fetchSentenceCount(params.id);
+  //   },
+  // });
+  sentenceCount: Signal<DataState<number>> = computed(() => {
+    const id = this.sentenceId();
+    if (!id) return { value: null, isLoading: false, error: null };
+    return this.dataService.getSentenceCount(id)();
   });
 
   resetSessionCount() {

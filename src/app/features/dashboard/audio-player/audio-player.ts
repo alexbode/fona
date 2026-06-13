@@ -1,12 +1,15 @@
-import { Component, input, inject, computed, signal, resource, effect } from '@angular/core';
-import { DataService } from '@core/services/data.service';
+import { Component, Signal, input, inject, computed, signal, effect } from '@angular/core';
 import { LoggingService } from '@core/services/logging.service';
 import { MatButtonModule } from '@angular/material/button';
+import { DataService } from '@core/services/data.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '@core/services/auth.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { CourseConfig } from '@app/core/models/config';
+import { DataState } from '@app/core/models/state';
+import { Data } from '@angular/router';
 
 @Component({
   selector: 'app-audio-player',
@@ -46,32 +49,34 @@ export class AudioPlayer {
   constructor() {
     effect(() => {
       const id = this.sentenceIndex();
+      this.audioResource();
       this.stopAudio();
     });
   }
-  configResource = resource({
-    params: () => ({ language: this.language(), accent: this.accent() }),
-    loader: async ({ params }) => {
-      if (!params.language || !params.accent) return undefined;
-      return await this.dataService.getCourseConfig(params.language, params.accent);
-    },
+  // configResource = resource({
+  //   params: () => ({ language: this.language(), accent: this.accent() }),
+  //   loader: async ({ params }) => {
+  //     if (!params.language || !params.accent) return undefined;
+  //     return await this.dataService.getCourseConfig(params.language, params.accent);
+  //   },
+  // });
+
+  config: Signal<DataState<CourseConfig>> = computed(() => {
+    const lang = this.language();
+    const acc = this.accent();
+    return this.dataService.getCourseConfig(lang, acc)();
   });
 
-  sentenceId = computed(() => {
-    const config = this.configResource.value();
-    if (config) return config.chorus.sentences[parseInt(this.sentenceIndex(), 10) - 1];
-    return undefined;
+  sentenceId: Signal<number | null> = computed(() => {
+    const config = this.config();
+    if (!config.value || config.isLoading || config.error) return null;
+    return config.value.chorus.sentences[parseInt(this.sentenceIndex(), 10) - 1];
   });
 
-  audioResource = resource({
-    params: () => ({ id: this.sentenceId() }),
-
-    loader: async ({ params }) => {
-      if (!params.id) return undefined;
-      this.logger.debug('audio-player.ts audioResource | params:', params);
-      const url = await this.dataService.getPresignedUrl(params.id);
-      return new Audio(url);
-    },
+  audioResource: Signal<DataState<string>> = computed(() => {
+    const id = this.sentenceId();
+    if (!id) return { value: null, isLoading: true, error: null };
+    return this.dataService.getAudio(id)();
   });
 
   private handleAudioEnded = () => {
@@ -83,15 +88,29 @@ export class AudioPlayer {
 
   playAudio() {
     this.logger.debug('audio-player.ts playAudio');
+
+    const audioState = this.audioResource();
+    if (audioState.isLoading || !audioState.value) {
+      this.logger.debug('Audio is not ready to play yet.');
+      return;
+    }
+
     if (!this.isPlaying()) {
-      this.audio = this.audioResource.value() || new Audio('');
-      if (this.audio.ended) {
-        this.audio.currentTime = 0;
-      }
+      this.audio = new Audio(audioState.value);
+
+      this.audio.currentTime = 0;
       this.audio.onended = this.handleAudioEnded;
       this.audio.playbackRate = parseInt(this.playbackSpeed, 10) / 100;
-      this.audio.play();
-      this.isPlaying.set(true);
+
+      this.audio
+        .play()
+        .then(() => {
+          this.isPlaying.set(true);
+        })
+        .catch((err) => {
+          this.logger.error('Failed to play audio:', err);
+          this.isPlaying.set(false);
+        });
     }
   }
 

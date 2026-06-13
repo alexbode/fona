@@ -60,7 +60,7 @@ export class Signup {
     const { email, password } = this.loginForm.getRawValue();
 
     try {
-      const { data, error } = await this.authService.signIn(email, password);
+      const { data, error } = await this.authService.signUp(email, password);
 
       if (error) throw error;
 

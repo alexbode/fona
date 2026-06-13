@@ -10,11 +10,11 @@
     <mat-card-content>
       <div class="chorus-count-row">
         <div class="chorus-count-col">
-          @if (sentenceCountResource.isLoading()) {
+          @if (sentenceCount().isLoading) {
             <p>ChorusCount: -</p>
-          } @else if (sentenceCountResource.hasValue()) {
-            <p>ChorusCount: {{ sentenceCountResource.value() }}</p>
-          } @else if (sentenceCountResource.error()) {
+          } @else if (sentenceCount().value !== null) {
+            <p>ChorusCount: {{ sentenceCount().value }}</p>
+          } @else if (sentenceCount().error) {
             <p>ChorusCount: ?</p>
           }
           <p>SessionCount: {{ sessionCount() }}</p>

@@ -1,8 +1,10 @@
-import { Component, inject, input, resource, computed } from '@angular/core';
+import { Component, inject, input, resource, computed, Signal } from '@angular/core';
 import { DataService } from '@app/core/services/data.service';
-import { Sentence } from '@core/models/sentence';
 import { LoggingService } from '@core/services/logging.service';
 import { MatListModule } from '@angular/material/list';
+import { DataState } from '@core/models/state';
+import { CourseConfig } from '@core/models/config';
+import { Sentence } from '@core/models/sentence';
 
 @Component({
   selector: 'app-sentence-text',
@@ -18,30 +20,27 @@ export class SentenceText {
   readonly accent = input.required<string>();
   readonly sentenceIndex = input.required<string>();
 
-  configResource = resource({
-    params: () => ({ language: this.language(), accent: this.accent() }),
-    loader: async ({ params }) => {
-      if (!params.language || !params.accent) return undefined;
-      return await this.dataService.getCourseConfig(params.language, params.accent);
-    },
+  config: Signal<DataState<CourseConfig>> = computed(() => {
+    const lang = this.language();
+    const acc = this.accent();
+    return this.dataService.getCourseConfig(lang, acc)();
   });
 
-  sentenceId = computed(() => {
-    const config = this.configResource.value();
-    if (config) return config.chorus.sentences[parseInt(this.sentenceIndex(), 10) - 1];
-    return undefined;
+  sentence: Signal<DataState<Sentence>> = computed(() => {
+    const config = this.config();
+    const sentenceIndex = parseInt(this.sentenceIndex(), 10);
+    if (config.isLoading || !config.value) {
+      return {
+        value: null,
+        isLoading: config.isLoading,
+        error: config.error,
+      };
+    }
+    return this.dataService.getSentence(config.value.chorus.sentences[sentenceIndex - 1])();
   });
 
-  sentenceResource = resource({
-    params: () => ({ id: this.sentenceId() }),
-    loader: async ({ params }) => {
-      if (!params.id) return undefined;
-      return await this.dataService.getSentence(params.id);
-    },
-  });
-
-  text = computed(() => this.sentenceResource.value()?.text);
-  ipa = computed(() => this.sentenceResource.value()?.ipa);
-  pinyin = computed(() => this.sentenceResource.value()?.pinyin);
+  text = computed(() => this.sentence().value?.text);
+  ipa = computed(() => this.sentence().value?.ipa);
+  pinyin = computed(() => this.sentence().value?.pinyin);
   hasPinyin = computed(() => this.pinyin !== null && this.pinyin !== undefined);
 }

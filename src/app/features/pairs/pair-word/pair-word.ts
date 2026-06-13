@@ -1,8 +1,8 @@
-import { Component, input, resource, inject, computed } from '@angular/core';
-import { DataService } from '@core/services/data.service';
+import { Component, input, Signal, inject, computed, effect } from '@angular/core';
 import { LoggingService } from '@core/services/logging.service';
-import { StateService} from '@core/services/state.service';
-
+import { DataService } from '@core/services/data.service';
+import { DataState } from '@core/models/state';
+import { Sentence } from '@core/models/sentence';
 
 @Component({
   selector: 'app-pair-word',
@@ -12,59 +12,88 @@ import { StateService} from '@core/services/state.service';
 })
 export class PairWord {
   // Inputs
-  wordKey = input.required<string>();
+  wordKey = input.required<number>();
 
   // Services
   private logger = inject(LoggingService);
   private dataService = inject(DataService);
-  private stateService = inject(StateService);
 
   // State
   private audio = new Audio();
 
+  constructor() {
+    effect(() => {
+      const id = this.wordKey();
+      this.audioResource();
+      this.stopAudio();
+    });
+  }
 
-  audioResource = resource({
-    params: () => ({ id: parseInt(this.wordKey(), 10) }),
+  sentence: Signal<DataState<Sentence>> = computed(() => {
+    const sentenceId = this.wordKey();
 
-    loader: async ({ params }) => {
-      if (!params.id) return undefined;
-      this.logger.debug('audio-player.ts audioResource | params:', params);
-      const url = await this.dataService.getPresignedUrl(params.id);
-      return new Audio(url);
-    },
+    // 1. Guard against 0 or invalid IDs
+    if (!sentenceId || sentenceId <= 0) {
+      return { value: null, isLoading: true, error: null };
+    }
+
+    return this.dataService.getSentence(sentenceId)();
   });
 
-  sentenceResource = resource({
-    params: () => ({ id: parseInt(this.wordKey(), 10) }),
+  audioResource: Signal<DataState<string>> = computed(() => {
+    const sentenceId = this.wordKey();
 
-    loader: async ({ params }) => {
-      if (!params.id) return undefined;
-      this.logger.debug('audio-player.ts audioResource | params:', params);
-      return await this.dataService.getSentence(params.id);
-    },
+    // 2. Apply the same explicit guard here
+    if (!sentenceId || sentenceId <= 0) {
+      return { value: null, isLoading: true, error: null };
+    }
+
+    return this.dataService.getAudio(sentenceId)();
   });
-  text = computed(() => this.sentenceResource.value()?.text ?? '');
-  ipa = computed(() => this.sentenceResource.value()?.ipa ?? '');
+  text = computed(() => this.sentence().value?.text ?? '');
+  ipa = computed(() => this.sentence().value?.ipa ?? '');
 
   playAudio() {
-    this.logger.debug('pair-sentence.ts playAudio');
-    if (!this.stateService.isAudioPlaying()) {
-      this.audio = this.audioResource.value() || new Audio('');
-      if (this.audio.ended) {
-        this.audio.currentTime = 0;
-      }
+    this.logger.debug('audio-player.ts playAudio');
+
+    const audioState = this.audioResource();
+
+    if (audioState.isLoading || !audioState.value) {
+      this.logger.debug('Audio is not ready to play yet.');
+      return;
+    }
+
+    if (!this.dataService.isAudioPlaying()) {
+      this.audio = new Audio(audioState.value);
+
+      this.audio.currentTime = 0;
       this.audio.onended = this.handleAudioEnded;
-      this.audio.play();
-      this.stateService.setIsAudioPlaying(true);
+
+      this.audio
+        .play()
+        .then(() => {
+          this.dataService.setIsAudioPlaying(true);
+        })
+        .catch((err) => {
+          this.logger.error('Failed to play audio:', err);
+          this.dataService.setIsAudioPlaying(false);
+        });
     }
   }
-    private handleAudioEnded = () => {
-    this.stateService.setIsAudioPlaying(false);
+
+  stopAudio() {
+    this.audio.pause();
+    this.audio.currentTime = 0;
+    this.dataService.setIsAudioPlaying(false);
+  }
+
+  private handleAudioEnded = () => {
+    this.dataService.setIsAudioPlaying(false);
     this.incrementCounter();
   };
 
   incrementCounter() {
-    const sentenceId = parseInt(this.wordKey(), 10);
+    const sentenceId = this.wordKey();
     if (sentenceId) {
       this.dataService.incrementSentenceCount(sentenceId);
     }
