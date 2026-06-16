@@ -3,10 +3,12 @@ import { DataService } from '@core/services/data.service';
 import { LoggingService } from '@core/services/logging.service';
 import { DataState } from '@core/models/state';
 import { Sentence } from '@core/models/sentence';
+import { ButtonDirective } from '@app/directive/button';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
 
 @Component({
   selector: 'app-pair-sentence',
-  imports: [],
+  imports: [ButtonDirective, HlmButtonImports],
   templateUrl: './pair-sentence.html',
   styleUrl: './pair-sentence.scss',
 })

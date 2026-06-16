@@ -1,4 +1,4 @@
-<div class="card-container">
+<div class="card-container bg-red-400">
   <mat-card>
     <mat-card-header>
       <app-sentence-text
@@ -19,7 +19,7 @@
           }
           <p>SessionCount: {{ sessionCount() }}</p>
         </div>
-        <button matFab extended (click)="resetSessionCount()">
+        <button hlmBtn appButton (click)="resetSessionCount()">
           Refresh
           <mat-icon>refresh</mat-icon>
         </button>
@@ -29,12 +29,12 @@
         [accent]="accent()"
         [sentenceIndex]="sentenceIndex()"
       ></app-audio-player>
-      <button matFab extended (click)="previousSentence()" [disabled]="disablePreviousButton()">
+      <button hlmBtn appButton (click)="previousSentence()" [disabled]="disablePreviousButton()">
         <mat-icon>skip_previous</mat-icon>
         Prev Sentence
       </button>
 
-      <button matFab extended (click)="nextSentence()" [disabled]="disableNextButton()">
+      <button hlmBtn appButton (click)="nextSentence()" [disabled]="disableNextButton()">
         Next Sentence
         <mat-icon>skip_next</mat-icon>
       </button>

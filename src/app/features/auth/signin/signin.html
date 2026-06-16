@@ -47,7 +47,7 @@
           </div>
         }
 
-        <button mat-raised-button type="submit" [disabled]="loginForm.invalid || isLoading()">
+        <button hlmBtn appButton type="submit" [disabled]="loginForm.invalid || isLoading()">
           @if (isLoading()) {
             Logging in...
           } @else {

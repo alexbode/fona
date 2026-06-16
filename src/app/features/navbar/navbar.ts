@@ -1,20 +1,39 @@
 import { Component, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop'; // Added
-import { Router, NavigationEnd, RouterLink } from '@angular/router'; // Added NavigationEnd & RouterLink
+import { Router, NavigationEnd } from '@angular/router'; // Added NavigationEnd & RouterLink
 import { Location } from '@angular/common'; // Added
 import { filter, map } from 'rxjs'; // Added
 
 import { AuthService } from '@core/services/auth.service';
 import { AppRoutesHelper } from '@app/app.routes';
-import { MatIconModule } from '@angular/material/icon';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
 import { ResponsiveService } from '@app/core/services/responsive.service';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import {
+  lucideArrowUp,
+  lucideInbox,
+  lucideCalendar,
+  lucideSearch,
+  lucideSettings,
+  lucideHouse,
+} from '@ng-icons/lucide';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [MatIconModule, MatToolbarModule, MatButtonModule, RouterLink], // Make sure RouterLink is imported
+  imports: [HlmButtonImports, HlmSidebarImports, NgIcon, HlmIcon],
+  providers: [
+    provideIcons({
+      lucideArrowUp,
+      lucideHouse,
+      lucideInbox,
+      lucideCalendar,
+      lucideSearch,
+      lucideSettings,
+    }),
+  ],
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss',
 })
@@ -55,4 +74,32 @@ export class Navbar {
     const cleanUrl = url.split('?')[0].replace(/^\//, '');
     return this.appRoutesHelper.authFlowRoutes.map(String).includes(cleanUrl);
   }
+
+  protected readonly _items = [
+    {
+      title: 'Home',
+      url: '#',
+      icon: 'lucideHouse',
+    },
+    {
+      title: 'Inbox',
+      url: '#',
+      icon: 'lucideInbox',
+    },
+    {
+      title: 'Calendar',
+      url: '#',
+      icon: 'lucideCalendar',
+    },
+    {
+      title: 'Search',
+      url: '#',
+      icon: 'lucideSearch',
+    },
+    {
+      title: 'Settings',
+      url: '#',
+      icon: 'lucideSettings',
+    },
+  ];
 }

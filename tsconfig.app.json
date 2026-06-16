@@ -6,16 +6,29 @@
     "ignoreDeprecations": "6.0",
     "baseUrl": "./",
     "paths": {
-      "@app/*": ["src/app/*"],
-      "@features/*": ["src/app/features/*"],
-      "@core/*": ["src/app/core/*"]
+      "@app/*": [
+        "src/app/*"
+      ],
+      "@features/*": [
+        "src/app/features/*"
+      ],
+      "@core/*": [
+        "src/app/core/*"
+      ],
+      "@spartan-ng/helm/*": [
+        "src/app/shared/*/src/index.ts"
+      ]
     },
     "outDir": "./out-tsc/app",
     "rootDir": "./src",
     "types": []
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["src/**/*.spec.ts"],
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "src/**/*.spec.ts"
+  ],
   "angularCompilerOptions": {
     "extendedDiagnostics": {
       "checks": {

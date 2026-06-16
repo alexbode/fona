@@ -7,11 +7,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { LoggingService } from '@app/core/services/logging.service';
 import { RouterLink } from '@angular/router';
+import { ButtonDirective } from '@app/directive/button';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
 
 @Component({
   selector: 'app-signin',
@@ -21,11 +22,12 @@ import { RouterLink } from '@angular/router';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule,
     MatDividerModule,
     MatListModule,
     MatIconModule,
     RouterLink,
+    ButtonDirective,
+    HlmButtonImports,
   ],
   templateUrl: './signin.html',
   styleUrl: './signin.scss',

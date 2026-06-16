@@ -1,6 +1,5 @@
 import { Component, Signal, input, inject, computed, signal, effect } from '@angular/core';
 import { LoggingService } from '@core/services/logging.service';
-import { MatButtonModule } from '@angular/material/button';
 import { DataService } from '@core/services/data.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -10,16 +9,19 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CourseConfig } from '@app/core/models/config';
 import { DataState } from '@app/core/models/state';
 import { Data } from '@angular/router';
+import { ButtonDirective } from '@app/directive/button';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
 
 @Component({
   selector: 'app-audio-player',
   standalone: true,
   imports: [
-    MatButtonModule,
     MatIconModule,
     MatButtonToggleModule,
     FormsModule,
     MatProgressBarModule,
+    ButtonDirective,
+    HlmButtonImports,
   ],
   templateUrl: './audio-player.html',
   styleUrl: './audio-player.scss',

@@ -20,6 +20,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AppRoutesHelper } from '@app/app.routes';
 import { DataState } from '@app/core/models/state';
 import { CourseConfig } from '@app/core/models/config';
+import { ButtonDirective } from '@app/directive/button';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
 
 @Component({
   selector: 'app-chorus-dashboard',
@@ -31,6 +33,8 @@ import { CourseConfig } from '@app/core/models/config';
     SentenceText,
     MatCardModule,
     MatProgressSpinnerModule,
+    HlmButtonImports,
+    ButtonDirective,
   ],
   templateUrl: './chorus-dashboard.html',
   styleUrl: './chorus-dashboard.scss',

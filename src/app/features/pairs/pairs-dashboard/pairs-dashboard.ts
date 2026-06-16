@@ -6,10 +6,20 @@ import { PairWord } from '@features/pairs/pair-word/pair-word';
 import { PairSentence } from '@features/pairs/pair-sentence/pair-sentence';
 import { DataState } from '@core/models/state';
 import { CourseConfig } from '@core/models/config';
+import { ButtonDirective } from '@app/directive/button';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
 
 @Component({
   selector: 'app-pairs-dashboard',
-  imports: [MatCardActions, MatCardTitle, MatCardModule, PairWord, PairSentence],
+  imports: [
+    MatCardActions,
+    MatCardTitle,
+    MatCardModule,
+    PairWord,
+    PairSentence,
+    ButtonDirective,
+    HlmButtonImports,
+  ],
   templateUrl: './pairs-dashboard.html',
   styleUrl: './pairs-dashboard.scss',
 })

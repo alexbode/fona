@@ -1,57 +1,27 @@
-@if (!isCurrentPathPartOfAuthFlow()) {
-  <mat-toolbar class="bg-slate-900">
-    <img src="logo.png" alt="Company Logo" class="navbar-logo" />
-    <!-- <span class="logo-text">speakfona</span> -->
-    <!-- <span class="logo-text">/spiːk ˈfoʊnə/</span> -->
-    <a
-      [routerLink]="['/']"
-      class="hover-container"
-      (mouseenter)="isHovered = true"
-      (mouseleave)="isHovered = false"
-    >
-      @if (!isHovered) {
-        <span animate.enter="fade-in" animate.leave="fade-out" class="logo-text"> speakfona </span>
-      } @else {
-        <span animate.enter="fade-in" animate.leave="fade-out" class="logo-text">
-          spiːk ˈfoʊnə
-        </span>
-      }
-    </a>
-    <span class="navbar-spacer"></span>
-
-    @if (!responsive.isMobile()) {
-      @if (isLoggedIn()) {
-        <button matFab extended class="navbar-button">
-          <mat-icon>settings</mat-icon>
-          Settings
-        </button>
-        <a
-          matFab
-          extended
-          class="navbar-button"
-          [routerLink]="appRoutesHelper.getHomeRoute()"
-          (click)="logOut()"
-        >
-          <mat-icon>person</mat-icon>
-          Log Out
-        </a>
-      } @else {
-        <a matFab extended class="navbar-button" [routerLink]="appRoutesHelper.getSigninRoute()">
-          <mat-icon>person</mat-icon>
-          Log In
-        </a>
-        <a matFab extended class="navbar-button" [routerLink]="appRoutesHelper.getSignupRoute()">
-          Sign Up
-        </a>
-      }
-      <span>LI: {{ isLoggedIn() }}</span>
-    } @else {
-      @if (!isLoggedIn()) {
-        <a matFab extended class="navbar-button" [routerLink]="appRoutesHelper.getSigninRoute()">
-          <mat-icon>person</mat-icon>
-          Log In
-        </a>
-      }
-    }
-  </mat-toolbar>
-}
+<div hlmSidebarWrapper>
+  <hlm-sidebar>
+    <div hlmSidebarContent>
+      <div hlmSidebarGroup>
+        <div hlmSidebarGroupLabel>Application</div>
+        <div hlmSidebarGroupContent>
+          <ul hlmSidebarMenu>
+            @for (item of _items; track item.title) {
+              <li hlmSidebarMenuItem>
+                <a hlmSidebarMenuButton>
+                  <ng-icon hlm [name]="item.icon" />
+                  <span>{{ item.title }}</span>
+                </a>
+              </li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </hlm-sidebar>
+  <main hlmSidebarInset>
+    <header class="flex h-12 items-center justify-between px-4">
+      <button hlmSidebarTrigger><span class="sr-only"></span></button>
+    </header>
+    <ng-content />
+  </main>
+</div>
