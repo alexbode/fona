@@ -19,12 +19,11 @@ import {
 } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
-import { ButtonDirective } from '@app/directive/button';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [HlmButtonImports, HlmSidebarImports, NgIcon, HlmIcon, ButtonDirective],
+  imports: [HlmButtonImports, HlmSidebarImports, NgIcon, HlmIcon],
   providers: [
     provideIcons({
       lucideArrowUp,

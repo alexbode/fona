@@ -1,0 +1,39 @@
+<hlm-card
+  size="sm"
+  (click)="select.emit(lang())"
+  class="text-left hover:border-primary/40 hover:bg-secondary group relative overflow-hidden cursor-pointer w-full h-full flex flex-col justify-start"
+>
+  <hlm-card-header class="pb-2">
+    <div class="text-3xl mb-2">{{ lang().flag }}</div>
+    <h3
+      hlmCardTitle
+      class="text-foreground font-semibold text-sm"
+      style="font-family: 'Plus Jakarta Sans', sans-serif"
+    >
+      {{ lang().name }}
+    </h3>
+    <p
+      hlmCardDescription
+      class="text-muted-foreground text-xs mt-0.5"
+      style="font-family: 'Inter', sans-serif"
+    >
+      {{ lang().nativeName }}
+    </p>
+  </hlm-card-header>
+  <hlm-card-footer class="mt-auto pt-2">
+    <div
+      class="text-xs flex items-center gap-1"
+      [style.font-family]="'\'Inter\', sans-serif'"
+      [style.color]="unlockedCount() < lang().accents.length ? '#6B7385' : '#4BADC8'"
+    >
+      @if (unlockedCount() < lang().accents.length) {
+        <ng-icon hlm name="lucideLock" size="9px" />
+      }
+      {{
+        unlockedCount() === lang().accents.length
+          ? lang().accents.length + ' accent' + (lang().accents.length > 1 ? 's' : '')
+          : unlockedCount() + '/' + lang().accents.length + ' unlocked'
+      }}
+    </div>
+  </hlm-card-footer>
+</hlm-card>

@@ -5,6 +5,8 @@ export class AppRoutesHelper {
     Home: '',
     Signup: 'signup',
     Signin: 'signin',
+    ListLanguages: 'languages',
+    ListAccents: ':language',
     ChorusDashboard: ':language/:accent/chorus/:sentenceIndex',
     PairsDashboard: ':language/:accent/pairs/:pairIndex/example/:exampleIndex',
   } as const;
@@ -21,6 +23,14 @@ export class AppRoutesHelper {
 
   static getSignupRoute(): any[] {
     return ['/', AppRoutesHelper.routes.Signup];
+  }
+
+  static getLanguagesRoute(): any[] {
+    return ['/', AppRoutesHelper.routes.ListLanguages];
+  }
+
+  static getAccentsRoute(language: string): any[] {
+    return ['/', language, AppRoutesHelper.routes.ListAccents];
   }
 
   static getChorusDashboardRoute(language: string, accent: string, sentenceIndex: number): any[] {
@@ -49,7 +59,10 @@ const staticRoutes: Routes = [
   {
     path: AppRoutesHelper.routes.Signup,
     loadComponent: () => import('@features/auth/signup/signup').then((m) => m.Signup),
-  },
+  }, {
+    path: AppRoutesHelper.routes.ListLanguages,
+    loadComponent: () => import('@features/list-languages/languages/languages').then((m) => m.Languages),
+  }
 ];
 const dynamicRoutes: Routes = [
   {
@@ -64,5 +77,9 @@ const dynamicRoutes: Routes = [
     loadComponent: () =>
       import('@features/pairs/pairs-dashboard/pairs-dashboard').then((m) => m.PairsDashboard),
   },
+  {
+    path: AppRoutesHelper.routes.ListAccents,
+    loadComponent: () => import('@features/list-accents/accents/accents').then((m) => m.Accents),
+  }
 ];
 export const routes: Routes = [...staticRoutes, ...dynamicRoutes];

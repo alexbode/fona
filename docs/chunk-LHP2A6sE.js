@@ -1,0 +1,1 @@
+import {m as mE,ay as ac,S as SI,az as cc}from'./main-IFOLEDEX.js';var o=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=mE({type:t,selectors:[["app-accents"]],decls:2,vars:0,template:function(e,m){e&1&&(ac(0,"p"),SI(1,"accents works!"),cc());},encapsulation:2})};export{o as Accents};
