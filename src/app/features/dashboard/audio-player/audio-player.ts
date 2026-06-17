@@ -4,11 +4,9 @@ import { DataService } from '@core/services/data.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '@core/services/auth.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CourseConfig } from '@app/core/models/config';
 import { DataState } from '@app/core/models/state';
-import { Data } from '@angular/router';
 import { ButtonDirective } from '@app/directive/button';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 
@@ -37,8 +35,7 @@ export class AudioPlayer {
 
   // Services
   // private readonly counterService = inject(CounterService);
-  protected readonly auth = inject(AuthService);
-  private readonly dataService = inject(DataService);
+  readonly dataService = inject(DataService);
   private readonly logger = inject(LoggingService);
 
   // Signals

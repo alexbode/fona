@@ -1,16 +1,88 @@
-import { Service, inject, Signal } from '@angular/core';
+import { Service, inject, Signal, computed } from '@angular/core';
 import { FetchService } from '@core/services/fetch.service';
 import { StateService } from '@core/services/state.service';
 import { LoggingService } from '@core/services/logging.service';
 import { DataState } from '@core/models/state';
 import { Sentence } from '@core/models/sentence';
+import { Language } from '@core/models/language';
 import { CourseConfig } from '@core/models/config';
+import { User } from '@supabase/supabase-js';
 
 @Service()
 export class DataService {
+  // Services
   private readonly fetchService = inject(FetchService);
   private readonly stateService = inject(StateService);
   private readonly logger = inject(LoggingService);
+
+  // State
+  readonly currentUser = this.stateService.currentUser;
+  readonly isLoggedIn = computed(() => {
+    return this.currentUser() !== null;
+  })
+
+  getTotalSentenceCount(): Signal<DataState<number>> {
+    const existingSignal = this.stateService.totalSentenceCount;
+    if (existingSignal()?.value !== null) {
+      return existingSignal;
+    }
+    this.fetchAndHydrateTotalSentenceCount();
+    return existingSignal;
+  }
+
+  private async fetchAndHydrateTotalSentenceCount(): Promise<void> {
+    try {
+      const user_id = this.currentUser()?.value?.id!;
+      const fetchedCount = await this.fetchService.fetchTotalSentenceCount(user_id);
+      this.stateService.setTotalSentenceCount({
+        value: fetchedCount,
+        isLoading: false,
+        error: null,
+      });
+    } catch (error) {
+      this.logger.error(`Failed to fetch total sentence count`, error);
+      this.stateService.setTotalSentenceCount({
+        value: null,
+        isLoading: false,
+        error: 'Failed to fetch total sentence count.',
+      });
+    }
+  }
+
+  setCurrentUser(value: Partial<DataState<User>>): void {
+    this.stateService.setCurrentUser(value);
+  }
+
+  getLanguageList(): Signal<DataState<Language[]>> {
+    const existingSignal = this.stateService.languageList;
+    if (!existingSignal()?.isLoading) {
+      return existingSignal;
+    }
+    this.fetchAndHydrateLanguageList();
+    this.logger.debug(
+      'fetch.service.ts fetchLanguageList | returning:',
+      existingSignal,
+    );
+    return existingSignal;
+  }
+
+  private async fetchAndHydrateLanguageList(): Promise<void> {
+    try {
+      const fetchedLanguageList = await this.fetchService.fetchLanguageList();
+      this.stateService.setLanguageList({
+        value: fetchedLanguageList,
+        isLoading: false,
+        error: null,
+      });
+    } catch (error) {
+      this.logger.error(`Failed to fetch language list`, error);
+      this.stateService.setLanguageList({
+        value: null,
+        isLoading: false,
+        error: 'Failed to fetch language list.',
+      });
+    }
+  }
 
   loadSentences(sentenceIds: number[]): void {
     for (const sentenceId of sentenceIds) {
@@ -64,7 +136,8 @@ export class DataService {
 
   private async fetchAndHydrateSentenceCount(sentenceId: number): Promise<void> {
     try {
-      const fetchedCount = await this.fetchService.fetchSentenceCount(sentenceId);
+      const userId = this.currentUser().value?.id!;
+      const fetchedCount = await this.fetchService.fetchSentenceCount(sentenceId, userId);
       this.stateService.setSentenceCount(sentenceId, {
         value: fetchedCount,
         isLoading: false,

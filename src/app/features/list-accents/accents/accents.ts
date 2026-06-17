@@ -6,4 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './accents.html',
   styleUrl: './accents.scss',
 })
-export class Accents { }
+export class Accents {}

@@ -2,7 +2,7 @@ import { Directive, input, computed } from '@angular/core';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 export const buttonVariants = cva(
-  'inline-flex items-center justify-center rounded-xl text-base outline-none select-none cursor-pointer',
+  'inline-flex items-center justify-center text-base outline-none select-none cursor-pointer',
   {
     variants: {
       variant: {
@@ -28,7 +28,6 @@ export type ButtonVariants = VariantProps<typeof buttonVariants>;
   selector: '[appButton]',
   host: {
     '[class]': 'computedClasses()',
-    '[style.font-family]': '"\'Plus Jakarta Sans\', sans-serif"',
     '[style.background-color]': 'variant() === "primary" ? "#4BADC8" : null',
     '[style.color]': 'variant() === "primary" ? "#0C0E14" : null',
   },

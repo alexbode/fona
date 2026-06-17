@@ -4,6 +4,8 @@ import { LRUCache } from '@app/core/helpers/lru-cache/lru-cache';
 import { Sentence } from '@core/models/sentence';
 import { CourseConfig } from '@core/models/config';
 import { DataState } from '@core/models/state';
+import { Language } from '@core/models/language';
+import { User } from '@supabase/supabase-js';
 
 function createInitialState<T>(initialValue: T | null = null): DataState<T> {
   return {
@@ -24,6 +26,7 @@ export class StateService {
   #isAudioPlaying = signal<boolean>(false);
 
   #sentenceCountMap = new LRUCache<number, WritableSignal<DataState<number>>>();
+  #totalSentenceCount = signal<DataState<number>>(createInitialState());
   #sentenceMap = new LRUCache<number, WritableSignal<DataState<Sentence>>>();
   #courseConfig = new LRUCache<string, WritableSignal<DataState<CourseConfig>>>();
 
@@ -33,6 +36,28 @@ export class StateService {
     this.#audioCacheSize,
     this.#audioTtlSeconds,
   );
+
+  #languageList = signal<DataState<Language[]>>(createInitialState());
+
+  #isLoggedIn = signal<DataState<boolean>>(createInitialState<boolean>(false));
+  #currentUser = signal<DataState<User>>(createInitialState<User>());
+
+  readonly currentUser = this.#currentUser.asReadonly();
+  readonly isLoggedIn = this.#isLoggedIn.asReadonly();
+  readonly languageList = this.#languageList.asReadonly();
+  readonly totalSentenceCount = this.#totalSentenceCount.asReadonly();
+
+  setTotalSentenceCount(value: Partial<DataState<number>>) {
+    this.#totalSentenceCount.update((current) => ({ ...current, ...value }));
+  }
+
+  setCurrentUser(value: Partial<DataState<User>>) {
+    this.#currentUser.update((current) => ({ ...current, ...value }));
+  }
+
+  setLanguageList(value: Partial<DataState<Language[]>>): void {
+    this.#languageList.update((current) => ({ ...current, ...value }));
+  }
 
   getIsAudioPlaying(): Signal<boolean> {
     return this.#isAudioPlaying.asReadonly();

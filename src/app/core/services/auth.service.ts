@@ -1,36 +1,37 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
-import { SupabaseClient, User } from '@supabase/supabase-js';
+import { SupabaseClient, User, Session } from '@supabase/supabase-js';
 import { SupabaseService } from '@core/services/supabase.service';
 import { LoggingService } from '@core/services/logging.service';
+import { DataService } from '@core/services/data.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   // Services
-  private service: SupabaseService = inject(SupabaseService);
+  private supabaseService: SupabaseService = inject(SupabaseService);
+  private dataService: DataService = inject(DataService);
   private logger: LoggingService = inject(LoggingService);
 
   // Clients
-  private supabase: SupabaseClient = this.service.getSupabaseClient();
+  private supabase: SupabaseClient = this.supabaseService.getSupabaseClient();
 
   // State
-  private readonly projectId = this.service.getProjectId();
-  currentUser = signal<User | null>(null);
-  jwtToken = signal<string>('');
-
-  readonly userRoles = computed(
-    () => (jwtDecode(this.jwtToken()) as any)?.app_metadata?.roles || [],
-  );
-  readonly userId = computed(() => this.currentUser()?.id);
-  readonly isLoggedIn = computed(() => !!this.currentUser());
+  private readonly projectId = this.supabaseService.getProjectId();
 
   constructor() {
     this.supabase.auth.onAuthStateChange((event, session) => {
-      this.currentUser.set(session?.user ?? null);
-      this.jwtToken.set(session?.access_token ?? '');
+      this.handleAuthChange(session);
     });
+  }
+
+  private async handleAuthChange(session: Session | null) {
+    if (session?.user !== null) {
+      this.dataService.setCurrentUser({ value: session!.user!, isLoading: false, error: null });
+    } else {
+      this.dataService.setCurrentUser({ value: null, isLoading: false, error: null });
+    }
   }
 
   async signUp(email: string, password: string) {
@@ -58,6 +59,7 @@ export class AuthService {
     return reponse;
   }
 
+  // check local storage
   async checkSession(): Promise<boolean> {
     const {
       data: { session },

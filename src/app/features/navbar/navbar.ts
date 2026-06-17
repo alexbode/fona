@@ -43,10 +43,6 @@ export class Navbar {
   private readonly authService = inject(AuthService);
   protected readonly responsive = inject(ResponsiveService);
 
-  protected readonly currentUser = this.authService.currentUser;
-  protected readonly isLoggedIn = this.authService.isLoggedIn;
-  protected readonly userRoles = this.authService.userRoles;
-
   protected readonly appRoutesHelper = AppRoutesHelper;
 
   isHovered = false;

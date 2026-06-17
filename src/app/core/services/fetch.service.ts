@@ -1,10 +1,9 @@
-import { Service, inject } from '@angular/core';
+import { Service, inject, isDevMode } from '@angular/core';
 import { SupabaseService } from '@core/services/supabase.service';
 import { LoggingService } from '@core/services/logging.service';
-import { AuthService } from '@core/services/auth.service';
 import { Sentence } from '@core/models/sentence';
 import { CourseConfig } from '@core/models/config';
-import { DataState } from '@core/models/state';
+import { Language } from '@core/models/language';
 
 /* Do not directly call the fetch service from a component.
 Use the data service instead. */
@@ -13,10 +12,54 @@ export class FetchService {
   // Services
   private readonly supabase = inject(SupabaseService).getSupabaseClient();
   private readonly logger = inject(LoggingService);
-  private readonly auth = inject(AuthService);
+  // In devmode, add a delay to simulate network latency.
+  private sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  async fetchTotalSentenceCount(user_id: string): Promise<number> {
+    this.logger.debug('fetch.service.ts fetchTotalSentenceCount | user_id:', user_id);
+    if (isDevMode()) await this.sleep(2000);
+
+    const { data, error } = await this.supabase.rpc('get_user_total_listen_count', {
+      p_user_id: user_id,
+    });
+    if (error) {
+      this.logger.error('fetch.service.ts fetchTotalSentenceCount | error:', error);
+      throw error;
+    }
+    return data;
+  }
+
+  async fetchLanguageList(): Promise<Language[]> {
+    this.logger.debug('fetch.service.ts fetchLanguageList');
+    if (isDevMode()) await this.sleep(2000);
+
+    const { data, error } = await this.supabase
+      .from('language')
+      .select(
+        `
+      id,
+      name:language,
+      nativeName:native_name,
+      code,
+      flag,
+      accents:accent!inner (
+        id,
+        name:accent,
+        flag
+      )
+    `,
+      )
+      .overrideTypes<Language[], { merge: false }>();
+    if (error) {
+      this.logger.error('fetch.service.ts fetchLanguageList | error:', error);
+      throw error;
+    }
+    return data;
+  }
 
   async fetchCourseConfig(language: string, accent: string): Promise<CourseConfig> {
     this.logger.debug('fetch.service.ts fetchCourse | language:', language, accent);
+    if (isDevMode()) await this.sleep(2000);
 
     const { data, error } = await this.supabase
       .from('course')
@@ -33,6 +76,7 @@ export class FetchService {
 
   async fetchSentence(sentenceId: number): Promise<Sentence> {
     this.logger.debug('fetch.service.ts fetchSentence | sentenceId:', sentenceId);
+    if (isDevMode()) await this.sleep(2000);
 
     const { data, error } = await this.supabase
       .from('sentence')
@@ -54,6 +98,8 @@ export class FetchService {
 
   async fetchAudio(sentenceId: number, audioTtlSeconds: number = 3700): Promise<string> {
     this.logger.debug('fetch.service.ts fetchAudio | sentenceId:', sentenceId);
+    if (isDevMode()) await this.sleep(2000);
+
     const { data, error } = await this.supabase.storage
       .from('audio')
       .createSignedUrl(`${sentenceId}.wav`, audioTtlSeconds + 100);
@@ -68,13 +114,15 @@ export class FetchService {
     return objectUrl;
   }
 
-  async fetchSentenceCount(sentenceId: number): Promise<number> {
-    this.logger.debug('fetch.service.ts getSentenceCount | sentenceId:', sentenceId);
+  async fetchSentenceCount(sentenceId: number, user_id: string): Promise<number> {
+    this.logger.debug('fetch.service.ts getSentenceCount | sentenceId:', sentenceId, user_id);
+    if (isDevMode()) await this.sleep(2000);
+
     const { data, error } = await this.supabase
       .from('sentence_listen_count')
       .select('count')
       .eq('sentence_id', sentenceId)
-      .eq('user_id', this.auth.userId())
+      .eq('user_id', user_id)
       .maybeSingle();
     if (error) {
       this.logger.error('fetch.service.ts getSentenceCount | error:', error, data);
@@ -85,6 +133,8 @@ export class FetchService {
 
   async incrementSentenceCount(sentenceId: number) {
     this.logger.debug('fetch.service.ts incrementSentenceCount | sentenceId:', sentenceId);
+    if (isDevMode()) await this.sleep(2000);
+
     const { error } = await this.supabase.rpc('increment_sentence_count', {
       p_sentence_id: sentenceId,
     });
