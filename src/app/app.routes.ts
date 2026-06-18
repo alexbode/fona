@@ -9,6 +9,8 @@ export class AppRoutesHelper {
     Ipa: 'ipa',
     // ex. /english  /spanish
     ListAccents: ':language',
+    // ex. /english/america
+    ModeSelection: ':language/:accent',
     // ex. /english/america/chorus/1
     ChorusDashboard: ':language/:accent/chorus/:sentenceIndex',
     // ex. /english/america/pairs/1/example/1
@@ -23,6 +25,10 @@ export class AppRoutesHelper {
 
   static getSigninRoute(): any[] {
     return ['/', AppRoutesHelper.routes.Signin];
+  }
+
+  static getModeSelectionRoute(language: string, accent: string): any[] {
+    return ['/', language, accent];
   }
 
   static getSignupRoute(): any[] {
@@ -90,6 +96,11 @@ const dynamicRoutes: Routes = [
     path: AppRoutesHelper.routes.PairsDashboard,
     loadComponent: () =>
       import('@features/pairs/pairs-dashboard/pairs-dashboard').then((m) => m.PairsDashboard),
+  },
+  {
+    path: AppRoutesHelper.routes.ModeSelection,
+    loadComponent: () =>
+      import('@features/mode-selection/mode-selection').then((m) => m.ModeSelection),
   },
   {
     path: AppRoutesHelper.routes.ListAccents,

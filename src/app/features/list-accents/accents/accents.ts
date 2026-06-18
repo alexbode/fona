@@ -45,8 +45,8 @@ export class Accents {
   onSelect(accent: Accent): void {
     const langCode = this.language()?.name?.toLowerCase() || '';
     const accentName = accent.name.toLowerCase();
-    // Navigate to chorus dashboard for the selected accent: /:language/:accent/chorus/1
-    this.router.navigate(AppRoutesHelper.getChorusDashboardRoute(langCode, accentName, 1));
+    // Navigate to mode selection for the selected accent
+    this.router.navigate(AppRoutesHelper.getModeSelectionRoute(langCode, accentName));
   }
 
   onBack(): void {
