@@ -118,6 +118,10 @@ export class StateService {
     }
   }
 
+  clearSentenceCountMap() {
+    this.#sentenceCountMap.clear();
+  }
+
   incrementSentenceCount(sentenceId: number, isChorus: boolean = false): void {
     if (!this.#sentenceCountMap.has(sentenceId)) {
       this.initializeSentenceCount(sentenceId);

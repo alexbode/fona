@@ -53,6 +53,10 @@ export class LRUCache<T, V> {
     this.cache.delete(key);
   }
 
+  clear(): void {
+    this.cache.clear();
+  }
+
   keys(): IterableIterator<T> {
     const now = Date.now();
     const expired: T[] = [];

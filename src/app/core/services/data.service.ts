@@ -1,4 +1,4 @@
-import { Service, inject, Signal, computed } from '@angular/core';
+import { Service, inject, Signal, computed, effect } from '@angular/core';
 import { FetchService } from '@core/services/fetch.service';
 import { StateService } from '@core/services/state.service';
 import { LoggingService } from '@core/services/logging.service';
@@ -20,20 +20,34 @@ export class DataService {
   readonly isLoggedIn = computed(() => {
     return this.currentUser() !== null;
   });
+  readonly userId = computed(() => {
+    return this.currentUser()?.value?.id;
+  });
+
+  constructor() {
+    effect(() => {
+      // functions to run once a user logs in.
+      if (this.isLoggedIn()) {
+        this.fetchAndHydrateTotalSentenceCount();
+        this.stateService.clearSentenceCountMap();
+      }
+    });
+  }
 
   getTotalSentenceCount(): Signal<DataState<number>> {
     const existingSignal = this.stateService.totalSentenceCount;
     if (existingSignal()?.value !== null) {
       return existingSignal;
     }
-    this.fetchAndHydrateTotalSentenceCount();
+    if (this.isLoggedIn()) {
+      this.fetchAndHydrateTotalSentenceCount();
+    }
     return existingSignal;
   }
 
   private async fetchAndHydrateTotalSentenceCount(): Promise<void> {
     try {
-      const user_id = this.currentUser()?.value?.id!;
-      const fetchedCount = await this.fetchService.fetchTotalSentenceCount(user_id);
+      const fetchedCount = await this.fetchService.fetchTotalSentenceCount(this.userId()!);
       this.stateService.setTotalSentenceCount({
         value: fetchedCount,
         isLoading: false,
@@ -133,8 +147,7 @@ export class DataService {
 
   private async fetchAndHydrateSentenceCount(sentenceId: number): Promise<void> {
     try {
-      const userId = this.currentUser().value?.id!;
-      const fetchedCount = await this.fetchService.fetchSentenceCount(sentenceId, userId);
+      const fetchedCount = await this.fetchService.fetchSentenceCount(sentenceId, this.userId()!);
       this.stateService.setSentenceCount(sentenceId, {
         value: fetchedCount,
         isLoading: false,

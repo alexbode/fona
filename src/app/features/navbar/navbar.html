@@ -22,9 +22,21 @@
     <header
       class="sticky top-0 z-50 flex h-12 items-center justify-between border-b border-border bg-background/85 px-4 backdrop-blur-md"
     >
-      <button hlmSidebarTrigger><span class="sr-only"></span></button>
-      <img src="https://speakfona.com/logo.png" alt="fona" class="h-8 w-8 object-contain" />
-      <!-- <span class="font-bold">fona</span> -->
+      <div class="flex items-center gap-3">
+        <button hlmSidebarTrigger class="cursor-pointer"><span class="sr-only"></span></button>
+        <img src="https://speakfona.com/logo.png" alt="fona" class="h-8 w-8 object-contain" />
+      </div>
+
+      @if (!isLoggedIn()) {
+        <button
+          appButton
+          size="sm"
+          [routerLink]="appRoutesHelper.getSigninRoute()"
+          class="cursor-pointer"
+        >
+          Sign in
+        </button>
+      }
     </header>
     <ng-content />
   </main>
