@@ -66,8 +66,8 @@
           </p>
           <button
             (click)="onIpa()"
-            class="flex items-center gap-1 px-2.5 py-1 rounded border border-border text-xs shrink-0 hover:border-primary/40 cursor-pointer"
-            style="color: #4badc8; font-family: 'Inter', sans-serif; background-color: #4badc80d"
+            class="flex items-center gap-1 px-2.5 py-1 rounded border border-brand/20 text-brand bg-brand/5 text-xs shrink-0 hover:border-brand/40 cursor-pointer"
+            style="font-family: 'Inter', sans-serif"
           >
             <ng-icon hlm name="lucideBookOpen" size="11px" />
             IPA
@@ -118,8 +118,7 @@
       <div class="flex flex-col items-center flex-1">
         <!-- Badge showing session reps -->
         <div
-          class="flex items-center justify-center min-w-[40px] h-10 px-3 rounded-full bg-primary/10 border border-primary/20 text-primary font-bold text-lg"
-          style="color: #4badc8; border-color: #4badc833; background-color: #4badc81a"
+          class="flex items-center justify-center min-w-[40px] h-10 px-3 rounded-full border border-brand/20 text-brand bg-brand/10 font-bold text-lg"
         >
           {{ sessionCount() }}
         </div>
@@ -131,15 +130,15 @@
       <div class="flex flex-col items-center flex-1">
         @if (allTimeRepsState().isLoading) {
           <span
-            class="text-4xl font-bold leading-none animate-pulse"
-            style="font-family: 'Plus Jakarta Sans', sans-serif; color: #6b7385"
+            class="text-4xl font-bold leading-none animate-pulse text-muted-foreground"
+            style="font-family: 'Plus Jakarta Sans', sans-serif"
           >
             ...
           </span>
         } @else {
           <span
-            class="text-4xl font-bold leading-none"
-            style="font-family: 'Plus Jakarta Sans', sans-serif; color: #6b7385"
+            class="text-4xl font-bold leading-none text-muted-foreground"
+            style="font-family: 'Plus Jakarta Sans', sans-serif"
           >
             {{ allTimeReps() | number }}
           </span>
@@ -156,9 +155,10 @@
     <!-- Controls -->
     <button
       (click)="handlePlay()"
-      class="w-full py-4 rounded font-semibold text-base cursor-pointer flex items-center justify-center gap-2"
-      [style.backgroundColor]="isPlaying() ? '#3d8fb0' : '#4badc8'"
-      style="color: #ffffff; font-family: 'Plus Jakarta Sans', sans-serif"
+      class="w-full py-4 rounded font-semibold text-base cursor-pointer flex items-center justify-center gap-2 text-white"
+      [class.bg-brand-hover]="isPlaying()"
+      [class.bg-brand]="!isPlaying()"
+      style="font-family: 'Plus Jakarta Sans', sans-serif"
     >
       {{ isPlaying() ? '🔊 Listening — speak along!' : '▶ Play & Chorus' }}
     </button>

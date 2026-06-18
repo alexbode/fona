@@ -21,11 +21,8 @@
 
   <div class="relative max-w-6xl mx-auto px-6 pt-24 pb-20 text-center">
     <!-- Eyebrow -->
-    <div
-      class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border mb-8"
-      style="background-color: rgba(75, 173, 200, 0.06)"
-    >
-      <span class="w-1.5 h-1.5 rounded-full animate-pulse" style="background-color: #4badc8"></span>
+    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border mb-8 bg-brand/5">
+      <span class="w-1.5 h-1.5 rounded-full animate-pulse bg-brand"></span>
       <span class="text-xs text-muted-foreground" style="font-family: 'Inter', sans-serif">
         Science-backed accent training
       </span>
@@ -38,7 +35,7 @@
       Sound like you<br />
       <span
         style="
-          background: linear-gradient(135deg, #4badc8 0%, #3d5a9e 100%);
+          background: linear-gradient(135deg, var(--brand) 0%, #3d5a9e 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
         "
@@ -221,7 +218,7 @@
         <!-- Stars -->
         <div class="flex gap-1">
           @for (s of [1, 2, 3, 4, 5]; track s) {
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="#4BADC8">
+            <svg width="13" height="13" viewBox="0 0 24 24" class="fill-brand">
               <path
                 d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
               />
@@ -236,12 +233,8 @@
         </p>
         <div class="flex items-center gap-3 pt-2 border-t border-border">
           <div
-            class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0"
-            style="
-              background-color: rgba(75, 173, 200, 0.13);
-              color: #4badc8;
-              font-family: 'Plus Jakarta Sans', sans-serif;
-            "
+            class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 bg-brand/10 text-brand"
+            style="font-family: 'Plus Jakarta Sans', sans-serif;"
           >
             {{ t.initials }}
           </div>

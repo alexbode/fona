@@ -27,19 +27,19 @@
   </hlm-card-header>
   <hlm-card-footer class="mt-auto pt-2">
     @if (footerText()) {
-    <div class="text-xs flex items-center gap-1" style="font-family: 'Inter', sans-serif; color: #6b7385">
+    <div class="text-xs flex items-center gap-1 text-muted-foreground" style="font-family: 'Inter', sans-serif">
       {{ footerText() }}
     </div>
     } @else {
     @if (unlocked()) {
-    <div class="flex items-center gap-1 text-xs px-2 py-1 rounded-full"
-      style="background-color: #4badc814; color: #4badc8; font-family: 'Inter', sans-serif">
+    <div class="flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-brand/10 text-brand"
+      style="font-family: 'Inter', sans-serif">
       <ng-icon hlm name="lucideCheckCircle" size="11px" />
       Owned
     </div>
     } @else {
-    <div class="flex items-center gap-1 text-xs px-2 py-1 rounded-full border border-border"
-      style="color: #6b7385; font-family: 'Inter', sans-serif">
+    <div class="flex items-center gap-1 text-xs px-2 py-1 rounded-full border border-border text-muted-foreground"
+      style="font-family: 'Inter', sans-serif">
       <ng-icon hlm name="lucideLock" size="11px" />
       Pro
     </div>

@@ -11,10 +11,9 @@
       }
     </p>
     @if (dataService.isLoggedIn()) {
-    <div class="mt-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border"
-      style="background-color: #4badc80a">
-      <ng-icon hlm name="lucideSpeech" size="12px" style="color: #4badc8" />
-      <span class="text-xs font-medium" style="font-family: 'Inter', sans-serif; color: #4badc8">
+    <div class="mt-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-brand/20 bg-brand/5">
+      <ng-icon hlm name="lucideSpeech" size="12px" class="text-brand" />
+      <span class="text-xs font-medium text-brand" style="font-family: 'Inter', sans-serif">
         {{ dataService.getTotalSentenceCount()().value }} total reps
       </span>
     </div>
@@ -42,8 +41,8 @@
     <!-- IPA reference link -->
     <button (click)="onIpa()"
       class="mt-5 w-full flex items-center gap-3 px-4 py-3.5 rounded border border-border bg-card hover:border-primary/30 hover:bg-secondary transition-all cursor-pointer">
-      <div class="w-8 h-8 rounded flex items-center justify-center shrink-0" style="background-color: #4badc814">
-        <ng-icon hlm name="lucideBookOpen" size="15px" style="color: #4badc8" />
+      <div class="w-8 h-8 rounded flex items-center justify-center shrink-0 bg-brand/10">
+        <ng-icon hlm name="lucideBookOpen" size="15px" class="text-brand" />
       </div>
       <div class="text-left">
         <div class="text-foreground text-sm font-medium" style="font-family: 'Plus Jakarta Sans', sans-serif">

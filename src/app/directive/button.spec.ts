@@ -27,9 +27,8 @@ describe('ButtonDirective', () => {
   it('should apply primary variant classes by default', () => {
     const btnEl = fixture.nativeElement.querySelector('#defaultBtn') as HTMLButtonElement;
     expect(btnEl.className).toContain('font-semibold');
-    expect(btnEl.className).toContain('px-7');
-    expect(btnEl.style.backgroundColor).toBe('rgb(75, 173, 200)'); // #4BADC8 in RGB
-    expect(btnEl.style.color).toBe('rgb(12, 14, 20)'); // #0C0E14 in RGB
+    expect(btnEl.className).toContain('bg-brand');
+    expect(btnEl.className).toContain('text-[#0c0e14]');
   });
 
   it('should apply secondary variant classes', () => {

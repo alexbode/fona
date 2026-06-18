@@ -6,7 +6,7 @@ export const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: 'font-semibold hover:opacity-90',
+        primary: 'font-semibold hover:opacity-90 bg-brand text-[#0c0e14]',
         secondary:
           'font-medium border border-border hover:border-primary/30 hover:bg-secondary text-foreground',
       },
@@ -18,8 +18,8 @@ export const buttonVariants = cva(
     defaultVariants: {
       variant: 'primary',
       size: 'md',
+      },
     },
-  },
 );
 
 export type ButtonVariants = VariantProps<typeof buttonVariants>;
@@ -28,8 +28,6 @@ export type ButtonVariants = VariantProps<typeof buttonVariants>;
   selector: '[appButton]',
   host: {
     '[class]': 'computedClasses()',
-    '[style.background-color]': 'variant() === "primary" ? "#4BADC8" : null',
-    '[style.color]': 'variant() === "primary" ? "#0C0E14" : null',
   },
 })
 export class ButtonDirective {
