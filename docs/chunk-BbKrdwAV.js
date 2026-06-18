@@ -1,1 +1,0 @@
-import {I as IE,ay as pc,j as jI,az as hc}from'./main-5RFBPUMP.js';var o=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=IE({type:t,selectors:[["app-ipa"]],decls:2,vars:0,template:function(e,m){e&1&&(pc(0,"p"),jI(1,"ipa works!"),hc());},encapsulation:2})};export{o as Ipa};
