@@ -1,16 +1,35 @@
-<mat-card class="max-w-4xl place-content-center">
-  <mat-card-header>
-    <mat-card-title>{{ title() }}</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <div class="grid grid-cols-2">
-      <app-pair-word [wordKey]="wordAKey()" class="col-span-1"></app-pair-word>
-      <app-pair-word [wordKey]="wordBKey()" class="col-span-1"></app-pair-word>
-      <app-pair-sentence [sentenceKey]="sentence()" class="col-span-2"></app-pair-sentence>
-    </div>
-  </mat-card-content>
-  <mat-card-actions class="flex">
-    <button hlmBtn appButton class="flex-1">Previous Example</button>
-    <button hlmBtn appButton class="flex-1">Next Example</button>
-  </mat-card-actions>
-</mat-card>
+<div class="flex flex-col flex-1 h-full">
+  <!-- Navigation Header / NavBar -->
+  <header class="flex items-center gap-3 px-5 py-4 shrink-0">
+    <button
+      (click)="onBack()"
+      class="flex items-center justify-center p-1 rounded-full hover:bg-secondary transition-colors cursor-pointer"
+      aria-label="Back"
+    >
+      <ng-icon hlm name="lucideChevronLeft" size="20px" class="text-foreground" />
+    </button>
+    <span
+      class="text-sm font-medium text-muted-foreground"
+      style="font-family: 'Inter', sans-serif"
+    >
+      Minimal Pairs
+    </span>
+  </header>
+
+  <mat-card class="max-w-4xl place-content-center m-5">
+    <mat-card-header>
+      <mat-card-title>{{ title() }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="grid grid-cols-2">
+        <app-pair-word [wordKey]="wordAKey()" class="col-span-1"></app-pair-word>
+        <app-pair-word [wordKey]="wordBKey()" class="col-span-1"></app-pair-word>
+        <app-pair-sentence [sentenceKey]="sentence()" class="col-span-2"></app-pair-sentence>
+      </div>
+    </mat-card-content>
+    <mat-card-actions class="flex">
+      <button hlmBtn appButton class="flex-1">Previous Example</button>
+      <button hlmBtn appButton class="flex-1">Next Example</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

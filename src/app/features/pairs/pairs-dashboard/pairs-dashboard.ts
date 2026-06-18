@@ -9,6 +9,12 @@ import { CourseConfig } from '@core/models/config';
 import { ButtonDirective } from '@app/directive/button';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 
+import { Router } from '@angular/router';
+import { AppRoutesHelper } from '@app/app.routes';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import { lucideChevronLeft } from '@ng-icons/lucide';
+
 @Component({
   selector: 'app-pairs-dashboard',
   imports: [
@@ -19,6 +25,13 @@ import { HlmButtonImports } from '@spartan-ng/helm/button';
     PairSentence,
     ButtonDirective,
     HlmButtonImports,
+    NgIcon,
+    HlmIcon,
+  ],
+  providers: [
+    provideIcons({
+      lucideChevronLeft,
+    }),
   ],
   templateUrl: './pairs-dashboard.html',
   styleUrl: './pairs-dashboard.scss',
@@ -30,6 +43,7 @@ export class PairsDashboard {
   protected readonly exampleIndex = input.required<number>();
 
   private readonly dataService = inject(DataService);
+  private readonly router = inject(Router);
 
   config: Signal<DataState<CourseConfig>> = computed(() => {
     const lang = this.language();
@@ -55,4 +69,8 @@ export class PairsDashboard {
   wordAKey = computed(() => parseInt(this.wordA(), 10));
   wordBKey = computed(() => parseInt(this.wordB(), 10));
   sentence = computed(() => (this.pair()?.sentences ?? [])[this.exampleIndex() - 1] ?? 0);
+
+  onBack() {
+    this.router.navigate(AppRoutesHelper.getModeSelectionRoute(this.language(), this.accent()));
+  }
 }

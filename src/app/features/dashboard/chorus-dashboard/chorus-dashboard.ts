@@ -1,12 +1,4 @@
-import {
-  Component,
-  input,
-  inject,
-  signal,
-  effect,
-  computed,
-  Signal,
-} from '@angular/core';
+import { Component, input, inject, signal, effect, computed, Signal } from '@angular/core';
 import { AudioPlayer } from '@features/dashboard/audio-player/audio-player';
 import { SentenceText } from '@features/dashboard/sentence-text/sentence-text';
 import { Router } from '@angular/router';
@@ -22,6 +14,10 @@ import { CourseConfig } from '@app/core/models/config';
 import { ButtonDirective } from '@app/directive/button';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import { lucideChevronLeft } from '@ng-icons/lucide';
+
 @Component({
   selector: 'app-chorus-dashboard',
   imports: [
@@ -34,6 +30,13 @@ import { HlmButtonImports } from '@spartan-ng/helm/button';
     MatProgressSpinnerModule,
     HlmButtonImports,
     ButtonDirective,
+    NgIcon,
+    HlmIcon,
+  ],
+  providers: [
+    provideIcons({
+      lucideChevronLeft,
+    }),
   ],
   templateUrl: './chorus-dashboard.html',
   styleUrl: './chorus-dashboard.scss',
@@ -140,5 +143,9 @@ export class ChorusDashboard {
 
   resetSessionCount() {
     this.sessionCount.set(0);
+  }
+
+  onBack() {
+    this.router.navigate(AppRoutesHelper.getModeSelectionRoute(this.language(), this.accent()));
   }
 }

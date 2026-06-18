@@ -1,43 +1,51 @@
-<div class="card-container bg-red-400">
-  <mat-card>
-    <mat-card-header>
-      <app-sentence-text
-        [language]="language()"
-        [accent]="accent()"
-        [sentenceIndex]="sentenceIndex()"
-      ></app-sentence-text>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="chorus-count-row">
-        <div class="chorus-count-col">
-          @if (sentenceCount().isLoading) {
-            <p>ChorusCount: -</p>
-          } @else if (sentenceCount().value !== null) {
-            <p>ChorusCount: {{ sentenceCount().value }}</p>
-          } @else if (sentenceCount().error) {
-            <p>ChorusCount: ?</p>
-          }
-          <p>SessionCount: {{ sessionCount() }}</p>
-        </div>
-        <button hlmBtn appButton (click)="resetSessionCount()">
-          Refresh
-          <mat-icon>refresh</mat-icon>
-        </button>
-      </div>
-      <app-audio-player
-        [language]="language()"
-        [accent]="accent()"
-        [sentenceIndex]="sentenceIndex()"
-      ></app-audio-player>
-      <button hlmBtn appButton (click)="previousSentence()" [disabled]="disablePreviousButton()">
-        <mat-icon>skip_previous</mat-icon>
-        Prev Sentence
-      </button>
+<div class="flex flex-col flex-1 h-full">
+  <!-- Navigation Header / NavBar -->
+  <header class="flex items-center gap-3 px-5 py-4 shrink-0">
+    <button (click)="onBack()"
+      class="flex items-center justify-center p-1 rounded-full hover:bg-secondary transition-colors cursor-pointer"
+      aria-label="Back">
+      <ng-icon hlm name="lucideChevronLeft" size="20px" class="text-foreground" />
+    </button>
+    <span class="text-sm font-medium text-muted-foreground" style="font-family: 'Inter', sans-serif">
+      Training Mode Selection
+    </span>
+  </header>
 
-      <button hlmBtn appButton (click)="nextSentence()" [disabled]="disableNextButton()">
-        Next Sentence
-        <mat-icon>skip_next</mat-icon>
-      </button>
-    </mat-card-content>
-  </mat-card>
+  <div class="card-container bg-red-400">
+    <mat-card>
+      <mat-card-header>
+        <app-sentence-text [language]="language()" [accent]="accent()"
+          [sentenceIndex]="sentenceIndex()"></app-sentence-text>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="chorus-count-row">
+          <div class="chorus-count-col">
+            @if (sentenceCount().isLoading) {
+            <p>ChorusCount: -</p>
+            } @else if (sentenceCount().value !== null) {
+            <p>ChorusCount: {{ sentenceCount().value }}</p>
+            } @else if (sentenceCount().error) {
+            <p>ChorusCount: ?</p>
+            }
+            <p>SessionCount: {{ sessionCount() }}</p>
+          </div>
+          <button hlmBtn appButton (click)="resetSessionCount()">
+            Refresh
+            <mat-icon>refresh</mat-icon>
+          </button>
+        </div>
+        <app-audio-player [language]="language()" [accent]="accent()"
+          [sentenceIndex]="sentenceIndex()"></app-audio-player>
+        <button hlmBtn appButton (click)="previousSentence()" [disabled]="disablePreviousButton()">
+          <mat-icon>skip_previous</mat-icon>
+          Prev Sentence
+        </button>
+
+        <button hlmBtn appButton (click)="nextSentence()" [disabled]="disableNextButton()">
+          Next Sentence
+          <mat-icon>skip_next</mat-icon>
+        </button>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
