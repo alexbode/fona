@@ -52,4 +52,18 @@ export class LRUCache<T, V> {
   delete(key: T): void {
     this.cache.delete(key);
   }
+
+  keys(): IterableIterator<T> {
+    const now = Date.now();
+    const expired: T[] = [];
+    for (const [key, entry] of this.cache.entries()) {
+      if (entry.expiry < now) {
+        expired.push(key);
+      }
+    }
+    for (const key of expired) {
+      this.cache.delete(key);
+    }
+    return this.cache.keys();
+  }
 }

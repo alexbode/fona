@@ -112,6 +112,10 @@ export class StateService {
       this.#sentenceCountMap
         .get(sentenceId)!
         .update((current) => ({ ...current, value: (current.value ?? 0) + 1 }));
+      this.#totalSentenceCount.update((current) => ({
+        ...current,
+        value: (current.value ?? 0) + 1,
+      }));
     }
   }
 

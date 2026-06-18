@@ -7,8 +7,11 @@ export class AppRoutesHelper {
     Signin: 'signin',
     ListLanguages: 'languages',
     Ipa: 'ipa',
+    // ex. /english  /spanish
     ListAccents: ':language',
+    // ex. /english/america/chorus/1
     ChorusDashboard: ':language/:accent/chorus/:sentenceIndex',
+    // ex. /english/america/pairs/1/example/1
     PairsDashboard: ':language/:accent/pairs/:pairIndex/example/:exampleIndex',
   } as const;
 
@@ -35,7 +38,7 @@ export class AppRoutesHelper {
   }
 
   static getAccentsRoute(language: string): any[] {
-    return ['/', language, AppRoutesHelper.routes.ListAccents];
+    return ['/', language];
   }
 
   static getChorusDashboardRoute(language: string, accent: string, sentenceIndex: number): any[] {

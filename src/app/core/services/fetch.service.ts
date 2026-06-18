@@ -15,12 +15,12 @@ export class FetchService {
   // In devmode, add a delay to simulate network latency.
   private sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  async fetchTotalSentenceCount(user_id: string): Promise<number> {
-    this.logger.debug('fetch.service.ts fetchTotalSentenceCount | user_id:', user_id);
+  async fetchTotalSentenceCount(userId: string): Promise<number> {
+    this.logger.debug('fetch.service.ts fetchTotalSentenceCount | userId:', userId);
     if (isDevMode()) await this.sleep(2000);
 
     const { data, error } = await this.supabase.rpc('get_user_total_listen_count', {
-      p_user_id: user_id,
+      p_user_id: userId,
     });
     if (error) {
       this.logger.error('fetch.service.ts fetchTotalSentenceCount | error:', error);
@@ -45,7 +45,9 @@ export class FetchService {
       accents:accent!inner (
         id,
         name:accent,
-        flag
+        flag,
+        nativeName:native_name,
+        code:country_code
       )
     `,
       )
@@ -114,15 +116,15 @@ export class FetchService {
     return objectUrl;
   }
 
-  async fetchSentenceCount(sentenceId: number, user_id: string): Promise<number> {
-    this.logger.debug('fetch.service.ts getSentenceCount | sentenceId:', sentenceId, user_id);
+  async fetchSentenceCount(sentenceId: number, userId: string): Promise<number> {
+    this.logger.debug('fetch.service.ts getSentenceCount | sentenceId:', sentenceId, userId);
     if (isDevMode()) await this.sleep(2000);
 
     const { data, error } = await this.supabase
       .from('sentence_listen_count')
       .select('count')
       .eq('sentence_id', sentenceId)
-      .eq('user_id', user_id)
+      .eq('user_id', userId)
       .maybeSingle();
     if (error) {
       this.logger.error('fetch.service.ts getSentenceCount | error:', error, data);

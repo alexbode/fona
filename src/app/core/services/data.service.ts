@@ -19,7 +19,7 @@ export class DataService {
   readonly currentUser = this.stateService.currentUser;
   readonly isLoggedIn = computed(() => {
     return this.currentUser() !== null;
-  })
+  });
 
   getTotalSentenceCount(): Signal<DataState<number>> {
     const existingSignal = this.stateService.totalSentenceCount;
@@ -59,10 +59,7 @@ export class DataService {
       return existingSignal;
     }
     this.fetchAndHydrateLanguageList();
-    this.logger.debug(
-      'fetch.service.ts fetchLanguageList | returning:',
-      existingSignal,
-    );
+    this.logger.debug('fetch.service.ts fetchLanguageList | returning:', existingSignal);
     return existingSignal;
   }
 

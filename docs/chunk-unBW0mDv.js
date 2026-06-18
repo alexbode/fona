@@ -1,1 +1,0 @@
-import {m as mE,ay as cc,S as SI,az as lc}from'./main-SLXDN7QC.js';var o=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=mE({type:t,selectors:[["app-ipa"]],decls:2,vars:0,template:function(e,m){e&1&&(cc(0,"p"),SI(1,"ipa works!"),lc());},encapsulation:2})};export{o as Ipa};

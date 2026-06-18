@@ -2,15 +2,21 @@
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 } -->
 @if (!isPlaying()) {
-<button hlmBtn appButton class="audio-icon" [disabled]="!dataService.isLoggedIn()" (click)="playAudio()">
-  <mat-icon>play_arrow</mat-icon>
-  Play
-</button>
+  <button
+    hlmBtn
+    appButton
+    class="audio-icon"
+    [disabled]="!dataService.isLoggedIn()"
+    (click)="playAudio()"
+  >
+    <mat-icon>play_arrow</mat-icon>
+    Play
+  </button>
 } @else {
-<button hlmBtn appButton [disabled]="!dataService.isLoggedIn()" (click)="stopAudio()">
-  <mat-icon>stop</mat-icon>
-  Stop
-</button>
+  <button hlmBtn appButton [disabled]="!dataService.isLoggedIn()" (click)="stopAudio()">
+    <mat-icon>stop</mat-icon>
+    Stop
+  </button>
 }
 
 <!-- <mat-button-toggle-group

@@ -40,8 +40,8 @@ export class Signup {
   private logger = inject(LoggingService);
 
   // State
-  protected readonly appRoutesHelper = AppRoutesHelper;
   showPassword = false;
+  appRoutesHelper = AppRoutesHelper;
 
   // Signals for state management
   isLoading = signal(false);
@@ -66,8 +66,7 @@ export class Signup {
 
       if (error) throw error;
 
-      // Navigate to your protected route on success
-      this.router.navigateByUrl(this.appRoutesHelper.routes.Home);
+      this.router.navigate(this.appRoutesHelper.getHomeRoute());
     } catch (error: any) {
       this.logger.error('signup.ts onSubmit | message: ', error.message);
       this.errorMessage.set(error.message || 'An error occurred during login.');

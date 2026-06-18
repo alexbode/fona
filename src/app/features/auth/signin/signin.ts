@@ -40,8 +40,8 @@ export class Signin {
   private logger = inject(LoggingService);
 
   // State
-  protected readonly appRoutesHelper = AppRoutesHelper;
   showPassword = false;
+  appRoutesHelper = AppRoutesHelper;
 
   // Signals
   isLoading = signal(false);
@@ -61,7 +61,7 @@ export class Signin {
     try {
       const { data, error } = await this.authService.signIn(email, password);
       if (error) throw error;
-      this.router.navigateByUrl(this.appRoutesHelper.routes.Home);
+      this.router.navigate(this.appRoutesHelper.getHomeRoute());
     } catch (error: any) {
       this.logger.error('signin.ts onSubmit | message: ', error.message);
       this.errorMessage.set(error.message || 'An error occurred during login.');
