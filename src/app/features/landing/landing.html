@@ -21,7 +21,9 @@
 
   <div class="relative max-w-6xl mx-auto px-6 pt-24 pb-20 text-center">
     <!-- Eyebrow -->
-    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border mb-8 bg-brand/5">
+    <div
+      class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border mb-8 bg-brand/5"
+    >
       <span class="w-1.5 h-1.5 rounded-full animate-pulse bg-brand"></span>
       <span class="text-xs text-muted-foreground" style="font-family: 'Inter', sans-serif">
         Science-backed accent training
@@ -35,7 +37,7 @@
       Sound like you<br />
       <span
         style="
-          background: linear-gradient(135deg, var(--brand) 0%, #3d5a9e 100%);
+          background: linear-gradient(135deg, var(--brand) 0%, var(--brand-secondary) 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
         "
@@ -120,10 +122,10 @@
   </div>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
     @for (step of howSteps; track step.num; let i = $index, isLast = $last) {
-      <div class="relative rounded-xl p-6 border border-border" style="background-color: #131820">
+      <div class="relative rounded-xl p-6 border border-border bg-card-dark">
         <div
-          class="text-4xl font-bold mb-5 leading-none"
-          style="font-family: 'Plus Jakarta Sans', sans-serif; color: rgba(75, 173, 200, 0.2)"
+          class="text-brand/20 text-4xl font-bold mb-5 leading-none"
+          style="font-family: 'Plus Jakarta Sans', sans-serif"
         >
           {{ step.num }}
         </div>
@@ -171,8 +173,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
       @for (card of whyCards; track card.title) {
         <div
-          class="rounded-xl p-6 border border-border hover:border-primary/20 transition-all"
-          style="background-color: #131820"
+          class="rounded-xl p-6 border border-border hover:border-primary/20 transition-all bg-card-dark"
         >
           <div class="text-3xl mb-4">{{ card.icon }}</div>
           <h3
@@ -211,10 +212,7 @@
   </div>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
     @for (t of testimonials; track t.name) {
-      <div
-        class="rounded-xl p-6 border border-border flex flex-col gap-5"
-        style="background-color: #131820"
-      >
+      <div class="rounded-xl p-6 border border-border flex flex-col gap-5 bg-card-dark">
         <!-- Stars -->
         <div class="flex gap-1">
           @for (s of [1, 2, 3, 4, 5]; track s) {
@@ -234,7 +232,7 @@
         <div class="flex items-center gap-3 pt-2 border-t border-border">
           <div
             class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 bg-brand/10 text-brand"
-            style="font-family: 'Plus Jakarta Sans', sans-serif;"
+            style="font-family: 'Plus Jakarta Sans', sans-serif"
           >
             {{ t.initials }}
           </div>

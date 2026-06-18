@@ -4,9 +4,13 @@
 @import 'tailwindcss/utilities.css';
 
 @import '@spartan-ng/brain/hlm-tailwind-preset.css';
+
 @theme {
   --color-brand: var(--brand);
   --color-brand-hover: var(--brand-hover);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-brand-secondary: var(--brand-secondary);
+  --color-card-dark: var(--card-dark);
   --color-pairs: var(--pairs);
 }
 
@@ -15,6 +19,9 @@
 
   --brand: #4badc8;
   --brand-hover: #3d8fb0;
+  --brand-foreground: #ffffff;
+  --brand-secondary: #3d5a9e;
+  --card-dark: #131820;
   --pairs: #f87171;
 
   --font-sans:
@@ -55,6 +62,9 @@
 
   --brand: #4badc8;
   --brand-hover: #3d8fb0;
+  --brand-foreground: #0c0e14;
+  --brand-secondary: #3d5a9e;
+  --card-dark: #131820;
   --pairs: #f87171;
 
   --background: oklch(0.141 0.005 285.823);
@@ -89,6 +99,7 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }

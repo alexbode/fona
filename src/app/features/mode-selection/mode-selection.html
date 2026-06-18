@@ -1,18 +1,27 @@
 <div class="flex flex-col flex-1 h-full">
   <!-- Navigation Header / NavBar -->
   <header class="flex items-center gap-3 px-5 py-4 shrink-0">
-    <button (click)="onBack()"
-      class="flex items-center justify-center p-1 rounded-full hover:bg-secondary cursor-pointer" aria-label="Back">
+    <button
+      (click)="onBack()"
+      class="flex items-center justify-center p-1 rounded-full hover:bg-secondary cursor-pointer"
+      aria-label="Back"
+    >
       <ng-icon hlm name="lucideChevronLeft" size="20px" class="text-foreground" />
     </button>
-    <span class="text-sm font-medium text-muted-foreground" style="font-family: 'Inter', sans-serif">
+    <span
+      class="text-sm font-medium text-muted-foreground"
+      style="font-family: 'Inter', sans-serif"
+    >
       {{ language()?.name | titlecase }} · {{ accent()?.nativeName | titlecase }}
     </span>
   </header>
 
   <!-- Title Section -->
   <div class="px-5 pb-3 shrink-0">
-    <h2 class="text-2xl font-bold text-foreground" style="font-family: 'Plus Jakarta Sans', sans-serif">
+    <h2
+      class="text-2xl font-bold text-foreground"
+      style="font-family: 'Plus Jakarta Sans', sans-serif"
+    >
       What do you want to train?
     </h2>
   </div>
@@ -20,22 +29,32 @@
   <!-- Selection Options -->
   <div class="flex-1 overflow-y-auto px-5 pb-8 space-y-4 pt-2">
     <!-- Chorusing Option -->
-    <button (click)="onSelectChorusing()"
-      class="w-full bg-card border border-border rounded p-6 text-left hover:border-primary/40 group cursor-pointer">
+    <button
+      (click)="onSelectChorusing()"
+      class="w-full bg-card border border-border rounded p-6 text-left hover:border-primary/40 group cursor-pointer"
+    >
       <div class="flex items-start gap-4">
         <div class="w-10 h-10 rounded flex items-center justify-center shrink-0 bg-brand/10">
           <ng-icon hlm name="lucideMic" size="18px" class="text-brand" />
         </div>
         <div>
-          <div class="text-foreground font-bold text-lg" style="font-family: 'Plus Jakarta Sans', sans-serif">
+          <div
+            class="text-foreground font-bold text-lg"
+            style="font-family: 'Plus Jakarta Sans', sans-serif"
+          >
             Chorusing
           </div>
-          <p class="text-muted-foreground text-sm mt-1 leading-relaxed" style="font-family: 'Inter', sans-serif">
+          <p
+            class="text-muted-foreground text-sm mt-1 leading-relaxed"
+            style="font-family: 'Inter', sans-serif"
+          >
             Listen to a native speaker and repeat simultaneously. Build muscle memory through
             repetition.
           </p>
-          <div class="text-brand text-xs mt-3 tracking-widest uppercase font-medium"
-            style="font-family: 'Inter', sans-serif">
+          <div
+            class="text-brand text-xs mt-3 tracking-widest uppercase font-medium"
+            style="font-family: 'Inter', sans-serif"
+          >
             Rep counting — rhythm training
           </div>
         </div>
@@ -43,22 +62,32 @@
     </button>
 
     <!-- Minimal Pairs Option -->
-    <button (click)="onSelectMinimalPairs()"
-      class="w-full bg-card border border-border rounded p-6 text-left hover:border-accent/40 group cursor-pointer">
+    <button
+      (click)="onSelectMinimalPairs()"
+      class="w-full bg-card border border-border rounded p-6 text-left hover:border-accent/40 group cursor-pointer"
+    >
       <div class="flex items-start gap-4">
         <div class="w-10 h-10 rounded flex items-center justify-center shrink-0 bg-pairs/10">
           <ng-icon hlm name="lucideVolume2" size="18px" class="text-pairs" />
         </div>
         <div>
-          <div class="text-foreground font-bold text-lg" style="font-family: 'Plus Jakarta Sans', sans-serif">
+          <div
+            class="text-foreground font-bold text-lg"
+            style="font-family: 'Plus Jakarta Sans', sans-serif"
+          >
             Minimal Pairs
           </div>
-          <p class="text-muted-foreground text-sm mt-1 leading-relaxed" style="font-family: 'Inter', sans-serif">
+          <p
+            class="text-muted-foreground text-sm mt-1 leading-relaxed"
+            style="font-family: 'Inter', sans-serif"
+          >
             Hear two nearly identical sounds. Train your ear to distinguish them — the foundation of
             accent perception.
           </p>
-          <div class="text-pairs text-xs mt-3 tracking-widest uppercase font-medium"
-            style="font-family: 'Inter', sans-serif">
+          <div
+            class="text-pairs text-xs mt-3 tracking-widest uppercase font-medium"
+            style="font-family: 'Inter', sans-serif"
+          >
             Ear training — phoneme discrimination
           </div>
         </div>

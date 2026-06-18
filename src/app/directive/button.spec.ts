@@ -28,7 +28,7 @@ describe('ButtonDirective', () => {
     const btnEl = fixture.nativeElement.querySelector('#defaultBtn') as HTMLButtonElement;
     expect(btnEl.className).toContain('font-semibold');
     expect(btnEl.className).toContain('bg-brand');
-    expect(btnEl.className).toContain('text-[#0c0e14]');
+    expect(btnEl.className).toContain('text-brand-foreground');
   });
 
   it('should apply secondary variant classes', () => {
@@ -41,6 +41,6 @@ describe('ButtonDirective', () => {
   it('should apply large size classes', () => {
     const btnEl = fixture.nativeElement.querySelector('#largeBtn') as HTMLButtonElement;
     expect(btnEl.className).toContain('px-8');
-    expect(btnEl.className).toContain('py-4');
+    expect(btnEl.className).toContain('py-6');
   });
 });
