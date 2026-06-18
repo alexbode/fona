@@ -1,9 +1,12 @@
-import { Component, inject, input, OnInit } from '@angular/core';
+import { Component, inject, input, OnInit, computed, Signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppRoutesHelper } from '@app/app.routes';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { lucideTrophy } from '@ng-icons/lucide';
+import { DataService } from '@core/services/data.service';
+import { DataState } from '@core/models/state';
+import { CourseConfig } from '@core/models/config';
 
 export interface SummaryData {
   mode: 'chorusing' | 'minimal-pairs';
@@ -28,6 +31,7 @@ import { ButtonDirective } from '@app/directive/button';
 })
 export class Summary implements OnInit {
   private readonly router = inject(Router);
+  private readonly dataService = inject(DataService);
 
   readonly language = input.required<string>();
   readonly accent = input.required<string>();
@@ -75,27 +79,38 @@ export class Summary implements OnInit {
 
     const messages = this.isChorusing
       ? [
-          'Solid session. Muscle memory builds rep by rep.',
-          'Your mouth is learning faster than your brain thinks.',
-          'Keep showing up. Accent change is cumulative.',
-        ]
+        'Solid session. Muscle memory builds rep by rep.',
+        'Your mouth is learning faster than your brain thinks.',
+        'Keep showing up. Accent change is cumulative.',
+      ]
       : this.accuracy >= 80
         ? [
-            'Sharp ear. Minimal pairs are the hardest thing to train.',
-            "You're developing phonemic categories. Keep going.",
-            'Real progress. Your brain is rewiring.',
-          ]
+          'Sharp ear. Minimal pairs are the hardest thing to train.',
+          "You're developing phonemic categories. Keep going.",
+          'Real progress. Your brain is rewiring.',
+        ]
         : [
-            "Tough sounds. That's the point. Come back tomorrow.",
-            "These distinctions take time. You're in the right place.",
-            'Ear training is a long game. Every rep counts.',
-          ];
+          "Tough sounds. That's the point. Come back tomorrow.",
+          "These distinctions take time. You're in the right place.",
+          'Ear training is a long game. Every rep counts.',
+        ];
 
     this.message = messages[Math.floor(Math.random() * messages.length)];
   }
 
+  config: Signal<DataState<CourseConfig>> = computed(() => {
+    const lang = this.language();
+    const acc = this.accent();
+    return this.dataService.getCourseConfig(lang, acc)();
+  });
+
+  chorusCumulativeReps = computed(() => {
+    return this.dataService.getChorusSessionState()().cumulativeReps;
+  });
+
   onGoAgain() {
     if (this.isChorusing) {
+      this.dataService.initializeChorusSessionState(this.config()?.value!);
       this.router.navigate(
         AppRoutesHelper.getChorusDashboardRoute(this.language(), this.accent(), 1),
       );

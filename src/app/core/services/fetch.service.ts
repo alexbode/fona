@@ -23,7 +23,7 @@ export class FetchService {
       p_user_id: userId,
     });
     if (error) {
-      this.logger.error('fetch.service.ts fetchTotalSentenceCount | error:', error);
+      this.logger.error('fetch.servicelanguages.ts fetchTotalSentenceCount | error:', error);
       throw error;
     }
     return data;

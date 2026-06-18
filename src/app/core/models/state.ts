@@ -3,3 +3,8 @@ export interface DataState<T> {
   isLoading: boolean;
   error: string | null;
 }
+
+export interface ChorusSessionState {
+  cumulativeReps: number;
+  sentencesInSession: number[];
+}

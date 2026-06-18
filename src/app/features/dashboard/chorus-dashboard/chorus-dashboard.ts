@@ -118,18 +118,11 @@ export class ChorusDashboard {
   });
 
   sentenceId: Signal<number | null> = computed(() => {
-    const config = this.config();
-    if (!config.value || config.isLoading || config.error) return null;
-    return config.value.chorus.sentences[parseInt(this.sentenceIndex(), 10) - 1];
+    const sentences = this.dataService.getChorusSessionState()().sentencesInSession;
+    return sentences[parseInt(this.sentenceIndex(), 10) - 1];
   });
 
-  numSentences = computed(() => {
-    const config = this.config().value;
-    if (config != null) {
-      return config.chorus.sentences.length;
-    }
-    return 0;
-  });
+  readonly numSentences = 10;
 
   sentence: Signal<DataState<Sentence>> = computed(() => {
     const id = this.sentenceId();
@@ -165,7 +158,7 @@ export class ChorusDashboard {
   nextSentence() {
     this.audioPlayer()?.stopAudio();
     const nextCumulative = this.cumulativeReps() + this.sessionCount();
-    if (Number(this.sentenceIndex()) < this.numSentences()) {
+    if (Number(this.sentenceIndex()) < this.numSentences) {
       this.router.navigate(
         AppRoutesHelper.getChorusDashboardRoute(
           this.language(),
@@ -184,7 +177,7 @@ export class ChorusDashboard {
   }
 
   disableNextButton() {
-    return Number(this.sentenceIndex()) === this.numSentences();
+    return Number(this.sentenceIndex()) === this.numSentences;
   }
 
   sentenceCount: Signal<DataState<number>> = computed(() => {
@@ -206,7 +199,7 @@ export class ChorusDashboard {
   handleNext() {
     this.audioPlayer()?.stopAudio();
     const nextCumulative = this.cumulativeReps() + this.sessionCount();
-    if (Number(this.sentenceIndex()) < this.numSentences()) {
+    if (Number(this.sentenceIndex()) < this.numSentences) {
       this.router.navigate(
         AppRoutesHelper.getChorusDashboardRoute(
           this.language(),
@@ -222,7 +215,7 @@ export class ChorusDashboard {
         state: {
           mode: 'chorusing',
           reps: nextCumulative,
-          total: this.numSentences(),
+          total: this.numSentences,
           accent: this.accentObj()?.nativeName || this.accent(),
         },
       });

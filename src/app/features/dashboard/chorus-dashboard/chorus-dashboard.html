@@ -10,7 +10,7 @@
       <ng-icon hlm name="lucideChevronLeft" size="20px" class="text-foreground" />
     </button>
     <span class="text-sm font-medium text-muted-foreground" style="font-family: 'Inter', sans-serif">
-      Chorusing · {{ accentObj()?.nativeName | titlecase }}
+      Chorusing · {{ accentObj()?.name | titlecase }}
     </span>
   </header>
 
@@ -18,7 +18,7 @@
   <div class="px-5 pb-4 shrink-0">
     <div class="flex items-center justify-between mb-2">
       <span class="text-muted-foreground text-xs" style="font-family: 'Inter', sans-serif">
-        {{ sentenceIndex() }} / {{ numSentences() }}
+        {{ sentenceIndex() }} / {{ numSentences }}
       </span>
       <span class="text-muted-foreground text-xs" style="font-family: 'Inter', sans-serif">
         phrase
@@ -26,7 +26,7 @@
     </div>
     <div class="h-[2px] bg-secondary rounded-full overflow-hidden">
       <div class="h-full bg-primary rounded-full transition-all duration-500"
-        [style.width.%]="(Number(sentenceIndex()) / numSentences()) * 100"></div>
+        [style.width.%]="(Number(sentenceIndex()) / numSentences) * 100"></div>
     </div>
   </div>
 
@@ -137,7 +137,7 @@
       }
       <button appButton variant="secondary" size="none" (click)="handleNext()"
         class="flex-1 py-4 rounded text-sm cursor-pointer" style="font-family: 'Inter', sans-serif">
-        {{ Number(sentenceIndex()) < numSentences() ? 'Next phrase →' : 'Finish session →' }} </button>
+        {{ Number(sentenceIndex()) < numSentences ? 'Next phrase →' : 'Finish session →' }} </button>
     </div>
   </div>
 </div>

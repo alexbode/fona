@@ -70,9 +70,8 @@ export class AudioPlayer {
   });
 
   sentenceId: Signal<number | null> = computed(() => {
-    const config = this.config();
-    if (!config.value || config.isLoading || config.error) return null;
-    return config.value.chorus.sentences[parseInt(this.sentenceIndex(), 10) - 1];
+    const sentences = this.dataService.getChorusSessionState()().sentencesInSession;
+    return sentences[parseInt(this.sentenceIndex(), 10) - 1];
   });
 
   audioResource: Signal<DataState<string>> = computed(() => {
@@ -132,7 +131,7 @@ export class AudioPlayer {
   incrementCounter() {
     const sentenceId = this.sentenceId();
     if (sentenceId) {
-      this.dataService.incrementSentenceCount(sentenceId);
+      this.dataService.incrementSentenceCount(sentenceId, true);
     }
   }
 

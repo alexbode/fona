@@ -3,7 +3,7 @@ import { LoggingService } from '@core/services/logging.service';
 import { LRUCache } from '@app/core/helpers/lru-cache/lru-cache';
 import { Sentence } from '@core/models/sentence';
 import { CourseConfig } from '@core/models/config';
-import { DataState } from '@core/models/state';
+import { DataState, ChorusSessionState } from '@core/models/state';
 import { Language } from '@core/models/language';
 import { User } from '@supabase/supabase-js';
 
@@ -41,11 +41,24 @@ export class StateService {
 
   #isLoggedIn = signal<DataState<boolean>>(createInitialState<boolean>(false));
   #currentUser = signal<DataState<User>>(createInitialState<User>());
+  #chorusSessionState: WritableSignal<ChorusSessionState> = signal({
+    cumulativeReps: 0,
+    sentencesInSession: [],
+  });
 
   readonly currentUser = this.#currentUser.asReadonly();
   readonly isLoggedIn = this.#isLoggedIn.asReadonly();
   readonly languageList = this.#languageList.asReadonly();
   readonly totalSentenceCount = this.#totalSentenceCount.asReadonly();
+
+
+  getChorusSessionState(): Signal<ChorusSessionState> {
+    return this.#chorusSessionState.asReadonly();
+  }
+
+  setChorusSessionState(value: Partial<ChorusSessionState>) {
+    this.#chorusSessionState.update((current) => ({ ...current, ...value }));
+  }
 
   setTotalSentenceCount(value: Partial<DataState<number>>) {
     this.#totalSentenceCount.update((current) => ({ ...current, ...value }));
@@ -105,7 +118,7 @@ export class StateService {
     }
   }
 
-  incrementSentenceCount(sentenceId: number): void {
+  incrementSentenceCount(sentenceId: number, isChorus: boolean = false): void {
     if (!this.#sentenceCountMap.has(sentenceId)) {
       this.initializeSentenceCount(sentenceId);
     } else {
@@ -116,6 +129,12 @@ export class StateService {
         ...current,
         value: (current.value ?? 0) + 1,
       }));
+      if (isChorus) {
+        this.#chorusSessionState.update((current) => ({
+          ...current,
+          cumulativeReps: current.cumulativeReps + 1,
+        }));
+      }
     }
   }
 

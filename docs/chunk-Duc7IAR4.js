@@ -1,0 +1,1 @@
+import {a as aE,a6 as ic,c as bI,a7 as sc}from'./main-OA2MBVYE.js';var o=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=aE({type:t,selectors:[["app-ipa"]],decls:2,vars:0,template:function(e,m){e&1&&(ic(0,"p"),bI(1,"ipa works!"),sc());},encapsulation:2})};export{o as Ipa};
