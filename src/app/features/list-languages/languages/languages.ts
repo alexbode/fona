@@ -50,7 +50,6 @@ export class Languages {
   }
 
   onSelect(lang: Language): void {
-    console.log('Selected language:', lang);
     this.router.navigate(AppRoutesHelper.getAccentsRoute(lang.name.toLowerCase()));
   }
 

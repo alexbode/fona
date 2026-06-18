@@ -1,85 +1,59 @@
 <div class="flex flex-col flex-1 h-full">
   <div class="px-5 pt-8 pb-5 shrink-0">
-    <h1
-      class="text-3xl font-bold leading-tight text-foreground"
-      style="font-family: 'Plus Jakarta Sans', sans-serif"
-    >
+    <h1 class="text-3xl font-bold leading-tight text-foreground" style="font-family: 'Plus Jakarta Sans', sans-serif">
       Train your<br />accent.
     </h1>
     <p class="text-muted-foreground text-sm mt-2" style="font-family: 'Inter', sans-serif">
       @if (dataService.isLoggedIn()) {
-        Welcome back, {{ dataService.currentUser().value?.email }}.
+      Welcome back, {{ dataService.currentUser().value?.email }}.
       } @else {
-        Choose a language to begin.
+      Choose a language to begin.
       }
     </p>
-    @if (allTimeReps > 0) {
-      <div
-        class="mt-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border"
-        style="background-color: #4badc80a"
-      >
-        <ng-icon hlm name="lucideSpeech" size="12px" style="color: #4badc8" />
-        <span class="text-xs font-medium" style="font-family: 'Inter', sans-serif; color: #4badc8">
-          {{ dataService.getTotalSentenceCount()().value }} total reps
-        </span>
-      </div>
+    @if (dataService.isLoggedIn()) {
+    <div class="mt-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border"
+      style="background-color: #4badc80a">
+      <ng-icon hlm name="lucideSpeech" size="12px" style="color: #4badc8" />
+      <span class="text-xs font-medium" style="font-family: 'Inter', sans-serif; color: #4badc8">
+        {{ dataService.getTotalSentenceCount()().value }} total reps
+      </span>
+    </div>
     }
   </div>
 
   <div class="flex-1 overflow-y-auto px-5 pb-8">
     <div class="grid grid-cols-2 lg:grid-cols-3 gap-3">
       @if (languages().isLoading) {
-        @for (i of [1, 2, 3, 4, 5]; track i) {
-          <app-selection-card [isLoading]="true" />
-        }
+      @for (i of [1, 2, 3, 4, 5]; track i) {
+      <app-selection-card [isLoading]="true" />
+      }
       } @else if (languages().value) {
-        @for (lang of languages().value; track lang.id) {
-          <app-selection-card
-            [flag]="lang.flag"
-            [title]="lang.name | titlecase"
-            [subtitle]="lang.nativeName | titlecase"
-            [footerText]="lang.accents.length + ' accents available'"
-            (select)="onSelect(lang)"
-          />
-        }
+      @for (lang of languages().value; track lang.id) {
+      <app-selection-card [flag]="lang.flag" [title]="lang.name | titlecase" [subtitle]="lang.nativeName | titlecase"
+        [footerText]="lang.accents.length + ' accents available'" (select)="onSelect(lang)" />
+      }
       } @else {
-        <p
-          class="col-span-full text-center py-8 text-muted-foreground text-sm"
-          style="font-family: 'Inter', sans-serif"
-        >
-          Failed to load languages.
-        </p>
+      <p class="col-span-full text-center py-8 text-muted-foreground text-sm" style="font-family: 'Inter', sans-serif">
+        Failed to load languages.
+      </p>
       }
     </div>
 
     <!-- IPA reference link -->
-    <button
-      (click)="onIpa()"
-      class="mt-5 w-full flex items-center gap-3 px-4 py-3.5 rounded border border-border bg-card hover:border-primary/30 hover:bg-secondary transition-all cursor-pointer"
-    >
-      <div
-        class="w-8 h-8 rounded flex items-center justify-center shrink-0"
-        style="background-color: #4badc814"
-      >
+    <button (click)="onIpa()"
+      class="mt-5 w-full flex items-center gap-3 px-4 py-3.5 rounded border border-border bg-card hover:border-primary/30 hover:bg-secondary transition-all cursor-pointer">
+      <div class="w-8 h-8 rounded flex items-center justify-center shrink-0" style="background-color: #4badc814">
         <ng-icon hlm name="lucideBookOpen" size="15px" style="color: #4badc8" />
       </div>
       <div class="text-left">
-        <div
-          class="text-foreground text-sm font-medium"
-          style="font-family: 'Plus Jakarta Sans', sans-serif"
-        >
+        <div class="text-foreground text-sm font-medium" style="font-family: 'Plus Jakarta Sans', sans-serif">
           IPA Reference
         </div>
         <div class="text-muted-foreground text-xs mt-0.5" style="font-family: 'Inter', sans-serif">
           International Phonetic Alphabet guide
         </div>
       </div>
-      <ng-icon
-        hlm
-        name="lucideChevronLeft"
-        size="14px"
-        class="ml-auto rotate-180 text-muted-foreground"
-      />
+      <ng-icon hlm name="lucideChevronLeft" size="14px" class="ml-auto rotate-180 text-muted-foreground" />
     </button>
   </div>
 </div>

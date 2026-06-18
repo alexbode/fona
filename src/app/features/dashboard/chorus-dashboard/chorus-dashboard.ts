@@ -3,7 +3,6 @@ import {
   input,
   inject,
   signal,
-  resource,
   effect,
   computed,
   Signal,

@@ -52,13 +52,11 @@ export class AudioPlayer {
       this.stopAudio();
     });
   }
-  // configResource = resource({
-  //   params: () => ({ language: this.language(), accent: this.accent() }),
-  //   loader: async ({ params }) => {
-  //     if (!params.language || !params.accent) return undefined;
-  //     return await this.dataService.getCourseConfig(params.language, params.accent);
-  //   },
-  // });
+
+  ngOnDestroy(): void {
+    this.audio.pause();
+    this.stopAudio();
+  }
 
   config: Signal<DataState<CourseConfig>> = computed(() => {
     const lang = this.language();
