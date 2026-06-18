@@ -1,51 +1,185 @@
-<div class="flex flex-col flex-1 h-full">
+<div class="flex flex-col flex-1 h-full bg-background select-none">
+  <!-- Headless Audio Player -->
+  <app-audio-player
+    [language]="language()"
+    [accent]="accent()"
+    [sentenceIndex]="sentenceIndex()"
+    class="hidden"
+  ></app-audio-player>
+
   <!-- Navigation Header / NavBar -->
   <header class="flex items-center gap-3 px-5 py-4 shrink-0">
-    <button (click)="onBack()"
-      class="flex items-center justify-center p-1 rounded-full hover:bg-secondary transition-colors cursor-pointer"
-      aria-label="Back">
+    <button
+      (click)="onBack()"
+      class="flex items-center justify-center p-1 rounded-full hover:bg-secondary cursor-pointer"
+      aria-label="Back"
+    >
       <ng-icon hlm name="lucideChevronLeft" size="20px" class="text-foreground" />
     </button>
-    <span class="text-sm font-medium text-muted-foreground" style="font-family: 'Inter', sans-serif">
-      Training Mode Selection
+    <span
+      class="text-sm font-medium text-muted-foreground"
+      style="font-family: 'Inter', sans-serif"
+    >
+      Chorusing · {{ accentObj()?.nativeName | titlecase }}
     </span>
   </header>
 
-  <div class="card-container bg-red-400">
-    <mat-card>
-      <mat-card-header>
-        <app-sentence-text [language]="language()" [accent]="accent()"
-          [sentenceIndex]="sentenceIndex()"></app-sentence-text>
-      </mat-card-header>
-      <mat-card-content>
-        <div class="chorus-count-row">
-          <div class="chorus-count-col">
-            @if (sentenceCount().isLoading) {
-            <p>ChorusCount: -</p>
-            } @else if (sentenceCount().value !== null) {
-            <p>ChorusCount: {{ sentenceCount().value }}</p>
-            } @else if (sentenceCount().error) {
-            <p>ChorusCount: ?</p>
-            }
-            <p>SessionCount: {{ sessionCount() }}</p>
-          </div>
-          <button hlmBtn appButton (click)="resetSessionCount()">
-            Refresh
-            <mat-icon>refresh</mat-icon>
+  <!-- Progress Bar -->
+  <div class="px-5 pb-4 shrink-0">
+    <div class="flex items-center justify-between mb-2">
+      <span class="text-muted-foreground text-xs" style="font-family: 'Inter', sans-serif">
+        {{ sentenceIndex() }} / {{ numSentences() }}
+      </span>
+      <span class="text-muted-foreground text-xs" style="font-family: 'Inter', sans-serif">
+        phrase
+      </span>
+    </div>
+    <div class="h-[2px] bg-secondary rounded-full overflow-hidden">
+      <div
+        class="h-full bg-primary rounded-full transition-all duration-500"
+        [style.width.%]="(Number(sentenceIndex()) / numSentences()) * 100"
+      ></div>
+    </div>
+  </div>
+
+  <div class="flex-1 flex flex-col px-5 pb-8 gap-5 overflow-y-auto">
+    <!-- Phrase card -->
+    <div class="bg-card border border-border rounded p-5 space-y-3">
+      @if (sentence().isLoading) {
+        <div class="animate-pulse space-y-3">
+          <div class="h-6 bg-muted rounded w-3/4"></div>
+          <div class="h-4 bg-muted rounded w-1/2"></div>
+        </div>
+      } @else {
+        <p
+          class="text-foreground text-xl font-semibold leading-snug"
+          style="font-family: 'Plus Jakarta Sans', sans-serif"
+        >
+          {{ sentenceText() }}
+        </p>
+        <div class="flex items-center justify-between gap-3">
+          <p
+            class="text-muted-foreground text-sm flex-1 font-mono"
+            style="font-family: 'Inter', sans-serif"
+          >
+            {{ sentenceIpa() }}
+          </p>
+          <button
+            (click)="onIpa()"
+            class="flex items-center gap-1 px-2.5 py-1 rounded border border-border text-xs shrink-0 transition-all hover:border-primary/40 cursor-pointer"
+            style="color: #4badc8; font-family: 'Inter', sans-serif; background-color: #4badc80d"
+          >
+            <ng-icon hlm name="lucideBookOpen" size="11px" />
+            IPA
           </button>
         </div>
-        <app-audio-player [language]="language()" [accent]="accent()"
-          [sentenceIndex]="sentenceIndex()"></app-audio-player>
-        <button hlmBtn appButton (click)="previousSentence()" [disabled]="disablePreviousButton()">
-          <mat-icon>skip_previous</mat-icon>
-          Prev Sentence
-        </button>
+        @if (hasPinyin()) {
+          <div class="border-t border-border pt-3">
+            <p class="text-xs text-muted-foreground" style="font-family: 'Inter', sans-serif">
+              <span class="text-primary" style="font-family: 'Inter', sans-serif"
+                >pronunciation:
+              </span>
+              {{ sentencePinyin() }}
+            </p>
+          </div>
+        }
+      }
+    </div>
 
-        <button hlmBtn appButton (click)="nextSentence()" [disabled]="disableNextButton()">
-          Next Sentence
-          <mat-icon>skip_next</mat-icon>
+    <!-- Waveform -->
+    <div
+      class="bg-card border border-border rounded p-5 flex flex-col justify-center items-center h-28"
+    >
+      <!-- Voice Waveform Animation -->
+      <div class="flex items-center justify-center gap-1.5 h-16 w-full">
+        @for (
+          bar of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+          track bar;
+          let idx = $index
+        ) {
+          <div
+            class="waveform-bar w-1.5 bg-primary/40 rounded-full transition-all"
+            [class.animating]="isPlaying()"
+            [style.height.px]="
+              isPlaying()
+                ? [24, 48, 32, 16, 56, 40, 24, 48, 32, 16, 56, 40, 24, 48, 32, 16, 56, 40, 24, 48][
+                    idx
+                  ]
+                : 12
+            "
+            [style.animation-delay.ms]="idx * 40"
+          ></div>
+        }
+      </div>
+    </div>
+
+    <!-- Rep counter -->
+    <div class="bg-card border border-border rounded py-5 px-5 flex items-center justify-between">
+      <div class="flex flex-col items-center flex-1">
+        <!-- Badge showing session reps -->
+        <div
+          class="flex items-center justify-center min-w-[40px] h-10 px-3 rounded-full bg-primary/10 border border-primary/20 text-primary font-bold text-lg"
+          style="color: #4badc8; border-color: #4badc833; background-color: #4badc81a"
+        >
+          {{ sessionCount() }}
+        </div>
+        <div class="text-muted-foreground text-xs mt-1" style="font-family: 'Inter', sans-serif">
+          this session
+        </div>
+      </div>
+      <div class="w-px h-16 bg-border mx-4 shrink-0"></div>
+      <div class="flex flex-col items-center flex-1">
+        @if (allTimeRepsState().isLoading) {
+          <span
+            class="text-4xl font-bold leading-none animate-pulse"
+            style="font-family: 'Plus Jakarta Sans', sans-serif; color: #6b7385"
+          >
+            ...
+          </span>
+        } @else {
+          <span
+            class="text-4xl font-bold leading-none"
+            style="font-family: 'Plus Jakarta Sans', sans-serif; color: #6b7385"
+          >
+            {{ allTimeReps() | number }}
+          </span>
+        }
+        <div
+          class="text-muted-foreground text-xs tracking-widest uppercase mt-1"
+          style="font-family: 'Inter', sans-serif"
+        >
+          all time
+        </div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <button
+      (click)="handlePlay()"
+      class="w-full py-4 rounded font-semibold text-base transition-all active:scale-95 cursor-pointer flex items-center justify-center gap-2"
+      [style.backgroundColor]="isPlaying() ? '#3d8fb0' : '#4badc8'"
+      style="color: #ffffff; font-family: 'Plus Jakarta Sans', sans-serif"
+    >
+      {{ isPlaying() ? '🔊 Listening — speak along!' : '▶ Play & Chorus' }}
+    </button>
+
+    <div class="flex gap-3">
+      @if (Number(sentenceIndex()) > 1) {
+        <button
+          (click)="previousSentence()"
+          class="flex-1 py-4 rounded font-semibold text-sm border border-border text-muted-foreground hover:text-foreground hover:border-foreground/20 transition-all active:scale-95 cursor-pointer"
+          style="font-family: 'Inter', sans-serif"
+        >
+          ← Prev phrase
         </button>
-      </mat-card-content>
-    </mat-card>
+      }
+      <button
+        (click)="handleNext()"
+        class="flex-1 py-4 rounded font-semibold text-sm border border-border text-muted-foreground hover:text-foreground hover:border-foreground/20 transition-all active:scale-95 cursor-pointer"
+        style="font-family: 'Inter', sans-serif"
+      >
+        {{ Number(sentenceIndex()) < numSentences() ? 'Next phrase →' : 'Finish session →' }}
+      </button>
+    </div>
   </div>
 </div>

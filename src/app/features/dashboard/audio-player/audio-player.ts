@@ -39,7 +39,7 @@ export class AudioPlayer {
   private readonly logger = inject(LoggingService);
 
   // Signals
-  protected isPlaying = signal(false);
+  readonly isPlaying = signal(false);
 
   // State
   private audio = new Audio();

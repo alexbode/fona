@@ -1,16 +1,20 @@
-.card-container {
-  max-width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+@keyframes bounce-wave {
+  0%,
+  100% {
+    transform: scaleY(0.25);
+    background-color: rgba(75, 173, 200, 0.4);
+  }
+  50% {
+    transform: scaleY(1);
+    background-color: rgba(75, 173, 200, 0.85);
+  }
 }
 
-.chorus-count-col {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.chorus-count-row {
-  display: flex;
-  flex-direction: row;
+.waveform-bar {
+  transform-origin: center;
+  will-change: transform, background-color;
+
+  &.animating {
+    animation: bounce-wave 0.8s ease-in-out infinite;
+  }
 }

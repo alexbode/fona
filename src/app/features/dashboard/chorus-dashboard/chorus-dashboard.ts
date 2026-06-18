@@ -1,41 +1,44 @@
-import { Component, input, inject, signal, effect, computed, Signal } from '@angular/core';
-import { AudioPlayer } from '@features/dashboard/audio-player/audio-player';
-import { SentenceText } from '@features/dashboard/sentence-text/sentence-text';
+import {
+  Component,
+  input,
+  inject,
+  signal,
+  effect,
+  computed,
+  Signal,
+  viewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatCardModule } from '@angular/material/card';
+import { DecimalPipe, TitleCasePipe } from '@angular/common';
+import { AudioPlayer } from '@features/dashboard/audio-player/audio-player';
 import { DataService } from '@core/services/data.service';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AppRoutesHelper } from '@app/app.routes';
 import { DataState } from '@app/core/models/state';
 import { CourseConfig } from '@app/core/models/config';
+import { Sentence } from '@core/models/sentence';
 import { ButtonDirective } from '@app/directive/button';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
-
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import { lucideChevronLeft } from '@ng-icons/lucide';
+import { lucideChevronLeft, lucideBookOpen } from '@ng-icons/lucide';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-chorus-dashboard',
   imports: [
-    MatButtonModule,
-    MatIconModule,
-    MatButtonToggleModule,
     AudioPlayer,
-    SentenceText,
-    MatCardModule,
-    MatProgressSpinnerModule,
     HlmButtonImports,
     ButtonDirective,
     NgIcon,
     HlmIcon,
+    DecimalPipe,
+    TitleCasePipe,
+    MatCardModule,
   ],
   providers: [
     provideIcons({
       lucideChevronLeft,
+      lucideBookOpen,
     }),
   ],
   templateUrl: './chorus-dashboard.html',
@@ -46,14 +49,37 @@ import { lucideChevronLeft } from '@ng-icons/lucide';
   },
 })
 export class ChorusDashboard {
-  protected dataService = inject(DataService);
-  private router = inject(Router);
+  protected readonly dataService = inject(DataService);
+  private readonly router = inject(Router);
 
-  protected readonly language = input.required<string>();
-  protected readonly accent = input.required<string>();
-  protected readonly sentenceIndex = input.required<string>();
+  readonly language = input.required<string>();
+  readonly accent = input.required<string>();
+  readonly sentenceIndex = input.required<string>();
 
-  protected sessionCount = signal<number>(0);
+  // Fetch language list to resolve native accent name
+  readonly languagesState = this.dataService.getLanguageList();
+
+  readonly languageObj = computed(() => {
+    const langs = this.languagesState().value;
+    if (!langs) return null;
+    const pathLang = this.language()?.toLowerCase();
+    return langs.find((l) => l.name.toLowerCase() === pathLang) || null;
+  });
+
+  readonly accentObj = computed(() => {
+    const lang = this.languageObj();
+    if (!lang) return null;
+    const pathAccent = this.accent()?.toLowerCase();
+    return lang.accents.find((a) => a.name.toLowerCase() === pathAccent) || null;
+  });
+
+  // Query headless audio player child component
+  readonly audioPlayer = viewChild<AudioPlayer>(AudioPlayer);
+
+  // Expose isPlaying signal from the child audio player
+  readonly isPlaying = computed(() => this.audioPlayer()?.isPlaying() ?? false);
+
+  protected readonly sessionCount = signal<number>(0);
   private trackedSentenceId: number = -1;
 
   constructor() {
@@ -93,7 +119,23 @@ export class ChorusDashboard {
     return 0;
   });
 
+  sentence: Signal<DataState<Sentence>> = computed(() => {
+    const id = this.sentenceId();
+    if (!id) return { value: null, isLoading: true, error: null };
+    return this.dataService.getSentence(id)();
+  });
+
+  sentenceText = computed(() => this.sentence().value?.text ?? '');
+  sentenceIpa = computed(() => this.sentence().value?.ipa ?? '');
+  sentencePinyin = computed(() => this.sentence().value?.pinyin ?? '');
+  hasPinyin = computed(() => !!this.sentencePinyin());
+
+  // Get total completed reps across all sentences
+  allTimeRepsState = this.dataService.getTotalSentenceCount();
+  allTimeReps = computed(() => this.allTimeRepsState().value ?? 0);
+
   previousSentence() {
+    this.audioPlayer()?.stopAudio();
     if (Number(this.sentenceIndex()) > 1) {
       this.router.navigate(
         AppRoutesHelper.getChorusDashboardRoute(
@@ -106,6 +148,7 @@ export class ChorusDashboard {
   }
 
   nextSentence() {
+    this.audioPlayer()?.stopAudio();
     if (Number(this.sentenceIndex()) < this.numSentences()) {
       this.router.navigate(
         AppRoutesHelper.getChorusDashboardRoute(
@@ -125,27 +168,47 @@ export class ChorusDashboard {
     return Number(this.sentenceIndex()) === this.numSentences();
   }
 
-  // sentenceCountResource = resource({
-  //   params: () => ({
-  //     id: this.sentenceId(),
-  //     _refresh: this.dataService.sentenceCountUpdateTrigger(),
-  //   }),
-  //   loader: async ({ params }) => {
-  //     if (!params.id) return null;
-  //     return await this.dataService.fetchSentenceCount(params.id);
-  //   },
-  // });
   sentenceCount: Signal<DataState<number>> = computed(() => {
     const id = this.sentenceId();
     if (!id) return { value: null, isLoading: false, error: null };
     return this.dataService.getSentenceCount(id)();
   });
 
-  resetSessionCount() {
-    this.sessionCount.set(0);
+  handlePlay() {
+    const player = this.audioPlayer();
+    if (!player) return;
+    if (player.isPlaying()) {
+      player.stopAudio();
+    } else {
+      player.playAudio();
+    }
+  }
+
+  handleNext() {
+    this.audioPlayer()?.stopAudio();
+    if (Number(this.sentenceIndex()) < this.numSentences()) {
+      this.router.navigate(
+        AppRoutesHelper.getChorusDashboardRoute(
+          this.language(),
+          this.accent(),
+          Number(this.sentenceIndex()) + 1,
+        ),
+      );
+    } else {
+      this.router.navigate(AppRoutesHelper.getModeSelectionRoute(this.language(), this.accent()));
+    }
+  }
+
+  onIpa() {
+    this.audioPlayer()?.stopAudio();
+    this.router.navigate(AppRoutesHelper.getIpaRoute());
   }
 
   onBack() {
+    this.audioPlayer()?.stopAudio();
     this.router.navigate(AppRoutesHelper.getModeSelectionRoute(this.language(), this.accent()));
   }
+
+  // To allow template access to Number constructor
+  protected readonly Number = Number;
 }
