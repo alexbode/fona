@@ -4,11 +4,12 @@ import { AppRoutesHelper } from '@app/app.routes';
 import { AuthService } from '@core/services/auth.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoggingService } from '@app/core/services/logging.service';
-import { ButtonDirective } from '@app/directive/button';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmInputImports } from '@spartan-ng/helm/input';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { lucideEye, lucideEyeOff } from '@ng-icons/lucide';
+import { AuthLayout } from '@features/auth/auth-layout/auth-layout';
+import { ButtonDirective } from '@app/directive/button';
 
 @Component({
   selector: 'app-signup',
@@ -16,10 +17,11 @@ import { lucideEye, lucideEyeOff } from '@ng-icons/lucide';
   imports: [
     ReactiveFormsModule,
     RouterLink,
-    ButtonDirective,
     HlmButtonImports,
     HlmInputImports,
     NgIconComponent,
+    AuthLayout,
+    ButtonDirective,
   ],
   providers: [provideIcons({ lucideEye, lucideEyeOff })],
   templateUrl: './signup.html',

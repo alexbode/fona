@@ -14,9 +14,11 @@ export interface SummaryData {
   accent: string;
 }
 
+import { ButtonDirective } from '@app/directive/button';
+
 @Component({
   selector: 'app-summary',
-  imports: [NgIcon, HlmIcon],
+  imports: [NgIcon, HlmIcon, ButtonDirective],
   providers: [
     provideIcons({
       lucideTrophy,

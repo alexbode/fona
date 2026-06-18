@@ -11,6 +11,8 @@ export const buttonVariants = cva(
           'font-medium border border-border hover:border-primary/30 hover:bg-secondary text-foreground',
       },
       size: {
+        none: '',
+        sm: 'px-4 py-2 text-sm',
         md: 'px-8 py-6',
         lg: 'px-8 py-6',
       },

@@ -1,15 +1,9 @@
 <div class="flex-1 flex flex-col px-5 pb-8 pt-12 select-none h-full bg-background">
   <div class="mb-8">
-    <div
-      class="text-xs tracking-widest uppercase text-muted-foreground mb-3"
-      style="font-family: 'Inter', sans-serif"
-    >
+    <div class="text-xs tracking-widest uppercase text-muted-foreground mb-3" style="font-family: 'Inter', sans-serif">
       session complete
     </div>
-    <h2
-      class="text-3xl font-bold text-foreground"
-      style="font-family: 'Plus Jakarta Sans', sans-serif"
-    >
+    <h2 class="text-3xl font-bold text-foreground" style="font-family: 'Plus Jakarta Sans', sans-serif">
       {{ isChorusing ? 'Chorusing' : 'Minimal Pairs' }}
     </h2>
     <p class="text-muted-foreground text-sm mt-1" style="font-family: 'Inter', sans-serif">
@@ -20,102 +14,72 @@
   <!-- Stats -->
   <div class="grid grid-cols-2 gap-3 mb-8">
     @if (isChorusing) {
-      <div class="bg-card border border-border rounded p-5 text-center">
-        <div
-          class="text-5xl font-bold text-brand"
-          style="font-family: 'Plus Jakarta Sans', sans-serif"
-        >
-          {{ data.reps }}
-        </div>
-        <div
-          class="text-muted-foreground text-xs mt-1 tracking-widest uppercase"
-          style="font-family: 'Inter', sans-serif"
-        >
-          total reps
-        </div>
+    <div class="bg-card border border-border rounded p-5 text-center">
+      <div class="text-5xl font-bold text-brand" style="font-family: 'Plus Jakarta Sans', sans-serif">
+        {{ data.reps }}
       </div>
-      <div class="bg-card border border-border rounded p-5 text-center">
-        <div
-          class="text-5xl font-bold text-muted-foreground"
-          style="font-family: 'Plus Jakarta Sans', sans-serif"
-        >
-          {{ data.total }}
-        </div>
-        <div
-          class="text-muted-foreground text-xs mt-1 tracking-widest uppercase"
-          style="font-family: 'Inter', sans-serif"
-        >
-          phrases
-        </div>
+      <div class="text-muted-foreground text-xs mt-1 tracking-widest uppercase"
+        style="font-family: 'Inter', sans-serif">
+        total reps
       </div>
+    </div>
+    <div class="bg-card border border-border rounded p-5 text-center">
+      <div class="text-5xl font-bold text-muted-foreground" style="font-family: 'Plus Jakarta Sans', sans-serif">
+        {{ data.total }}
+      </div>
+      <div class="text-muted-foreground text-xs mt-1 tracking-widest uppercase"
+        style="font-family: 'Inter', sans-serif">
+        phrases
+      </div>
+    </div>
     } @else {
-      <div class="bg-card border border-border rounded p-5 text-center">
-        <div
-          class="text-5xl font-bold text-brand"
-          style="font-family: 'Plus Jakarta Sans', sans-serif"
-        >
-          {{ accuracy }}%
-        </div>
-        <div
-          class="text-muted-foreground text-xs mt-1 tracking-widest uppercase"
-          style="font-family: 'Inter', sans-serif"
-        >
-          accuracy
-        </div>
+    <div class="bg-card border border-border rounded p-5 text-center">
+      <div class="text-5xl font-bold text-brand" style="font-family: 'Plus Jakarta Sans', sans-serif">
+        {{ accuracy }}%
       </div>
-      <div class="bg-card border border-border rounded p-5 text-center">
-        <div
-          class="text-5xl font-bold"
-          [class.text-brand]="data.streak >= 3"
-          [class.text-muted-foreground]="data.streak < 3"
-          style="font-family: 'Plus Jakarta Sans', sans-serif"
-        >
-          {{ data.streak }}
-        </div>
-        <div
-          class="text-muted-foreground text-xs mt-1 tracking-widest uppercase"
-          style="font-family: 'Inter', sans-serif"
-        >
-          best streak
-        </div>
+      <div class="text-muted-foreground text-xs mt-1 tracking-widest uppercase"
+        style="font-family: 'Inter', sans-serif">
+        accuracy
       </div>
+    </div>
+    <div class="bg-card border border-border rounded p-5 text-center">
+      <div class="text-5xl font-bold" [class.text-brand]="data.streak >= 3"
+        [class.text-muted-foreground]="data.streak < 3" style="font-family: 'Plus Jakarta Sans', sans-serif">
+        {{ data.streak }}
+      </div>
+      <div class="text-muted-foreground text-xs mt-1 tracking-widest uppercase"
+        style="font-family: 'Inter', sans-serif">
+        best streak
+      </div>
+    </div>
     }
   </div>
 
   <!-- Trophy for high performance -->
   @if (!isChorusing && accuracy >= 80) {
-    <div class="flex items-center gap-3 bg-primary/10 border border-primary/30 rounded p-4 mb-6">
-      <ng-icon hlm name="lucideTrophy" size="20px" class="text-brand" />
-      <span class="text-primary text-sm" style="font-family: 'Inter', sans-serif">
-        80%+ accuracy — exceptional ear training
-      </span>
-    </div>
+  <div class="flex items-center gap-3 bg-primary/10 border border-primary/30 rounded p-4 mb-6">
+    <ng-icon hlm name="lucideTrophy" size="20px" class="text-brand" />
+    <span class="text-primary text-sm" style="font-family: 'Inter', sans-serif">
+      80%+ accuracy — exceptional ear training
+    </span>
+  </div>
   }
 
   <!-- Motivational message -->
   <div class="bg-card border border-border rounded p-5 mb-8">
-    <p
-      class="text-foreground text-base leading-relaxed italic"
-      style="font-family: 'Plus Jakarta Sans', sans-serif"
-    >
+    <p class="text-foreground text-base leading-relaxed italic" style="font-family: 'Plus Jakarta Sans', sans-serif">
       "{{ message }}"
     </p>
   </div>
 
   <!-- CTAs -->
   <div class="space-y-3 mt-auto">
-    <button
-      (click)="onGoAgain()"
-      class="w-full py-4 rounded font-semibold text-base bg-brand hover:bg-brand-hover text-white cursor-pointer"
-      style="font-family: 'Plus Jakarta Sans', sans-serif"
-    >
+    <button appButton size="none" (click)="onGoAgain()" class="w-full py-4 rounded text-base cursor-pointer"
+      style="font-family: 'Plus Jakarta Sans', sans-serif">
       Go again
     </button>
-    <button
-      (click)="onHome()"
-      class="w-full py-4 rounded font-semibold text-sm border border-border text-muted-foreground hover:text-foreground hover:border-foreground/20 cursor-pointer"
-      style="font-family: 'Inter', sans-serif"
-    >
+    <button appButton variant="secondary" size="none" (click)="onHome()"
+      class="w-full py-4 rounded text-sm cursor-pointer" style="font-family: 'Inter', sans-serif">
       ← Back to languages
     </button>
   </div>

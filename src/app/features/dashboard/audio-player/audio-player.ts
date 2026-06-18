@@ -7,7 +7,6 @@ import { FormsModule } from '@angular/forms';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CourseConfig } from '@app/core/models/config';
 import { DataState } from '@app/core/models/state';
-import { ButtonDirective } from '@app/directive/button';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 
 @Component({
@@ -18,7 +17,6 @@ import { HlmButtonImports } from '@spartan-ng/helm/button';
     MatButtonToggleModule,
     FormsModule,
     MatProgressBarModule,
-    ButtonDirective,
     HlmButtonImports,
   ],
   templateUrl: './audio-player.html',
@@ -32,6 +30,7 @@ export class AudioPlayer {
   readonly language = input.required<string>();
   readonly accent = input.required<string>();
   readonly sentenceIndex = input.required<string>();
+  readonly playbackSpeed = input<string>('100');
 
   // Services
   // private readonly counterService = inject(CounterService);
@@ -43,13 +42,19 @@ export class AudioPlayer {
 
   // State
   private audio = new Audio();
-  protected playbackSpeed = '100';
 
   constructor() {
     effect(() => {
       const id = this.sentenceIndex();
       this.audioResource();
       this.stopAudio();
+    });
+
+    effect(() => {
+      const speed = this.playbackSpeed();
+      if (this.audio) {
+        this.audio.playbackRate = parseInt(speed, 10) / 100;
+      }
     });
   }
 
@@ -97,7 +102,7 @@ export class AudioPlayer {
 
       this.audio.currentTime = 0;
       this.audio.onended = this.handleAudioEnded;
-      this.audio.playbackRate = parseInt(this.playbackSpeed, 10) / 100;
+      this.audio.playbackRate = parseInt(this.playbackSpeed(), 10) / 100;
 
       this.audio
         .play()

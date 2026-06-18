@@ -16,12 +16,13 @@ import { AppRoutesHelper } from '@app/app.routes';
 import { DataState } from '@app/core/models/state';
 import { CourseConfig } from '@app/core/models/config';
 import { Sentence } from '@core/models/sentence';
-import { ButtonDirective } from '@app/directive/button';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { lucideChevronLeft, lucideBookOpen } from '@ng-icons/lucide';
 import { MatCardModule } from '@angular/material/card';
+
+import { ButtonDirective } from '@app/directive/button';
 
 @Component({
   selector: 'app-chorus-dashboard',
@@ -78,6 +79,12 @@ export class ChorusDashboard {
 
   // Expose isPlaying signal from the child audio player
   readonly isPlaying = computed(() => this.audioPlayer()?.isPlaying() ?? false);
+
+  protected readonly playbackSpeed = signal<string>('100');
+
+  setSpeed(speed: string) {
+    this.playbackSpeed.set(speed);
+  }
 
   protected readonly sessionCount = signal<number>(0);
   protected readonly cumulativeReps = signal<number>(0);

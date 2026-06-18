@@ -1,5 +1,5 @@
 import { Service, signal, inject, WritableSignal, Signal } from '@angular/core';
-import { LoggingService } from './logging.service';
+import { LoggingService } from '@core/services/logging.service';
 import { LRUCache } from '@app/core/helpers/lru-cache/lru-cache';
 import { Sentence } from '@core/models/sentence';
 import { CourseConfig } from '@core/models/config';
