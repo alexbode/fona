@@ -80,9 +80,14 @@ export class ChorusDashboard {
   readonly isPlaying = computed(() => this.audioPlayer()?.isPlaying() ?? false);
 
   protected readonly sessionCount = signal<number>(0);
+  protected readonly cumulativeReps = signal<number>(0);
   private trackedSentenceId: number = -1;
 
   constructor() {
+    const navigation = this.router.getCurrentNavigation();
+    const state = navigation?.extras.state as { cumulativeReps?: number } | undefined;
+    this.cumulativeReps.set(state?.cumulativeReps ?? 0);
+
     effect(() => {
       const count = this.sentenceCount().value;
       const isLoading = this.sentenceCount().isLoading;
@@ -143,12 +148,16 @@ export class ChorusDashboard {
           this.accent(),
           Number(this.sentenceIndex()) - 1,
         ),
+        {
+          state: { cumulativeReps: this.cumulativeReps() },
+        },
       );
     }
   }
 
   nextSentence() {
     this.audioPlayer()?.stopAudio();
+    const nextCumulative = this.cumulativeReps() + this.sessionCount();
     if (Number(this.sentenceIndex()) < this.numSentences()) {
       this.router.navigate(
         AppRoutesHelper.getChorusDashboardRoute(
@@ -156,6 +165,9 @@ export class ChorusDashboard {
           this.accent(),
           Number(this.sentenceIndex()) + 1,
         ),
+        {
+          state: { cumulativeReps: nextCumulative },
+        },
       );
     }
   }
@@ -186,6 +198,7 @@ export class ChorusDashboard {
 
   handleNext() {
     this.audioPlayer()?.stopAudio();
+    const nextCumulative = this.cumulativeReps() + this.sessionCount();
     if (Number(this.sentenceIndex()) < this.numSentences()) {
       this.router.navigate(
         AppRoutesHelper.getChorusDashboardRoute(
@@ -193,9 +206,19 @@ export class ChorusDashboard {
           this.accent(),
           Number(this.sentenceIndex()) + 1,
         ),
+        {
+          state: { cumulativeReps: nextCumulative },
+        },
       );
     } else {
-      this.router.navigate(AppRoutesHelper.getModeSelectionRoute(this.language(), this.accent()));
+      this.router.navigate(AppRoutesHelper.getSummaryRoute(this.language(), this.accent()), {
+        state: {
+          mode: 'chorusing',
+          reps: nextCumulative,
+          total: this.numSentences(),
+          accent: this.accentObj()?.nativeName || this.accent(),
+        },
+      });
     }
   }
 

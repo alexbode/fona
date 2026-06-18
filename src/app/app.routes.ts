@@ -15,6 +15,8 @@ export class AppRoutesHelper {
     ChorusDashboard: ':language/:accent/chorus/:sentenceIndex',
     // ex. /english/america/pairs/1/example/1
     PairsDashboard: ':language/:accent/pairs/:pairIndex/example/:exampleIndex',
+    // ex. /english/america/summary
+    Summary: ':language/:accent/summary',
   } as const;
 
   static readonly authFlowRoutes = [AppRoutesHelper.routes.Signin, AppRoutesHelper.routes.Signup];
@@ -59,6 +61,10 @@ export class AppRoutesHelper {
   ): any[] {
     return ['/', language, accent, 'pairs', pairsIndex, 'example', exampleIndex];
   }
+
+  static getSummaryRoute(language: string, accent: string): any[] {
+    return ['/', language, accent, 'summary'];
+  }
 }
 
 const staticRoutes: Routes = [
@@ -96,6 +102,10 @@ const dynamicRoutes: Routes = [
     path: AppRoutesHelper.routes.PairsDashboard,
     loadComponent: () =>
       import('@features/pairs/pairs-dashboard/pairs-dashboard').then((m) => m.PairsDashboard),
+  },
+  {
+    path: AppRoutesHelper.routes.Summary,
+    loadComponent: () => import('@features/summary/summary').then((m) => m.Summary),
   },
   {
     path: AppRoutesHelper.routes.ModeSelection,

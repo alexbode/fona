@@ -1,0 +1,125 @@
+<div class="flex-1 flex flex-col px-5 pb-8 pt-12 select-none h-full bg-background">
+  <div class="mb-8">
+    <div
+      class="text-xs tracking-widest uppercase text-muted-foreground mb-3"
+      style="font-family: 'Inter', sans-serif"
+    >
+      session complete
+    </div>
+    <h2
+      class="text-3xl font-bold text-foreground"
+      style="font-family: 'Plus Jakarta Sans', sans-serif"
+    >
+      {{ isChorusing ? 'Chorusing' : 'Minimal Pairs' }}
+    </h2>
+    <p class="text-muted-foreground text-sm mt-1" style="font-family: 'Inter', sans-serif">
+      {{ data.accent }}
+    </p>
+  </div>
+
+  <!-- Stats -->
+  <div class="grid grid-cols-2 gap-3 mb-8">
+    @if (isChorusing) {
+      <div class="bg-card border border-border rounded p-5 text-center">
+        <div
+          class="text-5xl font-bold"
+          style="font-family: 'Plus Jakarta Sans', sans-serif; color: #4badc8"
+        >
+          {{ data.reps }}
+        </div>
+        <div
+          class="text-muted-foreground text-xs mt-1 tracking-widest uppercase"
+          style="font-family: 'Inter', sans-serif"
+        >
+          total reps
+        </div>
+      </div>
+      <div class="bg-card border border-border rounded p-5 text-center">
+        <div
+          class="text-5xl font-bold"
+          style="font-family: 'Plus Jakarta Sans', sans-serif; color: #eaeaed"
+        >
+          {{ data.total }}
+        </div>
+        <div
+          class="text-muted-foreground text-xs mt-1 tracking-widest uppercase"
+          style="font-family: 'Inter', sans-serif"
+        >
+          phrases
+        </div>
+      </div>
+    } @else {
+      <div class="bg-card border border-border rounded p-5 text-center">
+        <div
+          class="text-5xl font-bold"
+          style="font-family: 'Plus Jakarta Sans', sans-serif; color: #4badc8"
+        >
+          {{ accuracy }}%
+        </div>
+        <div
+          class="text-muted-foreground text-xs mt-1 tracking-widest uppercase"
+          style="font-family: 'Inter', sans-serif"
+        >
+          accuracy
+        </div>
+      </div>
+      <div class="bg-card border border-border rounded p-5 text-center">
+        <div
+          class="text-5xl font-bold"
+          [style.color]="data.streak >= 3 ? '#4badc8' : '#eaeaed'"
+          style="font-family: 'Plus Jakarta Sans', sans-serif"
+        >
+          {{ data.streak }}
+        </div>
+        <div
+          class="text-muted-foreground text-xs mt-1 tracking-widest uppercase"
+          style="font-family: 'Inter', sans-serif"
+        >
+          best streak
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Trophy for high performance -->
+  @if (!isChorusing && accuracy >= 80) {
+    <div class="flex items-center gap-3 bg-primary/10 border border-primary/30 rounded p-4 mb-6">
+      <ng-icon hlm name="lucideTrophy" size="20px" style="color: #4badc8" />
+      <span class="text-primary text-sm" style="font-family: 'Inter', sans-serif">
+        80%+ accuracy — exceptional ear training
+      </span>
+    </div>
+  }
+
+  <!-- Motivational message -->
+  <div class="bg-card border border-border rounded p-5 mb-8">
+    <p
+      class="text-foreground text-base leading-relaxed italic"
+      style="font-family: 'Plus Jakarta Sans', sans-serif"
+    >
+      "{{ message }}"
+    </p>
+  </div>
+
+  <!-- CTAs -->
+  <div class="space-y-3 mt-auto">
+    <button
+      (click)="onGoAgain()"
+      class="w-full py-4 rounded font-semibold text-base cursor-pointer"
+      style="
+        background-color: #4badc8;
+        color: #ffffff;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+      "
+    >
+      Go again
+    </button>
+    <button
+      (click)="onHome()"
+      class="w-full py-4 rounded font-semibold text-sm border border-border text-muted-foreground hover:text-foreground hover:border-foreground/20 cursor-pointer"
+      style="font-family: 'Inter', sans-serif"
+    >
+      ← Back to languages
+    </button>
+  </div>
+</div>
