@@ -2,7 +2,7 @@
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-4">
     <!-- Email Field -->
     <div class="space-y-1.5">
-      <label class="text-xs font-semibold text-muted-foreground uppercase tracking-wider" style="font-family: 'Inter', sans-serif">
+      <label class="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
         Email
       </label>
       <input
@@ -13,16 +13,16 @@
         class="w-full bg-card/50 dark:bg-card/20 border-border"
       />
       @if (loginForm.controls.email.hasError('required') && loginForm.controls.email.touched) {
-        <p class="text-xs text-destructive mt-1" style="font-family: 'Inter', sans-serif">Email is required</p>
+        <p class="text-xs text-destructive mt-1">Email is required</p>
       }
       @if (loginForm.controls.email.hasError('email') && loginForm.controls.email.touched) {
-        <p class="text-xs text-destructive mt-1" style="font-family: 'Inter', sans-serif">Please enter a valid email address</p>
+        <p class="text-xs text-destructive mt-1">Please enter a valid email address</p>
       }
     </div>
 
     <!-- Password Field -->
     <div class="space-y-1.5">
-      <label class="text-xs font-semibold text-muted-foreground uppercase tracking-wider" style="font-family: 'Inter', sans-serif">
+      <label class="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
         Password
       </label>
       <div class="relative flex items-center">
@@ -42,13 +42,13 @@
         </button>
       </div>
       @if (loginForm.controls.password.hasError('required') && loginForm.controls.password.touched) {
-        <p class="text-xs text-destructive mt-1" style="font-family: 'Inter', sans-serif">Password is required</p>
+        <p class="text-xs text-destructive mt-1">Password is required</p>
       }
     </div>
 
     <!-- Error Message -->
     @if (errorMessage()) {
-      <p class="text-xs text-destructive mt-1" style="font-family: 'Inter', sans-serif">
+      <p class="text-xs text-destructive mt-1">
         {{ errorMessage() }}
       </p>
     }
@@ -61,9 +61,9 @@
           formControlName="rememberMe"
           class="rounded border-border bg-card/50 dark:bg-card/20 text-brand focus:ring-brand cursor-pointer"
         />
-        <span style="font-family: 'Inter', sans-serif">Save email</span>
+        <span>Save email</span>
       </label>
-      <button type="button" class="text-xs text-brand hover:underline cursor-pointer" style="font-family: 'Inter', sans-serif">
+      <button type="button" class="text-xs text-brand hover:underline cursor-pointer">
         Forgot password?
       </button>
     </div>
@@ -74,8 +74,7 @@
       size="none"
       type="submit"
       [disabled]="loginForm.invalid || isLoading()"
-      class="w-full py-3.5 rounded-lg text-sm transition-all gap-2 disabled:opacity-70 disabled:pointer-events-none"
-      style="font-family: 'Plus Jakarta Sans', sans-serif"
+      class="w-full py-3.5 rounded-lg text-sm transition-all gap-2 disabled:opacity-70 disabled:pointer-events-none font-jakarta"
     >
       @if (isLoading()) {
         <svg class="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -87,7 +86,7 @@
     </button>
   </form>
 
-  <p footer class="text-center text-xs text-muted-foreground mt-8" style="font-family: 'Inter', sans-serif">
+  <p footer class="text-center text-xs text-muted-foreground mt-8">
     Don't have an account?
     <a [routerLink]="appRoutesHelper.getSignupRoute()" class="text-brand hover:underline font-medium cursor-pointer">Sign up</a>
   </p>
