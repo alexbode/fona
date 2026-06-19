@@ -6,7 +6,7 @@ import { DataState, ChorusSessionState } from '@core/models/state';
 import { Sentence } from '@core/models/sentence';
 import { Language } from '@core/models/language';
 import { CourseConfig } from '@core/models/config';
-import { User } from '@supabase/supabase-js';
+import { AppUser } from '@core/models/user';
 
 @Service()
 export class DataService {
@@ -18,7 +18,7 @@ export class DataService {
   // State
   readonly currentUser = this.stateService.currentUser;
   readonly isLoggedIn = computed(() => {
-    return this.currentUser() !== null;
+    return this.currentUser().value !== null;
   });
   readonly userId = computed(() => {
     return this.currentUser()?.value?.id;
@@ -63,7 +63,7 @@ export class DataService {
     }
   }
 
-  setCurrentUser(value: Partial<DataState<User>>): void {
+  setCurrentUser(value: Partial<DataState<AppUser>>): void {
     this.stateService.setCurrentUser(value);
   }
 

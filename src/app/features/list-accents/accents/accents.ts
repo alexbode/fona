@@ -8,9 +8,11 @@ import { Accent } from '@core/models/language';
 import { SelectionCard } from '@app/shared/selection-card/selection-card';
 import { AppRoutesHelper } from '@app/app.routes';
 
+import { TitleCasePipe } from '@angular/common';
+
 @Component({
   selector: 'app-accents',
-  imports: [NgIcon, HlmIcon, SelectionCard],
+  imports: [NgIcon, HlmIcon, SelectionCard, TitleCasePipe],
   providers: [
     provideIcons({
       lucideChevronLeft,
@@ -43,10 +45,16 @@ export class Accents {
   });
 
   onSelect(accent: Accent): void {
-    const langCode = this.language()?.name?.toLowerCase() || '';
+    const langName = this.language()?.name?.toLowerCase() || '';
     const accentName = accent.name.toLowerCase();
+    const role = `${langName}/${accentName}`
+    if (!this.dataService.currentUser().value?.user_roles?.includes(role)) {
+      this.router.navigate(AppRoutesHelper.getPaywallRoute(langName, accentName));
+      return;
+    }
+
     // Navigate to mode selection for the selected accent
-    this.router.navigate(AppRoutesHelper.getModeSelectionRoute(langCode, accentName));
+    this.router.navigate(AppRoutesHelper.getModeSelectionRoute(langName, accentName));
   }
 
   onBack(): void {

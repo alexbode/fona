@@ -46,7 +46,7 @@ export class Navbar {
   private readonly dataService = inject(DataService);
   protected readonly responsive = inject(ResponsiveService);
 
-  protected readonly isLoggedIn = this.dataService.isLoggedIn;
+  readonly isLoggedIn = this.dataService.isLoggedIn;
   protected readonly appRoutesHelper = AppRoutesHelper;
 
   isHovered = false;
@@ -64,8 +64,9 @@ export class Navbar {
     },
   );
 
-  protected logOut() {
+  protected signOut() {
     this.authService.signOut();
+    this.router.navigate(AppRoutesHelper.getHomeRoute());
   }
 
   // Helper method to clean up the URL formatting and check the array

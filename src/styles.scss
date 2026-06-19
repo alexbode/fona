@@ -6,6 +6,9 @@
 @import '@spartan-ng/brain/hlm-tailwind-preset.css';
 
 @theme {
+  --font-sans: 'Inter', sans-serif;
+  --font-jakarta: 'Plus Jakarta Sans', sans-serif;
+
   --color-brand: var(--brand);
   --color-brand-hover: var(--brand-hover);
   --color-brand-foreground: var(--brand-foreground);
@@ -24,9 +27,8 @@
   --card-dark: #131820;
   --pairs: #f87171;
 
-  --font-sans:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
-    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-sans: 'Inter', sans-serif;
+  --font-jakarta: 'Plus Jakarta Sans', sans-serif;
 
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -93,6 +95,9 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.552 0.016 285.938);
+
+  --font-sans: 'Inter', sans-serif;
+  --font-jakarta: 'Plus Jakarta Sans', sans-serif;
 }
 
 @layer base {
@@ -102,5 +107,33 @@
 
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-sans);
   }
+}
+
+@utility bg-mesh-landing-hero {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(75, 173, 200, 0.18) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 40% at 80% 60%, rgba(61, 90, 158, 0.14) 0%, transparent 60%);
+}
+
+@utility bg-mesh-landing-cta {
+  background: radial-gradient(
+    ellipse 70% 80% at 50% 50%,
+    rgba(75, 173, 200, 0.1) 0%,
+    transparent 70%
+  );
+}
+
+@utility bg-subtle-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 1) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+@utility text-gradient-brand {
+  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

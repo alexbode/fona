@@ -4,6 +4,7 @@ import { SupabaseClient, User, Session } from '@supabase/supabase-js';
 import { SupabaseService } from '@core/services/supabase.service';
 import { LoggingService } from '@core/services/logging.service';
 import { DataService } from '@core/services/data.service';
+import { AppUser, CustomJwt } from '@core/models/user'
 
 @Injectable({
   providedIn: 'root',
@@ -27,8 +28,11 @@ export class AuthService {
   }
 
   private async handleAuthChange(session: Session | null) {
-    if (session?.user !== null) {
-      this.dataService.setCurrentUser({ value: session!.user!, isLoading: false, error: null });
+    if (session?.user) {
+      const decoded = jwtDecode<CustomJwt>(session!.access_token);
+      const user: AppUser = session!.user;
+      user.user_roles = decoded.user_roles || [];
+      this.dataService.setCurrentUser({ value: user, isLoading: false, error: null });
     } else {
       this.dataService.setCurrentUser({ value: null, isLoading: false, error: null });
     }

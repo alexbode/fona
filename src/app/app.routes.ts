@@ -17,6 +17,8 @@ export class AppRoutesHelper {
     PairsDashboard: ':language/:accent/pairs/:pairIndex/example/:exampleIndex',
     // ex. /english/america/summary
     Summary: ':language/:accent/summary',
+    // ex. /paywall/english/america
+    Paywall: 'paywall/:language/:accent',
   } as const;
 
   static readonly authFlowRoutes = [AppRoutesHelper.routes.Signin, AppRoutesHelper.routes.Signup];
@@ -65,6 +67,10 @@ export class AppRoutesHelper {
   static getSummaryRoute(language: string, accent: string): any[] {
     return ['/', language, accent, 'summary'];
   }
+
+  static getPaywallRoute(language: string, accent: string): any[] {
+    return ['/', 'paywall', language, accent];
+  }
 }
 
 const staticRoutes: Routes = [
@@ -91,6 +97,10 @@ const staticRoutes: Routes = [
   },
 ];
 const dynamicRoutes: Routes = [
+  {
+    path: AppRoutesHelper.routes.Paywall,
+    loadComponent: () => import('@features/paywall/paywall').then((m) => m.Paywall),
+  },
   {
     path: AppRoutesHelper.routes.ChorusDashboard,
     loadComponent: () =>

@@ -5,7 +5,7 @@ import { Sentence } from '@core/models/sentence';
 import { CourseConfig } from '@core/models/config';
 import { DataState, ChorusSessionState } from '@core/models/state';
 import { Language } from '@core/models/language';
-import { User } from '@supabase/supabase-js';
+import { AppUser } from '@core/models/user';
 
 function createInitialState<T>(initialValue: T | null = null): DataState<T> {
   return {
@@ -40,7 +40,7 @@ export class StateService {
   #languageList = signal<DataState<Language[]>>(createInitialState());
 
   #isLoggedIn = signal<DataState<boolean>>(createInitialState<boolean>(false));
-  #currentUser = signal<DataState<User>>(createInitialState<User>());
+  #currentUser = signal<DataState<AppUser>>(createInitialState<AppUser>());
   #chorusSessionState: WritableSignal<ChorusSessionState> = signal({
     cumulativeReps: 0,
     sentencesInSession: [],
@@ -64,7 +64,7 @@ export class StateService {
     this.#totalSentenceCount.update((current) => ({ ...current, ...value }));
   }
 
-  setCurrentUser(value: Partial<DataState<User>>) {
+  setCurrentUser(value: Partial<DataState<AppUser>>) {
     this.#currentUser.update((current) => ({ ...current, ...value }));
   }
 

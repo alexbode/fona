@@ -27,7 +27,7 @@
             }
             } @else if (language()) {
             @for (accent of language()?.accents; track accent.id) {
-            <app-selection-card [flag]="accent.flag" [title]="accent.name" [subtitle]="accent.nativeName"
+            <app-selection-card [flag]="accent.flag" [title]="accent.name | titlecase" [subtitle]="accent.nativeName | titlecase"
                 [unlocked]="purchasedAccents.has(accent.name)" (select)="onSelect(accent)" />
             }
             } @else {

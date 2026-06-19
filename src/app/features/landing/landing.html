@@ -1,54 +1,24 @@
 <section class="relative overflow-hidden">
   <!-- Mesh gradient background -->
-  <div
-    class="absolute inset-0 pointer-events-none"
-    style="
-      background:
-        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(75, 173, 200, 0.18) 0%, transparent 70%),
-        radial-gradient(ellipse 50% 40% at 80% 60%, rgba(61, 90, 158, 0.14) 0%, transparent 60%);
-    "
-  ></div>
+  <div class="absolute inset-0 pointer-events-none bg-mesh-landing-hero"></div>
   <!-- Subtle grid -->
-  <div
-    class="absolute inset-0 pointer-events-none opacity-[0.03]"
-    style="
-      background-image:
-        linear-gradient(rgba(255, 255, 255, 1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 1) 1px, transparent 1px);
-      background-size: 48px 48px;
-    "
-  ></div>
+  <div class="absolute inset-0 pointer-events-none opacity-[0.03] bg-subtle-grid"></div>
 
   <div class="relative max-w-6xl mx-auto px-6 pt-24 pb-20 text-center">
     <!-- Eyebrow -->
-    <div
-      class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border mb-8 bg-brand/5"
-    >
+    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border mb-8 bg-brand/5">
       <span class="w-1.5 h-1.5 rounded-full animate-pulse bg-brand"></span>
-      <span class="text-xs text-muted-foreground" style="font-family: 'Inter', sans-serif">
+      <span class="text-xs text-muted-foreground">
         Science-backed accent training
       </span>
     </div>
 
-    <h1
-      class="text-5xl md:text-7xl font-bold text-foreground leading-[1.05] tracking-tight mb-6"
-      style="font-family: 'Plus Jakarta Sans', sans-serif"
-    >
+    <h1 class="text-5xl md:text-7xl font-bold text-foreground leading-[1.05] tracking-tight mb-6 font-jakarta">
       Sound like you<br />
-      <span
-        style="
-          background: linear-gradient(135deg, var(--brand) 0%, var(--brand-secondary) 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-        "
-        >belong there.</span
-      >
+      <span class="text-gradient-brand">belong there.</span>
     </h1>
 
-    <p
-      class="text-lg text-muted-foreground max-w-xl mx-auto mb-10 leading-relaxed"
-      style="font-family: 'Inter', sans-serif"
-    >
+    <p class="text-lg text-muted-foreground max-w-xl mx-auto mb-10 leading-relaxed">
       Fona trains your accent through chorusing and minimal pairs — the same techniques professional
       coaches use, available anywhere, at your own pace.
     </p>
@@ -65,14 +35,7 @@
     <!-- Phonetic hero decoration -->
     <div class="mt-16 flex flex-wrap justify-center gap-3">
       @for (sym of phoneticSymbols; track sym) {
-        <div
-          class="px-4 py-2 rounded-lg border border-border text-lg font-mono"
-          style="
-            background-color: rgba(75, 173, 200, 0.05);
-            color: rgba(75, 173, 200, 0.6);
-            font-family: 'Inter', sans-serif;
-          "
-        >
+        <div class="px-4 py-2 rounded-lg border border-border text-lg bg-brand/5 text-brand/60">
           {{ sym }}
         </div>
       }
@@ -81,21 +44,15 @@
 </section>
 
 <!-- Social proof bar -->
-<section class="border-y border-border py-6" style="background-color: rgba(255, 255, 255, 0.015)">
+<section class="border-y border-border py-6 bg-white/[0.015]">
   <div class="max-w-6xl mx-auto px-6">
     <div class="flex flex-wrap justify-center gap-x-12 gap-y-4">
       @for (stat of stats; track stat.label) {
         <div class="text-center">
-          <div
-            class="text-2xl font-bold text-foreground"
-            style="font-family: 'Plus Jakarta Sans', sans-serif"
-          >
+          <div class="text-2xl font-bold text-foreground font-jakarta">
             {{ stat.value }}
           </div>
-          <div
-            class="text-xs text-muted-foreground mt-0.5"
-            style="font-family: 'Inter', sans-serif"
-          >
+          <div class="text-xs text-muted-foreground mt-0.5">
             {{ stat.label }}
           </div>
         </div>
@@ -107,44 +64,27 @@
 <!-- How it works -->
 <section class="max-w-6xl mx-auto px-6 py-24">
   <div class="text-center mb-16">
-    <p
-      class="text-xs tracking-widest uppercase text-primary mb-3"
-      style="font-family: 'Inter', sans-serif"
-    >
+    <p class="text-xs tracking-widest uppercase text-primary mb-3">
       how it works
     </p>
-    <h2
-      class="text-3xl md:text-4xl font-bold text-foreground"
-      style="font-family: 'Plus Jakarta Sans', sans-serif"
-    >
+    <h2 class="text-3xl md:text-4xl font-bold text-foreground font-jakarta">
       Two methods. One goal.
     </h2>
   </div>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
     @for (step of howSteps; track step.num; let i = $index, isLast = $last) {
       <div class="relative rounded-xl p-6 border border-border bg-card-dark">
-        <div
-          class="text-brand/20 text-4xl font-bold mb-5 leading-none"
-          style="font-family: 'Plus Jakarta Sans', sans-serif"
-        >
+        <div class="text-brand/20 text-4xl font-bold mb-5 leading-none font-jakarta">
           {{ step.num }}
         </div>
-        <h3
-          class="text-lg font-semibold text-foreground mb-3"
-          style="font-family: 'Plus Jakarta Sans', sans-serif"
-        >
+        <h3 class="text-lg font-semibold text-foreground mb-3 font-jakarta">
           {{ step.title }}
         </h3>
-        <p
-          class="text-sm text-muted-foreground leading-relaxed"
-          style="font-family: 'Inter', sans-serif"
-        >
+        <p class="text-sm text-muted-foreground leading-relaxed">
           {{ step.body }}
         </p>
         @if (!isLast) {
-          <div
-            class="hidden md:block absolute top-1/2 -right-3 -translate-y-1/2 text-border text-xl z-10"
-          >
+          <div class="hidden md:block absolute top-1/2 -right-3 -translate-y-1/2 text-border text-xl z-10">
             →
           </div>
         }
@@ -154,38 +94,24 @@
 </section>
 
 <!-- Why Fona -->
-<section class="border-t border-border py-24" style="background-color: rgba(255, 255, 255, 0.015)">
+<section class="border-t border-border py-24 bg-white/[0.015]">
   <div class="max-w-6xl mx-auto px-6">
     <div class="text-center mb-16">
-      <p
-        class="text-xs tracking-widest uppercase text-primary mb-3"
-        style="font-family: 'Inter', sans-serif"
-      >
+      <p class="text-xs tracking-widest uppercase text-primary mb-3">
         why fona
       </p>
-      <h2
-        class="text-3xl md:text-4xl font-bold text-foreground"
-        style="font-family: 'Plus Jakarta Sans', sans-serif"
-      >
+      <h2 class="text-3xl md:text-4xl font-bold text-foreground font-jakarta">
         Built for serious learners.
       </h2>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
       @for (card of whyCards; track card.title) {
-        <div
-          class="rounded-xl p-6 border border-border hover:border-primary/20 transition-all bg-card-dark"
-        >
+        <div class="rounded-xl p-6 border border-border hover:border-primary/20 transition-all bg-card-dark">
           <div class="text-3xl mb-4">{{ card.icon }}</div>
-          <h3
-            class="text-base font-semibold text-foreground mb-2"
-            style="font-family: 'Plus Jakarta Sans', sans-serif"
-          >
+          <h3 class="text-base font-semibold text-foreground mb-2 font-jakarta">
             {{ card.title }}
           </h3>
-          <p
-            class="text-sm text-muted-foreground leading-relaxed"
-            style="font-family: 'Inter', sans-serif"
-          >
+          <p class="text-sm text-muted-foreground leading-relaxed">
             {{ card.body }}
           </p>
         </div>
@@ -197,16 +123,10 @@
 <!-- Testimonials -->
 <section class="max-w-6xl mx-auto px-6 py-24">
   <div class="text-center mb-16">
-    <p
-      class="text-xs tracking-widest uppercase text-primary mb-3"
-      style="font-family: 'Inter', sans-serif"
-    >
+    <p class="text-xs tracking-widest uppercase text-primary mb-3">
       testimonials
     </p>
-    <h2
-      class="text-3xl md:text-4xl font-bold text-foreground"
-      style="font-family: 'Plus Jakarta Sans', sans-serif"
-    >
+    <h2 class="text-3xl md:text-4xl font-bold text-foreground font-jakarta">
       Real results.
     </h2>
   </div>
@@ -217,33 +137,22 @@
         <div class="flex gap-1">
           @for (s of [1, 2, 3, 4, 5]; track s) {
             <svg width="13" height="13" viewBox="0 0 24 24" class="fill-brand">
-              <path
-                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-              />
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
             </svg>
           }
         </div>
-        <p
-          class="text-sm text-foreground leading-relaxed flex-1"
-          style="font-family: 'Inter', sans-serif"
-        >
+        <p class="text-sm text-foreground leading-relaxed flex-1">
           "{{ t.quote }}"
         </p>
         <div class="flex items-center gap-3 pt-2 border-t border-border">
-          <div
-            class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 bg-brand/10 text-brand"
-            style="font-family: 'Plus Jakarta Sans', sans-serif"
-          >
+          <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 bg-brand/10 text-brand font-jakarta">
             {{ t.initials }}
           </div>
           <div>
-            <div
-              class="text-sm font-medium text-foreground"
-              style="font-family: 'Plus Jakarta Sans', sans-serif"
-            >
+            <div class="text-sm font-medium text-foreground font-jakarta">
               {{ t.name }}
             </div>
-            <div class="text-xs text-muted-foreground" style="font-family: 'Inter', sans-serif">
+            <div class="text-xs text-muted-foreground">
               {{ t.role }}
             </div>
           </div>
@@ -255,24 +164,12 @@
 
 <!-- CTA Banner -->
 <section class="border-t border-border py-24 relative overflow-hidden">
-  <div
-    class="absolute inset-0 pointer-events-none"
-    style="
-      background: radial-gradient(
-        ellipse 70% 80% at 50% 50%,
-        rgba(75, 173, 200, 0.1) 0%,
-        transparent 70%
-      );
-    "
-  ></div>
+  <div class="absolute inset-0 pointer-events-none bg-mesh-landing-cta"></div>
   <div class="relative max-w-2xl mx-auto px-6 text-center">
-    <h2
-      class="text-3xl md:text-5xl font-bold text-foreground mb-5 leading-tight"
-      style="font-family: 'Plus Jakarta Sans', sans-serif"
-    >
+    <h2 class="text-3xl md:text-5xl font-bold text-foreground mb-5 leading-tight font-jakarta">
       Your accent is a<br />physical skill.
     </h2>
-    <p class="text-muted-foreground mb-10 leading-relaxed" style="font-family: 'Inter', sans-serif">
+    <p class="text-muted-foreground mb-10 leading-relaxed">
       Like a musician learning by ear, consistent reps are what move the needle. Start your first
       session today — no equipment required.
     </p>
@@ -286,21 +183,14 @@
 <footer class="border-t border-border py-8">
   <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
     <div class="flex items-center gap-2">
-      <img
-        src="https://speakfona.com/logo.png"
-        alt="Fona"
-        class="w-5 h-5 object-contain opacity-60"
-      />
-      <span class="text-xs text-muted-foreground" style="font-family: 'Inter', sans-serif">
+      <img src="https://speakfona.com/logo.png" alt="Fona" class="w-5 h-5 object-contain opacity-60" />
+      <span class="text-xs text-muted-foreground">
         © 2025 Fona. All rights reserved.
       </span>
     </div>
     <div class="flex items-center gap-5">
       @for (l of ['Privacy', 'Terms', 'Contact']; track l) {
-        <span
-          class="text-xs text-muted-foreground hover:text-foreground cursor-pointer transition-colors"
-          style="font-family: 'Inter', sans-serif"
-        >
+        <span class="text-xs text-muted-foreground hover:text-foreground cursor-pointer transition-colors">
           {{ l }}
         </span>
       }
