@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AppRoutesHelper } from '@app/app.routes';
 import { AuthService } from '@core/services/auth.service';
@@ -27,7 +27,7 @@ import { AuthLayout } from '@features/auth/auth-layout/auth-layout';
   templateUrl: './signin.html',
   styleUrl: './signin.scss',
 })
-export class Signin {
+export class Signin implements OnInit {
   // Services
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
@@ -46,14 +46,30 @@ export class Signin {
   loginForm = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],
+    rememberMe: [false],
   });
+
+  ngOnInit() {
+    const savedEmail = localStorage.getItem('fona_saved_username');
+    if (savedEmail) {
+      this.loginForm.patchValue({
+        email: savedEmail,
+        rememberMe: true,
+      });
+    }
+  }
 
   async onSubmit() {
     if (this.loginForm.invalid) return;
     this.isLoading.set(true);
     this.errorMessage.set(null);
-    const { email, password } = this.loginForm.getRawValue();
+    const { email, password, rememberMe } = this.loginForm.getRawValue();
     try {
+      if (rememberMe) {
+        localStorage.setItem('fona_saved_username', email);
+      } else {
+        localStorage.removeItem('fona_saved_username');
+      }
       const { data, error } = await this.authService.signIn(email, password);
       if (error) throw error;
       this.router.navigate(this.appRoutesHelper.getLanguagesRoute());

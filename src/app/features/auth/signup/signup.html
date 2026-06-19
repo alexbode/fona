@@ -46,6 +46,18 @@
       }
     </div>
 
+    <!-- Remember Me Option -->
+    <div class="flex items-center">
+      <label class="flex items-center gap-2 cursor-pointer text-xs text-muted-foreground hover:text-foreground">
+        <input
+          type="checkbox"
+          formControlName="rememberMe"
+          class="rounded border-border bg-card/50 dark:bg-card/20 text-brand focus:ring-brand cursor-pointer"
+        />
+        <span style="font-family: 'Inter', sans-serif">Save email</span>
+      </label>
+    </div>
+
     <!-- Error Message -->
     @if (errorMessage()) {
       <p class="text-xs text-destructive mt-1" style="font-family: 'Inter', sans-serif">
