@@ -32,7 +32,7 @@ export class AppRoutesHelper {
   }
 
   static getModeSelectionRoute(language: string, accent: string): any[] {
-    return ['/', language, accent];
+    return ['/', language.toLowerCase(), accent.toLowerCase()];
   }
 
   static getSignupRoute(): any[] {
@@ -48,11 +48,11 @@ export class AppRoutesHelper {
   }
 
   static getAccentsRoute(language: string): any[] {
-    return ['/', language];
+    return ['/', language.toLowerCase()];
   }
 
   static getChorusDashboardRoute(language: string, accent: string, sentenceIndex: number): any[] {
-    return ['/', language, accent, 'chorus', sentenceIndex];
+    return ['/', language.toLowerCase(), accent.toLowerCase(), 'chorus', sentenceIndex];
   }
 
   static getPairsDashboardRoute(
@@ -61,15 +61,15 @@ export class AppRoutesHelper {
     pairsIndex: number,
     exampleIndex: number,
   ): any[] {
-    return ['/', language, accent, 'pairs', pairsIndex, 'example', exampleIndex];
+    return ['/', language.toLowerCase(), accent.toLowerCase(), 'pairs', pairsIndex, 'example', exampleIndex];
   }
 
   static getSummaryRoute(language: string, accent: string): any[] {
-    return ['/', language, accent, 'summary'];
+    return ['/', language.toLowerCase(), accent.toLowerCase(), 'summary'];
   }
 
   static getPaywallRoute(language: string, accent: string): any[] {
-    return ['/', 'paywall', language, accent];
+    return ['/', 'paywall', language.toLowerCase(), accent.toLowerCase()];
   }
 }
 
