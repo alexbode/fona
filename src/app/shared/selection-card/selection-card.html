@@ -25,41 +25,30 @@
       <div class="text-3xl mb-2">{{ flag() }}</div>
       <h3
         hlmCardTitle
-        class="text-foreground font-semibold text-sm"
-        style="font-family: 'Plus Jakarta Sans', sans-serif"
+        class="text-foreground font-semibold text-sm font-jakarta"
       >
         {{ title() }}
       </h3>
       <p
         hlmCardDescription
         class="text-muted-foreground text-xs mt-0.5"
-        style="font-family: 'Inter', sans-serif"
       >
         {{ subtitle() }}
       </p>
     </hlm-card-header>
     <hlm-card-footer class="mt-auto pt-2">
       @if (footerText()) {
-        <div
-          class="text-xs flex items-center gap-1 text-muted-foreground"
-          style="font-family: 'Inter', sans-serif"
-        >
+        <div class="text-xs flex items-center gap-1 text-muted-foreground">
           {{ footerText() }}
         </div>
       } @else {
         @if (unlocked()) {
-          <div
-            class="flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-brand/10 text-brand"
-            style="font-family: 'Inter', sans-serif"
-          >
+          <div class="flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-brand/10 text-brand">
             <ng-icon hlm name="lucideCheckCircle" size="11px" />
             Owned
           </div>
         } @else {
-          <div
-            class="flex items-center gap-1 text-xs px-2 py-1 rounded-full border border-border text-muted-foreground"
-            style="font-family: 'Inter', sans-serif"
-          >
+          <div class="flex items-center gap-1 text-xs px-2 py-1 rounded-full border border-border text-muted-foreground">
             <ng-icon hlm name="lucideLock" size="11px" />
             Pro
           </div>

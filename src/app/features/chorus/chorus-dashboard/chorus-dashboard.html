@@ -11,11 +11,14 @@
       </li>
       <li hlmBreadcrumbSeparator></li>
       <li hlmBreadcrumbItem>
-        <a hlmBreadcrumbLink [link]="AppRoutesHelper.getAccentsRoute(language().toLowerCase())">{{ languageObj()?.nativeName | titlecase }}</a>
+        <a hlmBreadcrumbLink [link]="AppRoutesHelper.getAccentsRoute(language().toLowerCase())">{{
+          languageObj()?.nativeName | titlecase }}</a>
       </li>
       <li hlmBreadcrumbSeparator></li>
       <li hlmBreadcrumbItem>
-        <a hlmBreadcrumbLink [link]="AppRoutesHelper.getModeSelectionRoute(language().toLowerCase(), accent().toLowerCase())">{{ accentObj()?.nativeName | titlecase }}</a>
+        <a hlmBreadcrumbLink
+          [link]="AppRoutesHelper.getModeSelectionRoute(language().toLowerCase(), accent().toLowerCase())">{{
+          accentObj()?.nativeName | titlecase }}</a>
       </li>
       <li hlmBreadcrumbSeparator></li>
       <li hlmBreadcrumbItem>
@@ -27,10 +30,10 @@
   <!-- Progress Bar -->
   <div class="px-5 pb-4 shrink-0">
     <div class="flex items-center justify-between mb-2">
-      <span class="text-muted-foreground text-xs" style="font-family: 'Inter', sans-serif">
+      <span class="text-muted-foreground text-xs">
         {{ sentenceIndex() }} / {{ numSentences }}
       </span>
-      <span class="text-muted-foreground text-xs" style="font-family: 'Inter', sans-serif">
+      <span class="text-muted-foreground text-xs">
         phrase
       </span>
     </div>
@@ -64,8 +67,8 @@
       </div>
       @if (hasPinyin()) {
       <div class="border-t border-border pt-3">
-        <p class="text-xs text-muted-foreground" style="font-family: 'Inter', sans-serif">
-          <span class="text-primary" style="font-family: 'Inter', sans-serif">pronunciation:
+        <p class="text-xs text-muted-foreground">
+          <span class="text-primary">pronunciation:
           </span>
           {{ sentencePinyin() }}
         </p>
@@ -77,20 +80,16 @@
     <!-- Playback Speed Control -->
     <div class="bg-card border border-border rounded p-5 flex flex-col gap-3 justify-center h-28">
       <div class="flex items-center justify-between">
-        <span class="text-xs font-medium text-muted-foreground" style="font-family: 'Inter', sans-serif">
+        <span class="text-xs font-medium text-muted-foreground">
           Playback Speed
         </span>
-        <!-- <span class="text-xs font-bold text-brand" style="font-family: 'Plus Jakarta Sans', sans-serif">
-          {{ playbackSpeed() }}%
-        </span> -->
       </div>
       <div class="flex items-center justify-center p-1 bg-secondary rounded-lg border border-border">
         @for (speed of ['25', '50', '75', '90', '100', '110']; track speed) {
         <button type="button" (click)="setSpeed(speed)"
-          class="flex-1 py-1.5 text-xs font-semibold rounded transition-all cursor-pointer text-center"
+          class="flex-1 py-1.5 text-xs font-semibold rounded transition-all cursor-pointer text-center font-jakarta"
           [class.bg-background]="playbackSpeed() === speed" [class.text-foreground]="playbackSpeed() === speed"
-          [class.text-muted-foreground]="playbackSpeed() !== speed" [class.shadow-sm]="playbackSpeed() === speed"
-          style="font-family: 'Plus Jakarta Sans', sans-serif">
+          [class.text-muted-foreground]="playbackSpeed() !== speed" [class.shadow-sm]="playbackSpeed() === speed">
           {{ speed }}%
         </button>
         }
@@ -105,25 +104,22 @@
           class="flex items-center justify-center min-w-[40px] h-10 px-3 rounded-full border border-brand/20 text-brand bg-brand/10 font-bold text-lg">
           {{ sessionCount() }}
         </div>
-        <div class="text-muted-foreground text-xs mt-1" style="font-family: 'Inter', sans-serif">
+        <div class="text-muted-foreground text-xs mt-1">
           repititions
         </div>
       </div>
       <div class="w-px h-16 bg-border mx-4 shrink-0"></div>
       <div class="flex flex-col items-center flex-1">
         @if (allTimeRepsState().isLoading) {
-        <span class="text-4xl font-bold leading-none animate-pulse text-muted-foreground"
-          style="font-family: 'Plus Jakarta Sans', sans-serif">
+        <span class="text-4xl font-bold leading-none animate-pulse text-muted-foreground font-jakarta">
           ...
         </span>
         } @else {
-        <span class="text-4xl font-bold leading-none text-muted-foreground"
-          style="font-family: 'Plus Jakarta Sans', sans-serif">
+        <span class="text-4xl font-bold leading-none text-muted-foreground font-jakarta">
           {{ allTimeReps() | number }}
         </span>
         }
-        <div class="text-muted-foreground text-xs tracking-widest uppercase mt-1"
-          style="font-family: 'Inter', sans-serif">
+        <div class="text-muted-foreground text-xs tracking-widest uppercase mt-1">
           all time
         </div>
       </div>
@@ -131,20 +127,20 @@
 
     <!-- Controls -->
     <button appButton size="none" (click)="handlePlay()"
-      class="w-full py-4 rounded text-base cursor-pointer gap-2 text-white" [class.bg-brand-hover]="isPlaying()"
-      style="font-family: 'Plus Jakarta Sans', sans-serif">
-      {{ isPlaying() ? '🔊 Listening — speak along!' : '▶ Play & Chorus' }}
+      class="w-full py-4 rounded text-base cursor-pointer gap-2 text-white font-jakarta"
+      [class.bg-brand-hover]="dataService.isAudioPlaying()">
+      {{ dataService.isAudioPlaying() ? '🔊 Listening — speak along!' : '▶ Play & Chorus' }}
     </button>
 
     <div class="flex gap-3">
       @if (Number(sentenceIndex()) > 1) {
       <button appButton variant="secondary" size="none" (click)="previousSentence()"
-        class="flex-1 py-4 rounded text-sm cursor-pointer" style="font-family: 'Inter', sans-serif">
+        class="flex-1 py-4 rounded text-sm cursor-pointer">
         ← Prev phrase
       </button>
       }
       <button appButton variant="secondary" size="none" (click)="handleNext()"
-        class="flex-1 py-4 rounded text-sm cursor-pointer" style="font-family: 'Inter', sans-serif">
+        class="flex-1 py-4 rounded text-sm cursor-pointer">
         {{ Number(sentenceIndex()) < numSentences ? 'Next phrase →' : 'Finish session →' }} </button>
     </div>
   </div>

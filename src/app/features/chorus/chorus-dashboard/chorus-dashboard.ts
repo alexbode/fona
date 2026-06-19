@@ -80,9 +80,6 @@ export class ChorusDashboard {
   // Query headless audio player child component
   readonly audioPlayer = viewChild<AudioPlayer>(AudioPlayer);
 
-  // Expose isPlaying signal from the child audio player
-  readonly isPlaying = computed(() => this.audioPlayer()?.isPlaying() ?? false);
-
   protected readonly playbackSpeed = signal<string>('100');
 
   setSpeed(speed: string) {
@@ -190,12 +187,10 @@ export class ChorusDashboard {
   });
 
   handlePlay() {
-    const player = this.audioPlayer();
-    if (!player) return;
-    if (player.isPlaying()) {
-      player.stopAudio();
+    if (this.dataService.isAudioPlaying()) {
+      this.audioPlayer()?.stopAudio();
     } else {
-      player.playAudio();
+      this.audioPlayer()?.playAudio();
     }
   }
 

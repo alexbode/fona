@@ -38,7 +38,7 @@ export class AudioPlayer {
   private readonly logger = inject(LoggingService);
 
   // Signals
-  readonly isPlaying = signal(false);
+  readonly isAudioPlaying = this.dataService.isAudioPlaying;
 
   // State
   private audio = new Audio();
@@ -82,7 +82,7 @@ export class AudioPlayer {
 
   private handleAudioEnded = () => {
     this.logger.debug('audio-player.ts handleAudioEnded');
-    this.isPlaying.set(false);
+    this.dataService.setIsAudioPlaying(false);
     this.incrementCounter();
     this.playAudio();
   };
@@ -96,7 +96,7 @@ export class AudioPlayer {
       return;
     }
 
-    if (!this.isPlaying()) {
+    if (!this.isAudioPlaying()) {
       this.audio = new Audio(audioState.value);
 
       this.audio.currentTime = 0;
@@ -106,11 +106,11 @@ export class AudioPlayer {
       this.audio
         .play()
         .then(() => {
-          this.isPlaying.set(true);
+          this.dataService.setIsAudioPlaying(true);
         })
         .catch((err) => {
           this.logger.error('Failed to play audio:', err);
-          this.isPlaying.set(false);
+          this.dataService.setIsAudioPlaying(false);
         });
     }
   }
@@ -118,14 +118,14 @@ export class AudioPlayer {
   pauseAudio() {
     this.logger.debug('audio-player.ts pauseAudio');
     this.audio.pause();
-    this.isPlaying.set(false);
+    this.dataService.setIsAudioPlaying(false);
   }
 
   stopAudio() {
     this.logger.debug('audio-player.ts stopAudio');
     this.audio.pause();
     this.audio.currentTime = 0;
-    this.isPlaying.set(false);
+    this.dataService.setIsAudioPlaying(false);
   }
 
   incrementCounter() {
@@ -136,7 +136,7 @@ export class AudioPlayer {
   }
 
   protected onSpaceBar() {
-    if (this.isPlaying()) {
+    if (this.isAudioPlaying()) {
       this.pauseAudio();
     } else {
       this.playAudio();

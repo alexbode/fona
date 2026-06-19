@@ -3,20 +3,18 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "ignoreDeprecations": "6.0",
-    "baseUrl": "./",
     "paths": {
       "@app/*": [
-        "src/app/*"
+        "./src/app/*"
       ],
       "@features/*": [
-        "src/app/features/*"
+        "./src/app/features/*"
       ],
       "@core/*": [
-        "src/app/core/*"
+        "./src/app/core/*"
       ],
       "@spartan-ng/helm/*": [
-        "src/app/shared/*/src/index.ts"
+        "./src/app/shared/*/src/index.ts"
       ]
     },
     "outDir": "./out-tsc/app",

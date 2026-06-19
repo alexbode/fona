@@ -1,12 +1,9 @@
 <div class="flex flex-col flex-1 h-full">
   <div class="px-5 pt-8 pb-5 shrink-0">
-    <h1
-      class="text-3xl font-bold leading-tight text-foreground"
-      style="font-family: 'Plus Jakarta Sans', sans-serif"
-    >
+    <h1 class="text-3xl font-bold leading-tight text-foreground font-jakarta">
       Train your<br />accent.
     </h1>
-    <p class="text-muted-foreground text-sm mt-2" style="font-family: 'Inter', sans-serif">
+    <p class="text-muted-foreground text-sm mt-2">
       @if (dataService.isLoggedIn()) {
         Welcome back, {{ dataService.currentUser().value?.email }}.
       } @else {
@@ -18,7 +15,7 @@
         class="mt-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-brand/20 bg-brand/5"
       >
         <ng-icon hlm name="lucideSpeech" size="12px" class="text-brand" />
-        <span class="text-xs font-medium text-brand" style="font-family: 'Inter', sans-serif">
+        <span class="text-xs font-medium text-brand">
           {{ dataService.getTotalSentenceCount()().value }} total reps
         </span>
       </div>
@@ -42,10 +39,7 @@
           />
         }
       } @else {
-        <p
-          class="col-span-full text-center py-8 text-muted-foreground text-sm"
-          style="font-family: 'Inter', sans-serif"
-        >
+        <p class="col-span-full text-center py-8 text-muted-foreground text-sm">
           Failed to load languages.
         </p>
       }
@@ -60,13 +54,10 @@
         <ng-icon hlm name="lucideBookOpen" size="15px" class="text-brand" />
       </div>
       <div class="text-left">
-        <div
-          class="text-foreground text-sm font-medium"
-          style="font-family: 'Plus Jakarta Sans', sans-serif"
-        >
+        <div class="text-foreground text-sm font-medium font-jakarta">
           IPA Reference
         </div>
-        <div class="text-muted-foreground text-xs mt-0.5" style="font-family: 'Inter', sans-serif">
+        <div class="text-muted-foreground text-xs mt-0.5">
           International Phonetic Alphabet guide
         </div>
       </div>
