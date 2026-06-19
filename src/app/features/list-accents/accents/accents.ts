@@ -1,29 +1,21 @@
 import { Component, inject, computed, input } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { HlmIcon } from '@spartan-ng/helm/icon';
-import { lucideChevronLeft, lucideCheckCircle, lucideLock } from '@ng-icons/lucide';
 import { DataService } from '@core/services/data.service';
 import { Accent } from '@core/models/language';
 import { SelectionCard } from '@app/shared/selection-card/selection-card';
 import { AppRoutesHelper } from '@app/app.routes';
+import { HlmBreadcrumbImports } from '@spartan-ng/helm/breadcrumb';
 
 import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-accents',
-  imports: [NgIcon, HlmIcon, SelectionCard, TitleCasePipe],
-  providers: [
-    provideIcons({
-      lucideChevronLeft,
-      lucideCheckCircle,
-      lucideLock,
-    }),
-  ],
+  imports: [SelectionCard, TitleCasePipe, HlmBreadcrumbImports],
   templateUrl: './accents.html',
   styleUrl: './accents.scss',
 })
 export class Accents {
+  protected readonly AppRoutesHelper = AppRoutesHelper;
   private readonly router = inject(Router);
   private readonly dataService = inject(DataService);
 

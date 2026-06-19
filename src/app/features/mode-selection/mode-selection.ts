@@ -8,10 +8,11 @@ import { DataService } from '@core/services/data.service';
 import { AppRoutesHelper } from '@app/app.routes';
 import { LoggingService } from '@core/services/logging.service';
 import { CourseConfig } from '@core/models/config';
+import { HlmBreadcrumbImports } from '@spartan-ng/helm/breadcrumb';
 
 @Component({
   selector: 'app-mode-selection',
-  imports: [NgIcon, HlmIcon, TitleCasePipe],
+  imports: [NgIcon, HlmIcon, TitleCasePipe, HlmBreadcrumbImports],
   providers: [
     provideIcons({
       lucideChevronLeft,
@@ -23,6 +24,7 @@ import { CourseConfig } from '@core/models/config';
   styleUrl: './mode-selection.scss',
 })
 export class ModeSelection {
+  protected readonly AppRoutesHelper = AppRoutesHelper;
   private readonly router = inject(Router);
   private readonly dataService = inject(DataService);
   private readonly logger = inject(LoggingService);

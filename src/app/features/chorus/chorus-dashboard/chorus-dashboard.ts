@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { DecimalPipe, TitleCasePipe } from '@angular/common';
-import { AudioPlayer } from '@features/dashboard/audio-player/audio-player';
+import { AudioPlayer } from '@features/chorus/audio-player/audio-player';
 import { DataService } from '@core/services/data.service';
 import { AppRoutesHelper } from '@app/app.routes';
 import { DataState } from '@app/core/models/state';
@@ -21,6 +21,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { lucideChevronLeft, lucideBookOpen } from '@ng-icons/lucide';
 import { MatCardModule } from '@angular/material/card';
+import { HlmBreadcrumbImports } from '@spartan-ng/helm/breadcrumb';
 
 import { ButtonDirective } from '@app/directive/button';
 
@@ -35,6 +36,7 @@ import { ButtonDirective } from '@app/directive/button';
     DecimalPipe,
     TitleCasePipe,
     MatCardModule,
+    HlmBreadcrumbImports,
   ],
   providers: [
     provideIcons({
@@ -50,6 +52,7 @@ import { ButtonDirective } from '@app/directive/button';
   },
 })
 export class ChorusDashboard {
+  protected readonly AppRoutesHelper = AppRoutesHelper;
   protected readonly dataService = inject(DataService);
   private readonly router = inject(Router);
 

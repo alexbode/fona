@@ -5,18 +5,13 @@
       <label class="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
         Email
       </label>
-      <input
-        hlmInput
-        formControlName="email"
-        type="email"
-        placeholder="you@example.com"
-        class="w-full bg-card/50 dark:bg-card/20 border-border"
-      />
+      <input hlmInput formControlName="email" type="email" placeholder="you@example.com"
+        class="w-full bg-card/50 dark:bg-card/20 border-border" />
       @if (loginForm.controls.email.hasError('required') && loginForm.controls.email.touched) {
-        <p class="text-xs text-destructive mt-1">Email is required</p>
+      <p class="text-xs text-destructive mt-1">Email is required</p>
       }
       @if (loginForm.controls.email.hasError('email') && loginForm.controls.email.touched) {
-        <p class="text-xs text-destructive mt-1">Please enter a valid email address</p>
+      <p class="text-xs text-destructive mt-1">Please enter a valid email address</p>
       }
     </div>
 
@@ -26,65 +21,52 @@
         Password
       </label>
       <div class="relative flex items-center">
-        <input
-          hlmInput
-          formControlName="password"
-          [type]="showPassword ? 'text' : 'password'"
-          placeholder="••••••••"
-          class="w-full pr-10 bg-card/50 dark:bg-card/20 border-border"
-        />
-        <button
-          type="button"
-          (click)="showPassword = !showPassword"
-          class="absolute right-3 text-muted-foreground hover:text-foreground cursor-pointer flex items-center"
-        >
+        <input hlmInput formControlName="password" [type]="showPassword ? 'text' : 'password'" placeholder="••••••••"
+          class="w-full pr-10 bg-card/50 dark:bg-card/20 border-border" />
+        <button type="button" (click)="showPassword = !showPassword"
+          class="absolute right-3 text-muted-foreground hover:text-foreground cursor-pointer flex items-center">
           <ng-icon hlm [name]="showPassword ? 'lucideEye' : 'lucideEyeOff'" size="16px" />
         </button>
       </div>
       @if (loginForm.controls.password.hasError('required') && loginForm.controls.password.touched) {
-        <p class="text-xs text-destructive mt-1">Password is required</p>
+      <p class="text-xs text-destructive mt-1">Password is required</p>
       }
     </div>
 
     <!-- Remember Me Option -->
     <div class="flex items-center">
       <label class="flex items-center gap-2 cursor-pointer text-xs text-muted-foreground hover:text-foreground">
-        <input
-          type="checkbox"
-          formControlName="rememberMe"
-          class="rounded border-border bg-card/50 dark:bg-card/20 text-brand focus:ring-brand cursor-pointer"
-        />
-        <span>Save email</span>
+        <input type="checkbox" formControlName="rememberMe"
+          class="rounded border-border bg-card/50 dark:bg-card/20 text-brand focus:ring-brand cursor-pointer" />
+        <span>Remember Email</span>
       </label>
     </div>
 
     <!-- Error Message -->
     @if (errorMessage()) {
-      <p class="text-xs text-destructive mt-1">
-        {{ errorMessage() }}
-      </p>
+    <p class="text-xs text-destructive mt-1">
+      {{ errorMessage() }}
+    </p>
     }
 
     <!-- Submit Button -->
-    <button
-      appButton
-      size="none"
-      type="submit"
-      [disabled]="loginForm.invalid || isLoading()"
-      class="w-full py-3.5 rounded-lg text-sm transition-all gap-2 disabled:opacity-70 disabled:pointer-events-none font-jakarta"
-    >
+    <button appButton size="none" type="submit" [disabled]="loginForm.invalid || isLoading()"
+      class="w-full py-3.5 rounded-lg text-sm transition-all gap-2 disabled:opacity-70 disabled:pointer-events-none font-jakarta">
       @if (isLoading()) {
-        <svg class="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M12 2v4M12 18v4M4.93 2.83l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
-        </svg>
+      <svg class="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2.5">
+        <path
+          d="M12 2v4M12 18v4M4.93 2.83l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+      </svg>
       } @else {
-        Sign up
+      Sign up
       }
     </button>
   </form>
 
   <p footer class="text-center text-xs text-muted-foreground mt-8">
     Already have an account?
-    <a [routerLink]="appRoutesHelper.getSigninRoute()" class="text-brand hover:underline font-medium cursor-pointer">Sign in</a>
+    <a [routerLink]="appRoutesHelper.getSigninRoute()"
+      class="text-brand hover:underline font-medium cursor-pointer">Sign in</a>
   </p>
 </app-auth-layout>

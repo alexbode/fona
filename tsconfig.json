@@ -4,18 +4,13 @@
     "ignoreDeprecations": "6.0",
     "baseUrl": "./",
     "paths": {
-      "@app/*": [
-        "src/app/*"
-      ],
-      "@features/*": [
-        "src/app/features/*"
-      ],
-      "@core/*": [
-        "src/app/core/*"
-      ],
-      "@spartan-ng/helm/*": [
-        "src/app/shared/*/src/index.ts"
-      ],
+      "@app/*": ["src/app/*"],
+      "@features/*": ["src/app/features/*"],
+      "@core/*": ["src/app/core/*"],
+      "@spartan-ng/helm/*": ["src/app/shared/*/src/index.ts"],
+      "@spartan-ng/helm/breadcrumb": ["./src/app/shared/breadcrumb/src/index.ts"],
+      "@spartan-ng/helm/utils": ["./src/app/shared/utils/src/index.ts"],
+      "@spartan-ng/helm/icon": ["./src/app/shared/icon/src/index.ts"]
     },
     "strict": true,
     "noImplicitOverride": true,

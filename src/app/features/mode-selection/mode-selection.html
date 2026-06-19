@@ -1,20 +1,20 @@
 <div class="flex flex-col flex-1 h-full">
-  <!-- Navigation Header / NavBar -->
-  <header class="flex items-center gap-3 px-5 py-4 shrink-0">
-    <button
-      (click)="onBack()"
-      class="flex items-center justify-center p-1 rounded-full hover:bg-secondary cursor-pointer"
-      aria-label="Back"
-    >
-      <ng-icon hlm name="lucideChevronLeft" size="20px" class="text-foreground" />
-    </button>
-    <span
-      class="text-sm font-medium text-muted-foreground"
-      style="font-family: 'Inter', sans-serif"
-    >
-      {{ language()?.name | titlecase }} · {{ accent()?.nativeName | titlecase }}
-    </span>
-  </header>
+  <!-- Navigation Breadcrumbs -->
+  <nav hlmBreadcrumb class="px-5 py-4 shrink-0">
+    <ol hlmBreadcrumbList>
+      <li hlmBreadcrumbItem>
+        <a hlmBreadcrumbLink [link]="AppRoutesHelper.getLanguagesRoute()">Languages</a>
+      </li>
+      <li hlmBreadcrumbSeparator></li>
+      <li hlmBreadcrumbItem>
+        <a hlmBreadcrumbLink [link]="AppRoutesHelper.getAccentsRoute(languageName().toLowerCase())">{{ language()?.nativeName | titlecase }}</a>
+      </li>
+      <li hlmBreadcrumbSeparator></li>
+      <li hlmBreadcrumbItem>
+        <span hlmBreadcrumbPage>{{ accent()?.nativeName | titlecase }}</span>
+      </li>
+    </ol>
+  </nav>
 
   <!-- Title Section -->
   <div class="px-5 pb-3 shrink-0">

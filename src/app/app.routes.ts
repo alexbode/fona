@@ -104,7 +104,7 @@ const dynamicRoutes: Routes = [
   {
     path: AppRoutesHelper.routes.ChorusDashboard,
     loadComponent: () =>
-      import('@features/dashboard/chorus-dashboard/chorus-dashboard').then(
+      import('@features/chorus/chorus-dashboard/chorus-dashboard').then(
         (m) => m.ChorusDashboard,
       ),
   },
