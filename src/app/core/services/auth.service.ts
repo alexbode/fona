@@ -4,7 +4,7 @@ import { SupabaseClient, User, Session } from '@supabase/supabase-js';
 import { SupabaseService } from '@core/services/supabase.service';
 import { LoggingService } from '@core/services/logging.service';
 import { DataService } from '@core/services/data.service';
-import { AppUser, CustomJwt } from '@core/models/user'
+import { AppUser, CustomJwt } from '@core/models/user';
 
 @Injectable({
   providedIn: 'root',

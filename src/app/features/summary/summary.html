@@ -1,11 +1,7 @@
 <div class="flex-1 flex flex-col px-5 pb-8 pt-12 select-none h-full bg-background">
   <div class="mb-8">
-    <div class="text-xs tracking-widest uppercase text-muted-foreground mb-3">
-      session complete
-    </div>
-    <h2 class="text-3xl font-bold text-foreground font-jakarta">
-      Chorusing
-    </h2>
+    <div class="text-xs tracking-widest uppercase text-muted-foreground mb-3">session complete</div>
+    <h2 class="text-3xl font-bold text-foreground font-jakarta">Chorusing</h2>
     <p class="text-muted-foreground text-sm mt-1">
       {{ data.accent }}
     </p>
@@ -17,17 +13,13 @@
       <div class="text-5xl font-bold text-brand font-jakarta">
         {{ chorusCumulativeReps() }}
       </div>
-      <div class="text-muted-foreground text-xs mt-1 tracking-widest uppercase">
-        total reps
-      </div>
+      <div class="text-muted-foreground text-xs mt-1 tracking-widest uppercase">total reps</div>
     </div>
     <div class="bg-card border border-border rounded p-5 text-center">
       <div class="text-5xl font-bold text-muted-foreground font-jakarta">
         {{ data.total }}
       </div>
-      <div class="text-muted-foreground text-xs mt-1 tracking-widest uppercase">
-        phrases
-      </div>
+      <div class="text-muted-foreground text-xs mt-1 tracking-widest uppercase">phrases</div>
     </div>
   </div>
 
@@ -40,11 +32,21 @@
 
   <!-- CTAs -->
   <div class="space-y-3 mt-auto">
-    <button appButton size="none" (click)="onGoAgain()" class="w-full py-4 rounded text-base cursor-pointer font-jakarta">
+    <button
+      appButton
+      size="none"
+      (click)="onGoAgain()"
+      class="w-full py-4 rounded text-base cursor-pointer font-jakarta"
+    >
       Go again
     </button>
-    <button appButton variant="secondary" size="none" (click)="onHome()"
-      class="w-full py-4 rounded text-sm cursor-pointer">
+    <button
+      appButton
+      variant="secondary"
+      size="none"
+      (click)="onHome()"
+      class="w-full py-4 rounded text-sm cursor-pointer"
+    >
       ← Back to languages
     </button>
   </div>

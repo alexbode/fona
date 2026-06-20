@@ -3,7 +3,7 @@ import { LoggingService } from '@core/services/logging.service';
 import { LRUCache } from '@app/core/helpers/lru-cache/lru-cache';
 import { Sentence } from '@core/models/sentence';
 import { CourseConfig } from '@core/models/config';
-import { DataState, ChorusSessionState } from '@core/models/state';
+import { DataState, SessionState } from '@core/models/state';
 import { Language } from '@core/models/language';
 import { AppUser } from '@core/models/user';
 
@@ -41,23 +41,19 @@ export class StateService {
 
   #isLoggedIn = signal<DataState<boolean>>(createInitialState<boolean>(false));
   #currentUser = signal<DataState<AppUser>>(createInitialState<AppUser>());
-  #chorusSessionState: WritableSignal<ChorusSessionState> = signal({
-    cumulativeReps: 0,
-    sentencesInSession: [],
-  });
+  #sessionState: WritableSignal<SessionState> = signal({} as SessionState);
 
   readonly currentUser = this.#currentUser.asReadonly();
   readonly isLoggedIn = this.#isLoggedIn.asReadonly();
   readonly languageList = this.#languageList.asReadonly();
   readonly totalSentenceCount = this.#totalSentenceCount.asReadonly();
 
-
-  getChorusSessionState(): Signal<ChorusSessionState> {
-    return this.#chorusSessionState.asReadonly();
+  getSessionState(): Signal<SessionState> {
+    return this.#sessionState.asReadonly();
   }
 
-  setChorusSessionState(value: Partial<ChorusSessionState>) {
-    this.#chorusSessionState.update((current) => ({ ...current, ...value }));
+  setSessionState(value: Partial<SessionState>) {
+    this.#sessionState.update((current) => ({ ...current, ...value }));
   }
 
   setTotalSentenceCount(value: Partial<DataState<number>>) {
@@ -134,9 +130,12 @@ export class StateService {
         value: (current.value ?? 0) + 1,
       }));
       if (isChorus) {
-        this.#chorusSessionState.update((current) => ({
+        this.#sessionState.update((current) => ({
           ...current,
-          cumulativeReps: current.cumulativeReps + 1,
+          chorusSessionState: {
+            cumulativeReps: (current.chorusSessionState?.cumulativeReps ?? 0) + 1,
+            sentencesInSession: current.chorusSessionState?.sentencesInSession ?? [],
+          },
         }));
       }
     }

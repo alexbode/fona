@@ -1,32 +1,228 @@
-<div class="flex flex-col flex-1 h-full">
-  <!-- Navigation Header / NavBar -->
-  <header class="flex items-center gap-3 px-5 py-4 shrink-0">
-    <button
-      (click)="onBack()"
-      class="flex items-center justify-center p-1 rounded-full hover:bg-secondary transition-colors cursor-pointer"
-      aria-label="Back"
-    >
-      <ng-icon hlm name="lucideChevronLeft" size="20px" class="text-foreground" />
-    </button>
-    <span class="text-sm font-medium text-muted-foreground">
-      Minimal Pairs
-    </span>
-  </header>
+<div class="flex flex-col flex-1 h-full bg-background select-none">
+  <!-- Headless Audio Player -->
+  <app-audio-player
+    [language]="language()"
+    [accent]="accent()"
+    [sentenceId]="activeSentenceId()"
+    [loop]="false"
+    class="hidden"
+  ></app-audio-player>
 
-  <mat-card class="max-w-4xl place-content-center m-5">
-    <mat-card-header>
-      <mat-card-title>{{ title() }}</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="grid grid-cols-2">
-        <app-pair-word [wordKey]="wordAKey()" class="col-span-1"></app-pair-word>
-        <app-pair-word [wordKey]="wordBKey()" class="col-span-1"></app-pair-word>
-        <app-pair-sentence [sentenceKey]="sentence()" class="col-span-2"></app-pair-sentence>
+  <!-- Navigation Breadcrumbs -->
+  <nav hlmBreadcrumb class="px-5 py-4 shrink-0">
+    <ol hlmBreadcrumbList>
+      <li hlmBreadcrumbItem>
+        <a hlmBreadcrumbLink [link]="AppRoutesHelper.getLanguagesRoute()">Languages</a>
+      </li>
+      <li hlmBreadcrumbSeparator></li>
+      <li hlmBreadcrumbItem>
+        <a hlmBreadcrumbLink [link]="AppRoutesHelper.getAccentsRoute(language())">{{
+          languageObj()?.nativeName | titlecase
+        }}</a>
+      </li>
+      <li hlmBreadcrumbSeparator></li>
+      <li hlmBreadcrumbItem>
+        <a hlmBreadcrumbLink [link]="AppRoutesHelper.getModeSelectionRoute(language(), accent())">{{
+          accentObj()?.nativeName | titlecase
+        }}</a>
+      </li>
+      <li hlmBreadcrumbSeparator></li>
+      <li hlmBreadcrumbItem>
+        <a hlmBreadcrumbLink [link]="AppRoutesHelper.getPairsSelectionRoute(language(), accent())"
+          >Minimal Pairs</a
+        >
+      </li>
+      <li hlmBreadcrumbSeparator></li>
+      <li hlmBreadcrumbItem>
+        <span hlmBreadcrumbPage>Training</span>
+      </li>
+    </ol>
+  </nav>
+
+  <div class="flex-1 overflow-y-auto px-5 pb-10 space-y-5">
+    <!-- Header -->
+    <div class="flex items-center justify-center gap-4 py-2">
+      <div class="text-4xl font-bold text-brand font-jakarta">/{{ pair()?.ipa_a }}/</div>
+      <div class="text-muted-foreground text-lg font-medium font-jakarta">vs</div>
+      <div class="text-4xl font-bold text-brand-secondary font-jakarta">/{{ pair()?.ipa_b }}/</div>
+    </div>
+
+    <!-- Primary contrast -->
+    <div>
+      <div class="text-xs tracking-widest uppercase text-muted-foreground mb-2 px-1 font-sans">
+        Primary contrast
       </div>
-    </mat-card-content>
-    <mat-card-actions class="flex">
-      <button hlmBtn appButton class="flex-1">Previous Example</button>
-      <button hlmBtn appButton class="flex-1">Next Example</button>
-    </mat-card-actions>
-  </mat-card>
+      <div class="flex gap-3">
+        <!-- Word A Card -->
+        <div
+          class="flex-1 bg-card border border-border rounded-xl p-4 flex flex-col gap-3 transition-colors duration-200"
+          [class.border-brand/60]="playingKey() === 'word-a'"
+        >
+          <div
+            class="w-10 h-10 rounded-lg flex items-center justify-center text-xl font-bold bg-brand/10 text-brand font-jakarta"
+          >
+            {{ pair()?.ipa_a }}
+          </div>
+          <div>
+            <div class="text-foreground font-bold text-lg leading-tight font-jakarta">
+              {{ wordAText() }}
+            </div>
+            <div class="text-muted-foreground text-xs mt-0.5 font-sans">
+              /{{ wordASentence().value?.ipa }}/
+            </div>
+          </div>
+          <button
+            [disabled]="playingKey() === 'word-a' || isAudioPlaying()"
+            (click)="playWord(wordAId(), 'word-a')"
+            class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-all active:scale-95 cursor-pointer disabled:opacity-50 border"
+            [class.bg-brand-hover/10]="playingKey() === 'word-a'"
+            [class.text-brand-hover]="playingKey() === 'word-a'"
+            [class.border-brand-hover/30]="playingKey() === 'word-a'"
+            [class.bg-brand/10]="playingKey() !== 'word-a'"
+            [class.text-brand]="playingKey() !== 'word-a'"
+            [class.border-brand/20]="playingKey() !== 'word-a'"
+          >
+            @if (playingKey() === 'word-a') {
+              <svg
+                class="animate-spin h-3 w-3"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2.5"
+              >
+                <path
+                  d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"
+                />
+              </svg>
+              <span>Playing…</span>
+            } @else {
+              <ng-icon hlm name="lucideVolume2" size="12px" />
+              <span>Hear "{{ wordAText() }}"</span>
+            }
+          </button>
+        </div>
+
+        <!-- Word B Card -->
+        <div
+          class="flex-1 bg-card border border-border rounded-xl p-4 flex flex-col gap-3 transition-colors duration-200"
+          [class.border-brand-secondary/60]="playingKey() === 'word-b'"
+        >
+          <div
+            class="w-10 h-10 rounded-lg flex items-center justify-center text-xl font-bold bg-brand-secondary/10 text-brand-secondary font-jakarta"
+          >
+            {{ pair()?.ipa_b }}
+          </div>
+          <div>
+            <div class="text-foreground font-bold text-lg leading-tight font-jakarta">
+              {{ wordBText() }}
+            </div>
+            <div class="text-muted-foreground text-xs mt-0.5 font-sans">
+              /{{ wordBSentence().value?.ipa }}/
+            </div>
+          </div>
+          <button
+            [disabled]="playingKey() === 'word-b' || isAudioPlaying()"
+            (click)="playWord(wordBId(), 'word-b')"
+            class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-all active:scale-95 cursor-pointer disabled:opacity-50 border"
+            [class.bg-brand-hover/10]="playingKey() === 'word-b'"
+            [class.text-brand-hover]="playingKey() === 'word-b'"
+            [class.border-brand-hover/30]="playingKey() === 'word-b'"
+            [class.bg-brand/10]="playingKey() !== 'word-b'"
+            [class.text-brand]="playingKey() !== 'word-b'"
+            [class.border-brand/20]="playingKey() !== 'word-b'"
+          >
+            @if (playingKey() === 'word-b') {
+              <svg
+                class="animate-spin h-3 w-3"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2.5"
+              >
+                <path
+                  d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"
+                />
+              </svg>
+              <span>Playing…</span>
+            } @else {
+              <ng-icon hlm name="lucideVolume2" size="12px" />
+              <span>Hear "{{ wordBText() }}"</span>
+            }
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- In context -->
+    <div>
+      <div class="text-xs tracking-widest uppercase text-muted-foreground mb-2 px-1 font-sans">
+        In context
+      </div>
+      <div class="bg-card border border-border rounded-xl p-5 space-y-3">
+        <p class="text-foreground text-base leading-relaxed font-jakarta">
+          @for (w of sentenceWords(); track $index) {
+            <span
+              [class.text-brand]="w.isA"
+              [class.text-brand-secondary]="w.isB"
+              [class.font-bold]="w.isA || w.isB"
+            >
+              {{ w.original }}
+            </span>
+            <span> </span>
+          }
+        </p>
+        <button
+          [disabled]="playingKey() === 'sentence' || isAudioPlaying()"
+          (click)="playWord(sentenceId(), 'sentence')"
+          class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-all active:scale-95 cursor-pointer disabled:opacity-50 border"
+          [class.bg-brand-hover/10]="playingKey() === 'sentence'"
+          [class.text-brand-hover]="playingKey() === 'sentence'"
+          [class.border-brand-hover/30]="playingKey() === 'sentence'"
+          [class.bg-brand/10]="playingKey() !== 'sentence'"
+          [class.text-brand]="playingKey() !== 'sentence'"
+          [class.border-brand/20]="playingKey() !== 'sentence'"
+        >
+          @if (playingKey() === 'sentence') {
+            <svg
+              class="animate-spin h-3 w-3"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2.5"
+            >
+              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4" />
+            </svg>
+            <span>Playing…</span>
+          } @else {
+            <ng-icon hlm name="lucideVolume2" size="12px" />
+            <span>Hear full sentence</span>
+          }
+        </button>
+      </div>
+    </div>
+
+    <!-- Navigation buttons -->
+    <div class="flex gap-3 pt-2">
+      @if (exampleIndex() > 1) {
+        <button
+          appButton
+          variant="secondary"
+          size="none"
+          (click)="previousExample()"
+          class="flex-1 py-4 rounded text-sm cursor-pointer"
+        >
+          ← Prev example
+        </button>
+      }
+      <button
+        appButton
+        variant="secondary"
+        size="none"
+        (click)="handleNext()"
+        class="flex-1 py-4 rounded text-sm cursor-pointer"
+      >
+        {{ exampleIndex() < numExamples() ? 'Next example →' : 'Finish session →' }}
+      </button>
+    </div>
+  </div>
 </div>

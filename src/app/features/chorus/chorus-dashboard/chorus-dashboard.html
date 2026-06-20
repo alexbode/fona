@@ -1,7 +1,12 @@
 <div class="flex flex-col flex-1 h-full bg-background select-none">
   <!-- Headless Audio Player -->
-  <app-audio-player [language]="language()" [accent]="accent()" [sentenceIndex]="sentenceIndex()"
-    [playbackSpeed]="playbackSpeed()" class="hidden"></app-audio-player>
+  <app-audio-player
+    [language]="language()"
+    [accent]="accent()"
+    [sentenceId]="sentenceId()"
+    [playbackSpeed]="playbackSpeed()"
+    class="hidden"
+  ></app-audio-player>
 
   <!-- Navigation Breadcrumbs -->
   <nav hlmBreadcrumb class="px-5 py-4 shrink-0">
@@ -12,13 +17,18 @@
       <li hlmBreadcrumbSeparator></li>
       <li hlmBreadcrumbItem>
         <a hlmBreadcrumbLink [link]="AppRoutesHelper.getAccentsRoute(language().toLowerCase())">{{
-          languageObj()?.nativeName | titlecase }}</a>
+          languageObj()?.nativeName | titlecase
+        }}</a>
       </li>
       <li hlmBreadcrumbSeparator></li>
       <li hlmBreadcrumbItem>
-        <a hlmBreadcrumbLink
-          [link]="AppRoutesHelper.getModeSelectionRoute(language().toLowerCase(), accent().toLowerCase())">{{
-          accentObj()?.nativeName | titlecase }}</a>
+        <a
+          hlmBreadcrumbLink
+          [link]="
+            AppRoutesHelper.getModeSelectionRoute(language().toLowerCase(), accent().toLowerCase())
+          "
+          >{{ accentObj()?.nativeName | titlecase }}</a
+        >
       </li>
       <li hlmBreadcrumbSeparator></li>
       <li hlmBreadcrumbItem>
@@ -33,13 +43,13 @@
       <span class="text-muted-foreground text-xs">
         {{ sentenceIndex() }} / {{ numSentences }}
       </span>
-      <span class="text-muted-foreground text-xs">
-        phrase
-      </span>
+      <span class="text-muted-foreground text-xs"> phrase </span>
     </div>
     <div class="h-[2px] bg-secondary rounded-full overflow-hidden">
-      <div class="h-full bg-primary rounded-full transition-all duration-500"
-        [style.width.%]="(Number(sentenceIndex()) / numSentences) * 100"></div>
+      <div
+        class="h-full bg-primary rounded-full transition-all duration-500"
+        [style.width.%]="(Number(sentenceIndex()) / numSentences) * 100"
+      ></div>
     </div>
   </div>
 
@@ -47,51 +57,57 @@
     <!-- Phrase card -->
     <div class="bg-card border border-border rounded p-5 space-y-3">
       @if (sentence().isLoading) {
-      <div class="animate-pulse space-y-3">
-        <div class="h-6 bg-muted rounded w-3/4"></div>
-        <div class="h-4 bg-muted rounded w-1/2"></div>
-      </div>
+        <div class="animate-pulse space-y-3">
+          <div class="h-6 bg-muted rounded w-3/4"></div>
+          <div class="h-4 bg-muted rounded w-1/2"></div>
+        </div>
       } @else {
-      <p class="text-foreground text-2xl lg:text-3xl font-semibold leading-normal font-jakarta">
-        {{ sentenceText() }}
-      </p>
-      <div class="flex items-center justify-between gap-3">
-        <p class="text-muted-foreground text-base lg:text-lg flex-1 font-mono">
-          {{ sentenceIpa() }}
+        <p class="text-foreground text-2xl lg:text-3xl font-semibold leading-normal font-jakarta">
+          {{ sentenceText() }}
         </p>
-        <button (click)="onIpa()"
-          class="flex items-center gap-1 px-2.5 py-1 rounded border border-brand/20 text-brand bg-brand/5 text-xs shrink-0 hover:border-brand/40 cursor-pointer">
-          <ng-icon hlm name="lucideBookOpen" size="11px" />
-          IPA
-        </button>
-      </div>
-      @if (hasPinyin()) {
-      <div class="border-t border-border pt-3">
-        <p class="text-xs text-muted-foreground">
-          <span class="text-primary">pronunciation:
-          </span>
-          {{ sentencePinyin() }}
-        </p>
-      </div>
-      }
+        <div class="flex items-center justify-between gap-3">
+          <p class="text-muted-foreground text-base lg:text-lg flex-1 font-mono">
+            {{ sentenceIpa() }}
+          </p>
+          <button
+            (click)="onIpa()"
+            class="flex items-center gap-1 px-2.5 py-1 rounded border border-brand/20 text-brand bg-brand/5 text-xs shrink-0 hover:border-brand/40 cursor-pointer"
+          >
+            <ng-icon hlm name="lucideBookOpen" size="11px" />
+            IPA
+          </button>
+        </div>
+        @if (hasPinyin()) {
+          <div class="border-t border-border pt-3">
+            <p class="text-xs text-muted-foreground">
+              <span class="text-primary">pronunciation: </span>
+              {{ sentencePinyin() }}
+            </p>
+          </div>
+        }
       }
     </div>
 
     <!-- Playback Speed Control -->
     <div class="bg-card border border-border rounded p-5 flex flex-col gap-3 justify-center h-28">
       <div class="flex items-center justify-between">
-        <span class="text-xs font-medium text-muted-foreground">
-          Playback Speed
-        </span>
+        <span class="text-xs font-medium text-muted-foreground"> Playback Speed </span>
       </div>
-      <div class="flex items-center justify-center p-1 bg-secondary rounded-lg border border-border">
+      <div
+        class="flex items-center justify-center p-1 bg-secondary rounded-lg border border-border"
+      >
         @for (speed of ['25', '50', '75', '90', '100', '110']; track speed) {
-        <button type="button" (click)="setSpeed(speed)"
-          class="flex-1 py-1.5 text-xs font-semibold rounded transition-all cursor-pointer text-center font-jakarta"
-          [class.bg-background]="playbackSpeed() === speed" [class.text-foreground]="playbackSpeed() === speed"
-          [class.text-muted-foreground]="playbackSpeed() !== speed" [class.shadow-sm]="playbackSpeed() === speed">
-          {{ speed }}%
-        </button>
+          <button
+            type="button"
+            (click)="setSpeed(speed)"
+            class="flex-1 py-1.5 text-xs font-semibold rounded transition-all cursor-pointer text-center font-jakarta"
+            [class.bg-background]="playbackSpeed() === speed"
+            [class.text-foreground]="playbackSpeed() === speed"
+            [class.text-muted-foreground]="playbackSpeed() !== speed"
+            [class.shadow-sm]="playbackSpeed() === speed"
+          >
+            {{ speed }}%
+          </button>
         }
       </div>
     </div>
@@ -101,47 +117,61 @@
       <div class="flex flex-col items-center flex-1">
         <!-- Badge showing session reps -->
         <div
-          class="flex items-center justify-center min-w-[40px] h-10 px-3 rounded-full border border-brand/20 text-brand bg-brand/10 font-bold text-lg">
+          class="flex items-center justify-center min-w-[40px] h-10 px-3 rounded-full border border-brand/20 text-brand bg-brand/10 font-bold text-lg"
+        >
           {{ sessionCount() }}
         </div>
-        <div class="text-muted-foreground text-xs mt-1">
-          repititions
-        </div>
+        <div class="text-muted-foreground text-xs mt-1">repititions</div>
       </div>
       <div class="w-px h-16 bg-border mx-4 shrink-0"></div>
       <div class="flex flex-col items-center flex-1">
         @if (allTimeRepsState().isLoading) {
-        <span class="text-4xl font-bold leading-none animate-pulse text-muted-foreground font-jakarta">
-          ...
-        </span>
+          <span
+            class="text-4xl font-bold leading-none animate-pulse text-muted-foreground font-jakarta"
+          >
+            ...
+          </span>
         } @else {
-        <span class="text-4xl font-bold leading-none text-muted-foreground font-jakarta">
-          {{ allTimeReps() | number }}
-        </span>
+          <span class="text-4xl font-bold leading-none text-muted-foreground font-jakarta">
+            {{ allTimeReps() | number }}
+          </span>
         }
-        <div class="text-muted-foreground text-xs tracking-widest uppercase mt-1">
-          all time
-        </div>
+        <div class="text-muted-foreground text-xs tracking-widest uppercase mt-1">all time</div>
       </div>
     </div>
 
     <!-- Controls -->
-    <button appButton size="none" (click)="handlePlay()"
+    <button
+      appButton
+      size="none"
+      (click)="handlePlay()"
       class="w-full py-4 rounded text-base cursor-pointer gap-2 text-white font-jakarta"
-      [class.bg-brand-hover]="dataService.isAudioPlaying()">
+      [class.bg-brand-hover]="dataService.isAudioPlaying()"
+    >
       {{ dataService.isAudioPlaying() ? '🔊 Listening — speak along!' : '▶ Play & Chorus' }}
     </button>
 
     <div class="flex gap-3">
       @if (Number(sentenceIndex()) > 1) {
-      <button appButton variant="secondary" size="none" (click)="previousSentence()"
-        class="flex-1 py-4 rounded text-sm cursor-pointer">
-        ← Prev phrase
-      </button>
+        <button
+          appButton
+          variant="secondary"
+          size="none"
+          (click)="previousSentence()"
+          class="flex-1 py-4 rounded text-sm cursor-pointer"
+        >
+          ← Prev phrase
+        </button>
       }
-      <button appButton variant="secondary" size="none" (click)="handleNext()"
-        class="flex-1 py-4 rounded text-sm cursor-pointer">
-        {{ Number(sentenceIndex()) < numSentences ? 'Next phrase →' : 'Finish session →' }} </button>
+      <button
+        appButton
+        variant="secondary"
+        size="none"
+        (click)="handleNext()"
+        class="flex-1 py-4 rounded text-sm cursor-pointer"
+      >
+        {{ Number(sentenceIndex()) < numSentences ? 'Next phrase →' : 'Finish session →' }}
+      </button>
     </div>
   </div>
 </div>

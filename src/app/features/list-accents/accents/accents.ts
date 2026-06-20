@@ -39,7 +39,7 @@ export class Accents {
   onSelect(accent: Accent): void {
     const langName = this.language()?.name?.toLowerCase() || '';
     const accentName = accent.name.toLowerCase();
-    const role = `${langName}/${accentName}`
+    const role = `${langName}/${accentName}`;
     if (!this.dataService.currentUser().value?.user_roles?.includes(role)) {
       this.router.navigate(AppRoutesHelper.getPaywallRoute(langName, accentName));
       return;

@@ -3,33 +3,30 @@ import { Router } from '@angular/router';
 import { TitleCasePipe } from '@angular/common';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import { lucideChevronLeft, lucideMic, lucideVolume2 } from '@ng-icons/lucide';
+import { lucideChevronLeft } from '@ng-icons/lucide';
 import { DataService } from '@core/services/data.service';
 import { AppRoutesHelper } from '@app/app.routes';
-import { LoggingService } from '@core/services/logging.service';
 import { CourseConfig } from '@core/models/config';
 import { HlmBreadcrumbImports } from '@spartan-ng/helm/breadcrumb';
+import { DataState } from '@core/models/state';
 
 @Component({
-  selector: 'app-mode-selection',
+  selector: 'app-pairs-selection',
+  standalone: true,
   imports: [NgIcon, HlmIcon, TitleCasePipe, HlmBreadcrumbImports],
   providers: [
     provideIcons({
       lucideChevronLeft,
-      lucideMic,
-      lucideVolume2,
     }),
   ],
-  templateUrl: './mode-selection.html',
-  styleUrl: './mode-selection.scss',
+  templateUrl: './pairs-selection.html',
+  styleUrl: './pairs-selection.scss',
 })
-export class ModeSelection {
+export class PairsSelection {
   protected readonly AppRoutesHelper = AppRoutesHelper;
   private readonly router = inject(Router);
   private readonly dataService = inject(DataService);
-  private readonly logger = inject(LoggingService);
 
-  // Bind route parameters ':language' and ':accent'
   readonly languageName = input.required<string>({ alias: 'language' });
   readonly accentName = input.required<string>({ alias: 'accent' });
 
@@ -52,36 +49,38 @@ export class ModeSelection {
     return lang.accents.find((a) => a.name.toLowerCase() === pathAccent) || null;
   });
 
-  config: Signal<CourseConfig | null> = computed(() => {
-    const configState = this.dataService.getCourseConfig(this.languageName(), this.accentName())();
-    return configState.value;
+  config: Signal<DataState<CourseConfig>> = computed(() => {
+    const lang = this.languageName();
+    const acc = this.accentName();
+    return this.dataService.getCourseConfig(lang, acc)();
   });
 
-  ngOnInit() {
-    this.logger.debug(
-      'config',
-      this.dataService.getCourseConfig(this.languageName(), this.accentName())(),
-    );
-  }
+  readonly pairItems = computed(() => {
+    const list = this.config().value?.pairs ?? [];
+    return list.map((p, index) => {
+      const wordAId = parseInt(p.words_a[0], 10);
+      const wordBId = parseInt(p.words_b[0], 10);
+      return {
+        id: index + 1,
+        symA: p.ipa_a,
+        symB: p.ipa_b,
+        wordAId,
+        wordBId,
+        wordAText: computed(() => this.dataService.getSentence(wordAId)().value?.text ?? '...'),
+        wordBText: computed(() => this.dataService.getSentence(wordBId)().value?.text ?? '...'),
+      };
+    });
+  });
 
-  onSelectChorusing(): void {
-    if (this.config() === null) {
-      this.router.navigate(AppRoutesHelper.getLanguagesRoute());
-      return;
-    }
-    this.dataService.initializeChorusSessionState(this.config()!);
+  onSelect(pairIndex: number): void {
     this.router.navigate(
-      AppRoutesHelper.getChorusDashboardRoute(this.languageName(), this.accentName(), 1),
-    );
-  }
-
-  onSelectMinimalPairs(): void {
-    this.router.navigate(
-      AppRoutesHelper.getPairsSelectionRoute(this.languageName(), this.accentName()),
+      AppRoutesHelper.getPairsDashboardRoute(this.languageName(), this.accentName(), pairIndex, 1),
     );
   }
 
   onBack(): void {
-    this.router.navigate(AppRoutesHelper.getAccentsRoute(this.languageName()));
+    this.router.navigate(
+      AppRoutesHelper.getModeSelectionRoute(this.languageName(), this.accentName()),
+    );
   }
 }

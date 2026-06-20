@@ -13,6 +13,8 @@ export class AppRoutesHelper {
     ModeSelection: ':language/:accent',
     // ex. /english/america/chorus/1
     ChorusDashboard: ':language/:accent/chorus/:sentenceIndex',
+    // ex. /english/america/pairs
+    PairsSelection: ':language/:accent/pairs',
     // ex. /english/america/pairs/1/example/1
     PairsDashboard: ':language/:accent/pairs/:pairIndex/example/:exampleIndex',
     // ex. /english/america/summary
@@ -55,13 +57,25 @@ export class AppRoutesHelper {
     return ['/', language.toLowerCase(), accent.toLowerCase(), 'chorus', sentenceIndex];
   }
 
+  static getPairsSelectionRoute(language: string, accent: string): any[] {
+    return ['/', language.toLowerCase(), accent.toLowerCase(), 'pairs'];
+  }
+
   static getPairsDashboardRoute(
     language: string,
     accent: string,
     pairsIndex: number,
     exampleIndex: number,
   ): any[] {
-    return ['/', language.toLowerCase(), accent.toLowerCase(), 'pairs', pairsIndex, 'example', exampleIndex];
+    return [
+      '/',
+      language.toLowerCase(),
+      accent.toLowerCase(),
+      'pairs',
+      pairsIndex,
+      'example',
+      exampleIndex,
+    ];
   }
 
   static getSummaryRoute(language: string, accent: string): any[] {
@@ -104,14 +118,17 @@ const dynamicRoutes: Routes = [
   {
     path: AppRoutesHelper.routes.ChorusDashboard,
     loadComponent: () =>
-      import('@features/chorus/chorus-dashboard/chorus-dashboard').then(
-        (m) => m.ChorusDashboard,
-      ),
+      import('@features/chorus/chorus-dashboard/chorus-dashboard').then((m) => m.ChorusDashboard),
   },
   {
     path: AppRoutesHelper.routes.PairsDashboard,
     loadComponent: () =>
       import('@features/pairs/pairs-dashboard/pairs-dashboard').then((m) => m.PairsDashboard),
+  },
+  {
+    path: AppRoutesHelper.routes.PairsSelection,
+    loadComponent: () =>
+      import('@features/pairs/pairs-selection/pairs-selection').then((m) => m.PairsSelection),
   },
   {
     path: AppRoutesHelper.routes.Summary,

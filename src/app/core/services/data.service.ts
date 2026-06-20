@@ -2,7 +2,13 @@ import { Service, inject, Signal, computed, effect } from '@angular/core';
 import { FetchService } from '@core/services/fetch.service';
 import { StateService } from '@core/services/state.service';
 import { LoggingService } from '@core/services/logging.service';
-import { DataState, ChorusSessionState } from '@core/models/state';
+import {
+  DataState,
+  SessionState,
+  SessionMode,
+  ChorusSessionState,
+  PairsSessionState,
+} from '@core/models/state';
 import { Sentence } from '@core/models/sentence';
 import { Language } from '@core/models/language';
 import { CourseConfig } from '@core/models/config';
@@ -232,18 +238,40 @@ export class DataService {
 
   initializeChorusSessionState(config: CourseConfig): void {
     if (config === null || config.chorus === null || config.chorus.sentences === null) {
-      this.logger.error('data.service.ts | Failed to initialize chorus session state: config is null');
+      this.logger.error(
+        'data.service.ts | Failed to initialize chorus session state: config is null',
+      );
       return;
     }
     const indices = new Set<number>();
     while (indices.size < 10) {
       indices.add(Math.floor(Math.random() * 20));
     }
-    const sentenceToAddToSession: number[] = Array.from(indices).map(index => config.chorus.sentences[index]);
-    this.stateService.setChorusSessionState({ cumulativeReps: 0, sentencesInSession: sentenceToAddToSession });
+    const sentenceToAddToSession: number[] = Array.from(indices).map(
+      (index) => config.chorus.sentences[index],
+    );
+    const chorusSessionState: ChorusSessionState = {
+      cumulativeReps: 0,
+      sentencesInSession: sentenceToAddToSession,
+    };
+    const sessionState: SessionState = {
+      currentMode: SessionMode.CHORUS,
+      chorusSessionState: chorusSessionState,
+    };
+    this.stateService.setSessionState(sessionState);
+  }
+
+  getSessionState(): Signal<SessionState> {
+    return this.stateService.getSessionState();
   }
 
   getChorusSessionState(): Signal<ChorusSessionState> {
-    return this.stateService.getChorusSessionState();
+    return computed(
+      () =>
+        this.getSessionState()().chorusSessionState ?? {
+          cumulativeReps: 0,
+          sentencesInSession: [],
+        },
+    );
   }
 }

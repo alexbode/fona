@@ -1,4 +1,4 @@
-import { Component, Signal, input, inject, computed, signal, effect } from '@angular/core';
+import { Component, Signal, input, inject, computed, effect } from '@angular/core';
 import { LoggingService } from '@core/services/logging.service';
 import { DataService } from '@core/services/data.service';
 import { MatIconModule } from '@angular/material/icon';
@@ -29,11 +29,11 @@ export class AudioPlayer {
   // Inputs
   readonly language = input.required<string>();
   readonly accent = input.required<string>();
-  readonly sentenceIndex = input.required<string>();
+  readonly sentenceId = input.required<number | null>();
+  readonly loop = input<boolean>(true);
   readonly playbackSpeed = input<string>('100');
 
   // Services
-  // private readonly counterService = inject(CounterService);
   readonly dataService = inject(DataService);
   private readonly logger = inject(LoggingService);
 
@@ -45,7 +45,7 @@ export class AudioPlayer {
 
   constructor() {
     effect(() => {
-      const id = this.sentenceIndex();
+      const id = this.sentenceId();
       this.audioResource();
       this.stopAudio();
     });
@@ -69,11 +69,6 @@ export class AudioPlayer {
     return this.dataService.getCourseConfig(lang, acc)();
   });
 
-  sentenceId: Signal<number | null> = computed(() => {
-    const sentences = this.dataService.getChorusSessionState()().sentencesInSession;
-    return sentences[parseInt(this.sentenceIndex(), 10) - 1];
-  });
-
   audioResource: Signal<DataState<string>> = computed(() => {
     const id = this.sentenceId();
     if (!id) return { value: null, isLoading: true, error: null };
@@ -84,7 +79,9 @@ export class AudioPlayer {
     this.logger.debug('audio-player.ts handleAudioEnded');
     this.dataService.setIsAudioPlaying(false);
     this.incrementCounter();
-    this.playAudio();
+    if (this.loop()) {
+      this.playAudio();
+    }
   };
 
   playAudio() {

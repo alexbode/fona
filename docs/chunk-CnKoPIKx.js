@@ -1,0 +1,1 @@
+import {c as cE,a8 as ic,_ as _I,a9 as sc}from'./main-M4JWTTFZ.js';var o=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=cE({type:t,selectors:[["app-ipa"]],decls:2,vars:0,template:function(e,m){e&1&&(ic(0,"p"),_I(1,"ipa works!"),sc());},encapsulation:2})};export{o as Ipa};

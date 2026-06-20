@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { DecimalPipe, TitleCasePipe } from '@angular/common';
-import { AudioPlayer } from '@features/chorus/audio-player/audio-player';
+import { AudioPlayer } from '@app/shared/audio-player/audio-player';
 import { DataService } from '@core/services/data.service';
 import { AppRoutesHelper } from '@app/app.routes';
 import { DataState } from '@app/core/models/state';
@@ -118,7 +118,9 @@ export class ChorusDashboard {
   });
 
   sentenceId: Signal<number | null> = computed(() => {
-    const sentences = this.dataService.getChorusSessionState()().sentencesInSession;
+    const sentences =
+      this.dataService.getSessionState()().chorusSessionState?.sentencesInSession ?? null;
+    if (!sentences) return null;
     return sentences[parseInt(this.sentenceIndex(), 10) - 1];
   });
 

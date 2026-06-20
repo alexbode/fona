@@ -4,7 +4,31 @@ export interface DataState<T> {
   error: string | null;
 }
 
+export interface SessionState {
+  currentMode: SessionMode;
+  chorusSessionState?: ChorusSessionState;
+  pairsSessionState?: PairsSessionState;
+}
+
+export enum SessionMode {
+  CHORUS = 'chorus',
+  PAIRS = 'pairs',
+}
+
 export interface ChorusSessionState {
   cumulativeReps: number;
   sentencesInSession: number[];
+}
+
+export interface PairsSessionState {
+  cumulativeReps: number;
+  pairsInSession: MinimalPair[];
+}
+
+export interface MinimalPair {
+  ipaA: string;
+  ipaB: string;
+  wordA: number;
+  wordB: number;
+  sentence: number;
 }

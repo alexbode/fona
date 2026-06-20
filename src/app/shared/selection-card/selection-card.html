@@ -23,16 +23,10 @@
   >
     <hlm-card-header class="pb-2">
       <div class="text-3xl mb-2">{{ flag() }}</div>
-      <h3
-        hlmCardTitle
-        class="text-foreground font-semibold text-sm font-jakarta"
-      >
+      <h3 hlmCardTitle class="text-foreground font-semibold text-sm font-jakarta">
         {{ title() }}
       </h3>
-      <p
-        hlmCardDescription
-        class="text-muted-foreground text-xs mt-0.5"
-      >
+      <p hlmCardDescription class="text-muted-foreground text-xs mt-0.5">
         {{ subtitle() }}
       </p>
     </hlm-card-header>
@@ -43,12 +37,16 @@
         </div>
       } @else {
         @if (unlocked()) {
-          <div class="flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-brand/10 text-brand">
+          <div
+            class="flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-brand/10 text-brand"
+          >
             <ng-icon hlm name="lucideCheckCircle" size="11px" />
             Owned
           </div>
         } @else {
-          <div class="flex items-center gap-1 text-xs px-2 py-1 rounded-full border border-border text-muted-foreground">
+          <div
+            class="flex items-center gap-1 text-xs px-2 py-1 rounded-full border border-border text-muted-foreground"
+          >
             <ng-icon hlm name="lucideLock" size="11px" />
             Pro
           </div>
