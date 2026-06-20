@@ -70,7 +70,7 @@ export class Summary implements OnInit {
   });
 
   chorusCumulativeReps = computed(() => {
-    return this.dataService.getChorusSessionState()().cumulativeReps;
+    return this.dataService.getSessionState()().chorusSessionState?.cumulativeReps;
   });
 
   onGoAgain() {

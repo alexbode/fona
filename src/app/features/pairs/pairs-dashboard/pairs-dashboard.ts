@@ -58,9 +58,10 @@ export class PairsDashboard implements OnDestroy {
   // Expose isAudioPlaying from service
   readonly isAudioPlaying = this.dataService.isAudioPlaying;
 
-  // View child of audio player
-  readonly audioPlayer = viewChild<AudioPlayer>(AudioPlayer);
-  readonly activeSentenceId = signal<number | null>(null);
+  // View children of audio players
+  readonly playerA = viewChild<AudioPlayer>('playerA');
+  readonly playerB = viewChild<AudioPlayer>('playerB');
+  readonly playerSentence = viewChild<AudioPlayer>('playerSentence');
 
   // Active playing key for tracking loader
   readonly playingKey = signal<string | null>(null);
@@ -163,24 +164,30 @@ export class PairsDashboard implements OnDestroy {
     });
   });
 
-  playWord(sentenceId: number, key: string) {
+  private getPlayerByKey(key: string): AudioPlayer | undefined {
+    if (key === 'word-a') return this.playerA();
+    if (key === 'word-b') return this.playerB();
+    if (key === 'sentence') return this.playerSentence();
+    return undefined;
+  }
+
+  playWord(key: string) {
+    const player = this.getPlayerByKey(key);
     if (this.playingKey() === key && this.isAudioPlaying()) {
-      this.audioPlayer()?.stopAudio();
+      player?.stopAudio();
       this.playingKey.set(null);
       return;
     }
 
-    this.audioPlayer()?.stopAudio();
-    this.activeSentenceId.set(sentenceId);
+    this.stopAudio();
     this.playingKey.set(key);
-
-    setTimeout(() => {
-      this.audioPlayer()?.playAudio();
-    }, 50);
+    player?.playAudio();
   }
 
   stopAudio() {
-    this.audioPlayer()?.stopAudio();
+    this.playerA()?.stopAudio();
+    this.playerB()?.stopAudio();
+    this.playerSentence()?.stopAudio();
     this.playingKey.set(null);
   }
 
@@ -206,7 +213,7 @@ export class PairsDashboard implements OnDestroy {
           this.language(),
           this.accent(),
           this.pairIndex(),
-          this.exampleIndex() + 1,
+          Number(this.exampleIndex()) + 1,
         ),
       );
     } else {

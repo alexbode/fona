@@ -264,14 +264,4 @@ export class DataService {
   getSessionState(): Signal<SessionState> {
     return this.stateService.getSessionState();
   }
-
-  getChorusSessionState(): Signal<ChorusSessionState> {
-    return computed(
-      () =>
-        this.getSessionState()().chorusSessionState ?? {
-          cumulativeReps: 0,
-          sentencesInSession: [],
-        },
-    );
-  }
 }

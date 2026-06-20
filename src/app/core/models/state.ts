@@ -13,6 +13,7 @@ export interface SessionState {
 export enum SessionMode {
   CHORUS = 'chorus',
   PAIRS = 'pairs',
+  PAIRS_QUIZ = 'pairs_quiz',
 }
 
 export interface ChorusSessionState {

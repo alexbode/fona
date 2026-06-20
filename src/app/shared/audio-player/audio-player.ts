@@ -21,9 +21,6 @@ import { HlmButtonImports } from '@spartan-ng/helm/button';
   ],
   templateUrl: './audio-player.html',
   styleUrl: './audio-player.scss',
-  host: {
-    '(document:keydown.space)': 'onSpaceBar()',
-  },
 })
 export class AudioPlayer {
   // Inputs

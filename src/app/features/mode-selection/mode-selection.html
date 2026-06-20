@@ -28,47 +28,51 @@
   <!-- Selection Options -->
   <div class="flex-1 overflow-y-auto px-5 pb-8 space-y-4 pt-2">
     <!-- Chorusing Option -->
-    <button
-      (click)="onSelectChorusing()"
-      class="w-full bg-card border border-border rounded p-6 text-left hover:border-primary/40 group cursor-pointer"
-    >
-      <div class="flex items-start gap-4">
-        <div class="w-10 h-10 rounded flex items-center justify-center shrink-0 bg-brand/10">
-          <ng-icon hlm name="lucideMic" size="18px" class="text-brand" />
-        </div>
-        <div>
-          <div class="text-foreground font-bold text-lg font-jakarta">Chorusing</div>
-          <p class="text-muted-foreground text-sm mt-1 leading-relaxed">
-            Listen to a native speaker and repeat simultaneously. Build muscle memory through
-            repetition.
-          </p>
-          <div class="text-brand text-xs mt-3 tracking-widest uppercase font-medium">
-            Rep counting — rhythm training
+    @if (hasChorus()) {
+      <button
+        (click)="onSelectChorusing()"
+        class="w-full bg-card border border-border rounded p-6 text-left hover:border-primary/40 group cursor-pointer"
+      >
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 rounded flex items-center justify-center shrink-0 bg-brand/10">
+            <ng-icon hlm name="lucideMic" size="18px" class="text-brand" />
+          </div>
+          <div>
+            <div class="text-foreground font-bold text-lg font-jakarta">Chorusing</div>
+            <p class="text-muted-foreground text-sm mt-1 leading-relaxed">
+              Listen to a native speaker and repeat simultaneously. Build muscle memory through
+              repetition.
+            </p>
+            <div class="text-brand text-xs mt-3 tracking-widest uppercase font-medium">
+              Rep counting — rhythm training
+            </div>
           </div>
         </div>
-      </div>
-    </button>
+      </button>
+    }
 
     <!-- Minimal Pairs Option -->
-    <button
-      (click)="onSelectMinimalPairs()"
-      class="w-full bg-card border border-border rounded p-6 text-left hover:border-accent/40 group cursor-pointer"
-    >
-      <div class="flex items-start gap-4">
-        <div class="w-10 h-10 rounded flex items-center justify-center shrink-0 bg-pairs/10">
-          <ng-icon hlm name="lucideVolume2" size="18px" class="text-pairs" />
-        </div>
-        <div>
-          <div class="text-foreground font-bold text-lg font-jakarta">Minimal Pairs</div>
-          <p class="text-muted-foreground text-sm mt-1 leading-relaxed">
-            Hear two nearly identical sounds. Train your ear to distinguish them — the foundation of
-            accent perception.
-          </p>
-          <div class="text-pairs text-xs mt-3 tracking-widest uppercase font-medium">
-            Ear training — phoneme discrimination
+    @if (hasPairs()) {
+      <button
+        (click)="onSelectMinimalPairs()"
+        class="w-full bg-card border border-border rounded p-6 text-left hover:border-accent/40 group cursor-pointer"
+      >
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 rounded flex items-center justify-center shrink-0 bg-pairs/10">
+            <ng-icon hlm name="lucideVolume2" size="18px" class="text-pairs" />
+          </div>
+          <div>
+            <div class="text-foreground font-bold text-lg font-jakarta">Minimal Pairs</div>
+            <p class="text-muted-foreground text-sm mt-1 leading-relaxed">
+              Hear two nearly identical sounds. Train your ear to distinguish them — the foundation
+              of accent perception.
+            </p>
+            <div class="text-pairs text-xs mt-3 tracking-widest uppercase font-medium">
+              Ear training — phoneme discrimination
+            </div>
           </div>
         </div>
-      </div>
-    </button>
+      </button>
+    }
   </div>
 </div>

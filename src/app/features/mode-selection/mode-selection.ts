@@ -57,6 +57,16 @@ export class ModeSelection {
     return configState.value;
   });
 
+  hasChorus = computed(() => {
+    const cfg = this.config();
+    return !!(cfg && cfg.chorus && cfg.chorus.sentences && cfg.chorus.sentences.length > 0);
+  });
+
+  hasPairs = computed(() => {
+    const cfg = this.config();
+    return !!(cfg && cfg.pairs && cfg.pairs.length > 0);
+  });
+
   ngOnInit() {
     this.logger.debug(
       'config',
