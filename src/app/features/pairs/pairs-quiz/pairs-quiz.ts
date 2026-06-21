@@ -235,6 +235,8 @@ export class PairsQuiz {
     }
   }
 
+  readonly outcomes = signal<{ ipaA: string; ipaB: string; wasCorrect: boolean }[]>([]);
+
   handleSelect(choice: string) {
     if (this.selected() !== null) return;
     const validatedChoice = choice === 'A' || choice === 'B' ? choice : 'A';
@@ -250,6 +252,14 @@ export class PairsQuiz {
     } else {
       this.currentStreak.set(0);
     }
+    this.outcomes.update((prev) => [
+      ...prev,
+      {
+        ipaA: pair.config.ipa_a,
+        ipaB: pair.config.ipa_b,
+        wasCorrect,
+      },
+    ]);
   }
 
   handleNext() {
@@ -257,6 +267,38 @@ export class PairsQuiz {
       this.pairIdx.set(this.pairIdx() + 1);
       this.selected.set(null);
     } else {
+      // Group outcomes by contrast
+      const contrastMap = new Map<
+        string,
+        { ipaA: string; ipaB: string; total: number; correct: number }
+      >();
+      for (const outcome of this.outcomes()) {
+        const key = `/${outcome.ipaA}/ vs /${outcome.ipaB}/`;
+        if (!contrastMap.has(key)) {
+          contrastMap.set(key, {
+            ipaA: outcome.ipaA,
+            ipaB: outcome.ipaB,
+            total: 0,
+            correct: 0,
+          });
+        }
+        const stats = contrastMap.get(key)!;
+        stats.total++;
+        if (outcome.wasCorrect) {
+          stats.correct++;
+        }
+      }
+
+      // Filter to only those contrasts where the user made at least one mistake
+      const incorrectContrasts = Array.from(contrastMap.values())
+        .filter((c) => c.correct < c.total)
+        .map((c) => ({
+          ipaA: c.ipaA,
+          ipaB: c.ipaB,
+          correct: c.correct,
+          total: c.total,
+        }));
+
       // Session complete: navigate to summary and pass the stats
       this.router.navigate(
         AppRoutesHelper.getSummaryRoute(this.languageName(), this.accentName()),
@@ -268,6 +310,7 @@ export class PairsQuiz {
             correct: this.correctCount(),
             streak: this.bestStreak(),
             accent: this.accentObj()?.nativeName ?? this.accentName(),
+            incorrectPairs: incorrectContrasts,
           },
         },
       );

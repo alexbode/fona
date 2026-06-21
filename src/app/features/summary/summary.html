@@ -43,6 +43,33 @@
     </p>
   </div>
 
+  <!-- Incorrect Pairs Review -->
+  @if (isPairsQuiz() && data.incorrectPairs && data.incorrectPairs.length > 0) {
+    <div class="mb-8 flex flex-col min-h-0">
+      <div class="text-xs tracking-widest uppercase text-muted-foreground mb-3 font-sans">
+        Review incorrect sounds
+      </div>
+      <div class="max-h-[240px] overflow-y-auto space-y-2 pr-1">
+        @for (item of data.incorrectPairs; track $index) {
+          <div
+            class="bg-card border border-border rounded-xl p-4 flex items-center justify-between gap-4"
+          >
+            <div class="flex items-center gap-3">
+              <span
+                class="text-sm font-bold text-pairs bg-pairs/10 px-2.5 py-1 rounded font-jakarta"
+              >
+                /{{ item.ipaA }}/ vs /{{ item.ipaB }}/
+              </span>
+              <span class="text-sm text-muted-foreground font-sans">
+                {{ item.correct }} of {{ item.total }} correct
+              </span>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
   <!-- CTAs -->
   <div class="space-y-3 mt-auto">
     <button

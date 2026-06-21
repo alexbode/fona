@@ -12,6 +12,12 @@ export interface SummaryData {
   mode?: 'chorus' | 'pairs' | 'pairs_quiz';
   correct?: number;
   streak?: number;
+  incorrectPairs?: {
+    ipaA: string;
+    ipaB: string;
+    correct: number;
+    total: number;
+  }[];
 }
 
 import { ButtonDirective } from '@app/directive/button';
