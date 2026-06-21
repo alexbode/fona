@@ -74,5 +74,29 @@
         </div>
       </button>
     }
+
+    <!-- Minimal Pairs Quiz Option -->
+    @if (hasPairsQuiz()) {
+      <button
+        (click)="onSelectPairsQuiz()"
+        class="w-full bg-card border border-border rounded p-6 text-left hover:border-primary/40 group cursor-pointer"
+      >
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 rounded flex items-center justify-center shrink-0 bg-pairs/10">
+            <ng-icon hlm name="lucideVolume2" size="18px" class="text-pairs" />
+          </div>
+          <div>
+            <div class="text-foreground font-bold text-lg font-jakarta">Minimal Pairs Quiz</div>
+            <p class="text-muted-foreground text-sm mt-1 leading-relaxed font-sans">
+              Hear two nearly identical sounds. Train your ear to distinguish them — the foundation
+              of accent perception.
+            </p>
+            <div class="text-pairs text-xs mt-3 tracking-widest uppercase font-medium font-sans">
+              Ear training — phoneme discrimination
+            </div>
+          </div>
+        </div>
+      </button>
+    }
   </div>
 </div>

@@ -21,9 +21,15 @@ export class AppRoutesHelper {
     Summary: ':language/:accent/summary',
     // ex. /paywall/english/america
     Paywall: 'paywall/:language/:accent',
+    // ex. /english/america/pairs-quiz
+    PairsQuiz: ':language/:accent/pairs-quiz',
   } as const;
 
   static readonly authFlowRoutes = [AppRoutesHelper.routes.Signin, AppRoutesHelper.routes.Signup];
+
+  static getPairsQuizRoute(language: string, accent: string): any[] {
+    return ['/', language.toLowerCase(), accent.toLowerCase(), 'pairs-quiz'];
+  }
 
   static getHomeRoute(): any[] {
     return ['/', AppRoutesHelper.routes.Home];
@@ -128,7 +134,11 @@ const dynamicRoutes: Routes = [
   {
     path: AppRoutesHelper.routes.PairsSelection,
     loadComponent: () =>
-      import('@features/pairs/pairs-selection/pairs-selection').then((m) => m.PairsSelection),
+      import('@features/pairs/pairs-selection/pairs-selection').then((m) => m.PairsSelection), // Load selection page
+  },
+  {
+    path: AppRoutesHelper.routes.PairsQuiz,
+    loadComponent: () => import('@features/pairs/pairs-quiz/pairs-quiz').then((m) => m.PairsQuiz),
   },
   {
     path: AppRoutesHelper.routes.Summary,

@@ -58,8 +58,8 @@ export class PairsSelection {
   readonly pairItems = computed(() => {
     const list = this.config().value?.pairs ?? [];
     return list.map((p, index) => {
-      const wordAId = parseInt(p.words_a[0], 10);
-      const wordBId = parseInt(p.words_b[0], 10);
+      const wordAId = p.words_a[0];
+      const wordBId = p.words_b[0];
       return {
         id: index + 1,
         symA: p.ipa_a,

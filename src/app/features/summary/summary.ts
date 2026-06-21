@@ -9,6 +9,9 @@ export interface SummaryData {
   reps: number;
   total: number;
   accent: string;
+  mode?: 'chorus' | 'pairs' | 'pairs_quiz';
+  correct?: number;
+  streak?: number;
 }
 
 import { ButtonDirective } from '@app/directive/button';
@@ -73,7 +76,38 @@ export class Summary implements OnInit {
     return this.dataService.getSessionState()().chorusSessionState?.cumulativeReps;
   });
 
+  title = computed(() => {
+    if (this.data.mode === 'pairs_quiz') {
+      return 'Minimal Pairs Quiz';
+    }
+    if (this.data.mode === 'pairs') {
+      return 'Minimal Pairs';
+    }
+    return 'Chorusing';
+  });
+
+  isPairsQuiz = computed(() => {
+    return this.data.mode === 'pairs_quiz';
+  });
+
+  accuracyPercentage = computed(() => {
+    if (this.data.correct === undefined || this.data.total === 0) return 0;
+    return Math.round((this.data.correct / this.data.total) * 100);
+  });
+
+  streakValue = computed(() => {
+    return this.data.streak ?? 0;
+  });
+
   onGoAgain() {
+    if (this.data.mode === 'pairs_quiz') {
+      this.router.navigate(AppRoutesHelper.getPairsQuizRoute(this.language(), this.accent()));
+      return;
+    }
+    if (this.data.mode === 'pairs') {
+      this.router.navigate(AppRoutesHelper.getPairsSelectionRoute(this.language(), this.accent()));
+      return;
+    }
     this.dataService.initializeChorusSessionState(this.config()?.value!);
     this.router.navigate(
       AppRoutesHelper.getChorusDashboardRoute(this.language(), this.accent(), 1),

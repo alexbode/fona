@@ -1,7 +1,7 @@
 <div class="flex-1 flex flex-col px-5 pb-8 pt-12 select-none h-full bg-background">
   <div class="mb-8">
     <div class="text-xs tracking-widest uppercase text-muted-foreground mb-3">session complete</div>
-    <h2 class="text-3xl font-bold text-foreground font-jakarta">Chorusing</h2>
+    <h2 class="text-3xl font-bold text-foreground font-jakarta">{{ title() }}</h2>
     <p class="text-muted-foreground text-sm mt-1">
       {{ data.accent }}
     </p>
@@ -9,18 +9,31 @@
 
   <!-- Stats -->
   <div class="grid grid-cols-2 gap-3 mb-8">
-    <div class="bg-card border border-border rounded p-5 text-center">
-      <div class="text-5xl font-bold text-brand font-jakarta">
-        {{ chorusCumulativeReps() }}
+    @if (isPairsQuiz()) {
+      <div class="bg-card border border-border rounded p-5 text-center">
+        <div class="text-5xl font-bold text-brand font-jakarta">{{ accuracyPercentage() }}%</div>
+        <div class="text-muted-foreground text-xs mt-1 tracking-widest uppercase">accuracy</div>
       </div>
-      <div class="text-muted-foreground text-xs mt-1 tracking-widest uppercase">total reps</div>
-    </div>
-    <div class="bg-card border border-border rounded p-5 text-center">
-      <div class="text-5xl font-bold text-muted-foreground font-jakarta">
-        {{ data.total }}
+      <div class="bg-card border border-border rounded p-5 text-center">
+        <div class="text-5xl font-bold text-muted-foreground font-jakarta">
+          {{ streakValue() }}
+        </div>
+        <div class="text-muted-foreground text-xs mt-1 tracking-widest uppercase">best streak</div>
       </div>
-      <div class="text-muted-foreground text-xs mt-1 tracking-widest uppercase">phrases</div>
-    </div>
+    } @else {
+      <div class="bg-card border border-border rounded p-5 text-center">
+        <div class="text-5xl font-bold text-brand font-jakarta">
+          {{ chorusCumulativeReps() }}
+        </div>
+        <div class="text-muted-foreground text-xs mt-1 tracking-widest uppercase">total reps</div>
+      </div>
+      <div class="bg-card border border-border rounded p-5 text-center">
+        <div class="text-5xl font-bold text-muted-foreground font-jakarta">
+          {{ data.total }}
+        </div>
+        <div class="text-muted-foreground text-xs mt-1 tracking-widest uppercase">phrases</div>
+      </div>
+    }
   </div>
 
   <!-- Motivational message -->

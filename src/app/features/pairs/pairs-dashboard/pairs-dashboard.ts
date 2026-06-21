@@ -128,12 +128,12 @@ export class PairsDashboard implements OnDestroy {
   wordAId = computed(() => {
     const ids = this.pair()?.words_a ?? [];
     const idx = this.exampleIndex() - 1;
-    return ids.length > idx ? parseInt(ids[idx], 10) : 0;
+    return ids.length > idx ? ids[idx] : 0;
   });
   wordBId = computed(() => {
     const ids = this.pair()?.words_b ?? [];
     const idx = this.exampleIndex() - 1;
-    return ids.length > idx ? parseInt(ids[idx], 10) : 0;
+    return ids.length > idx ? ids[idx] : 0;
   });
 
   // Context Sentence

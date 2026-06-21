@@ -67,6 +67,11 @@ export class ModeSelection {
     return !!(cfg && cfg.pairs && cfg.pairs.length > 0);
   });
 
+  hasPairsQuiz = computed(() => {
+    const cfg = this.config();
+    return !!(cfg && cfg.pairsQuiz && cfg.pairsQuiz.length > 0);
+  });
+
   ngOnInit() {
     this.logger.debug(
       'config',
@@ -89,6 +94,10 @@ export class ModeSelection {
     this.router.navigate(
       AppRoutesHelper.getPairsSelectionRoute(this.languageName(), this.accentName()),
     );
+  }
+
+  onSelectPairsQuiz(): void {
+    this.router.navigate(AppRoutesHelper.getPairsQuizRoute(this.languageName(), this.accentName()));
   }
 
   onBack(): void {

@@ -6,6 +6,7 @@ export interface CourseConfig {
   accent: string;
   chorus: ChorusConfig;
   pairs: PairsConfig[];
+  pairsQuiz: PairsQuizConfig[];
 }
 
 export interface ChorusConfig {
@@ -15,8 +16,15 @@ export interface ChorusConfig {
 export interface PairsConfig {
   ipa_a: string;
   ipa_b: string;
-  words_a: string[];
-  words_b: string[];
+  words_a: number[];
+  words_b: number[];
   sentences: number[];
   num_examples: number;
+}
+
+export interface PairsQuizConfig {
+  ipa_a: string;
+  ipa_b: string;
+  word_a: number;
+  word_b: number;
 }
