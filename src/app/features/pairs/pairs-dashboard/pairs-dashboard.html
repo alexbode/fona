@@ -71,102 +71,124 @@
       </div>
       <div class="flex gap-3">
         <!-- Word A Card -->
-        <div
-          class="flex-1 bg-card border border-border rounded-xl p-4 flex flex-col gap-3 transition-colors duration-200"
-          [class.border-brand/60]="playingKey() === 'word-a'"
-        >
+        @if (wordASentence().isLoading) {
+          <div class="flex-1 bg-card border border-border rounded-xl p-4 flex flex-col gap-3">
+            <hlm-skeleton class="w-10 h-10 rounded-lg" />
+            <div class="space-y-2">
+              <hlm-skeleton class="h-5 w-24 rounded" />
+              <hlm-skeleton class="h-3 w-16 rounded" />
+            </div>
+            <hlm-skeleton class="h-8 w-full rounded-lg" />
+          </div>
+        } @else {
           <div
-            class="w-10 h-10 rounded-lg flex items-center justify-center text-xl font-bold bg-brand/10 text-brand font-jakarta"
+            class="flex-1 bg-card border border-border rounded-xl p-4 flex flex-col gap-3 transition-colors duration-200"
+            [class.border-brand/60]="playingKey() === 'word-a'"
           >
-            {{ pair()?.ipa_a }}
-          </div>
-          <div>
-            <div class="text-foreground font-bold text-lg leading-tight font-jakarta">
-              {{ wordAText() }}
+            <div
+              class="w-10 h-10 rounded-lg flex items-center justify-center text-xl font-bold bg-brand/10 text-brand font-jakarta"
+            >
+              {{ pair()?.ipa_a }}
             </div>
-            <div class="text-muted-foreground text-xs mt-0.5 font-sans">
-              /{{ wordASentence().value?.ipa }}/
+            <div>
+              <div class="text-foreground font-bold text-lg leading-tight font-jakarta">
+                {{ wordAText() }}
+              </div>
+              <div class="text-muted-foreground text-xs mt-0.5 font-sans">
+                /{{ wordASentence().value?.ipa }}/
+              </div>
             </div>
+            <button
+              [disabled]="playingKey() === 'word-a' || isAudioPlaying()"
+              (click)="playWord('word-a')"
+              class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer disabled:opacity-50 border"
+              [class.bg-brand-hover/10]="playingKey() === 'word-a'"
+              [class.text-brand-hover]="playingKey() === 'word-a'"
+              [class.border-brand-hover/30]="playingKey() === 'word-a'"
+              [class.bg-brand/10]="playingKey() !== 'word-a'"
+              [class.text-brand]="playingKey() !== 'word-a'"
+              [class.border-brand/20]="playingKey() !== 'word-a'"
+            >
+              @if (playingKey() === 'word-a') {
+                <svg
+                  class="animate-spin h-3 w-3"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                >
+                  <path
+                    d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"
+                  />
+                </svg>
+                <span>Playing…</span>
+              } @else {
+                <ng-icon hlm name="lucideVolume2" size="12px" />
+                <span>Hear "{{ wordAText() }}"</span>
+              }
+            </button>
           </div>
-          <button
-            [disabled]="playingKey() === 'word-a' || isAudioPlaying()"
-            (click)="playWord('word-a')"
-            class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer disabled:opacity-50 border"
-            [class.bg-brand-hover/10]="playingKey() === 'word-a'"
-            [class.text-brand-hover]="playingKey() === 'word-a'"
-            [class.border-brand-hover/30]="playingKey() === 'word-a'"
-            [class.bg-brand/10]="playingKey() !== 'word-a'"
-            [class.text-brand]="playingKey() !== 'word-a'"
-            [class.border-brand/20]="playingKey() !== 'word-a'"
-          >
-            @if (playingKey() === 'word-a') {
-              <svg
-                class="animate-spin h-3 w-3"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2.5"
-              >
-                <path
-                  d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"
-                />
-              </svg>
-              <span>Playing…</span>
-            } @else {
-              <ng-icon hlm name="lucideVolume2" size="12px" />
-              <span>Hear "{{ wordAText() }}"</span>
-            }
-          </button>
-        </div>
+        }
 
         <!-- Word B Card -->
-        <div
-          class="flex-1 bg-card border border-border rounded-xl p-4 flex flex-col gap-3 transition-colors duration-200"
-          [class.border-brand-secondary/60]="playingKey() === 'word-b'"
-        >
+        @if (wordBSentence().isLoading) {
+          <div class="flex-1 bg-card border border-border rounded-xl p-4 flex flex-col gap-3">
+            <hlm-skeleton class="w-10 h-10 rounded-lg" />
+            <div class="space-y-2">
+              <hlm-skeleton class="h-5 w-24 rounded" />
+              <hlm-skeleton class="h-3 w-16 rounded" />
+            </div>
+            <hlm-skeleton class="h-8 w-full rounded-lg" />
+          </div>
+        } @else {
           <div
-            class="w-10 h-10 rounded-lg flex items-center justify-center text-xl font-bold bg-brand-secondary/10 text-brand-secondary font-jakarta"
+            class="flex-1 bg-card border border-border rounded-xl p-4 flex flex-col gap-3 transition-colors duration-200"
+            [class.border-brand-secondary/60]="playingKey() === 'word-b'"
           >
-            {{ pair()?.ipa_b }}
-          </div>
-          <div>
-            <div class="text-foreground font-bold text-lg leading-tight font-jakarta">
-              {{ wordBText() }}
+            <div
+              class="w-10 h-10 rounded-lg flex items-center justify-center text-xl font-bold bg-brand-secondary/10 text-brand-secondary font-jakarta"
+            >
+              {{ pair()?.ipa_b }}
             </div>
-            <div class="text-muted-foreground text-xs mt-0.5 font-sans">
-              /{{ wordBSentence().value?.ipa }}/
+            <div>
+              <div class="text-foreground font-bold text-lg leading-tight font-jakarta">
+                {{ wordBText() }}
+              </div>
+              <div class="text-muted-foreground text-xs mt-0.5 font-sans">
+                /{{ wordBSentence().value?.ipa }}/
+              </div>
             </div>
+            <button
+              [disabled]="playingKey() === 'word-b' || isAudioPlaying()"
+              (click)="playWord('word-b')"
+              class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer disabled:opacity-50 border"
+              [class.bg-brand-hover/10]="playingKey() === 'word-b'"
+              [class.text-brand-hover]="playingKey() === 'word-b'"
+              [class.border-brand-hover/30]="playingKey() === 'word-b'"
+              [class.bg-brand/10]="playingKey() !== 'word-b'"
+              [class.text-brand]="playingKey() !== 'word-b'"
+              [class.border-brand/20]="playingKey() !== 'word-b'"
+            >
+              @if (playingKey() === 'word-b') {
+                <svg
+                  class="animate-spin h-3 w-3"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                >
+                  <path
+                    d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"
+                  />
+                </svg>
+                <span>Playing…</span>
+              } @else {
+                <ng-icon hlm name="lucideVolume2" size="12px" />
+                <span>Hear "{{ wordBText() }}"</span>
+              }
+            </button>
           </div>
-          <button
-            [disabled]="playingKey() === 'word-b' || isAudioPlaying()"
-            (click)="playWord('word-b')"
-            class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer disabled:opacity-50 border"
-            [class.bg-brand-hover/10]="playingKey() === 'word-b'"
-            [class.text-brand-hover]="playingKey() === 'word-b'"
-            [class.border-brand-hover/30]="playingKey() === 'word-b'"
-            [class.bg-brand/10]="playingKey() !== 'word-b'"
-            [class.text-brand]="playingKey() !== 'word-b'"
-            [class.border-brand/20]="playingKey() !== 'word-b'"
-          >
-            @if (playingKey() === 'word-b') {
-              <svg
-                class="animate-spin h-3 w-3"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2.5"
-              >
-                <path
-                  d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"
-                />
-              </svg>
-              <span>Playing…</span>
-            } @else {
-              <ng-icon hlm name="lucideVolume2" size="12px" />
-              <span>Hear "{{ wordBText() }}"</span>
-            }
-          </button>
-        </div>
+        }
       </div>
     </div>
 
@@ -175,47 +197,59 @@
       <div class="text-xs tracking-widest uppercase text-muted-foreground mb-2 px-1 font-sans">
         In context
       </div>
-      <div class="bg-card border border-border rounded-xl p-5 space-y-3">
-        <p class="text-foreground text-base leading-relaxed font-jakarta">
-          @for (w of sentenceWords(); track $index) {
-            <span
-              [class.text-brand]="w.isA"
-              [class.text-brand-secondary]="w.isB"
-              [class.font-bold]="w.isA || w.isB"
-            >
-              {{ w.original }}
-            </span>
-            <span> </span>
-          }
-        </p>
-        <button
-          [disabled]="playingKey() === 'sentence' || isAudioPlaying()"
-          (click)="playWord('sentence')"
-          class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer disabled:opacity-50 border"
-          [class.bg-brand-hover/10]="playingKey() === 'sentence'"
-          [class.text-brand-hover]="playingKey() === 'sentence'"
-          [class.border-brand-hover/30]="playingKey() === 'sentence'"
-          [class.bg-brand/10]="playingKey() !== 'sentence'"
-          [class.text-brand]="playingKey() !== 'sentence'"
-          [class.border-brand/20]="playingKey() !== 'sentence'"
-        >
-          @if (playingKey() === 'sentence') {
-            <svg
-              class="animate-spin h-3 w-3"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2.5"
-            >
-              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4" />
-            </svg>
-            <span>Playing…</span>
-          } @else {
-            <ng-icon hlm name="lucideVolume2" size="12px" />
-            <span>Hear full sentence</span>
-          }
-        </button>
-      </div>
+      @if (sentenceObj().isLoading) {
+        <div class="bg-card border border-border rounded-xl p-5 space-y-4">
+          <div class="space-y-2">
+            <hlm-skeleton class="h-5 w-3/4 rounded" />
+            <hlm-skeleton class="h-5 w-1/2 rounded" />
+          </div>
+          <hlm-skeleton class="h-8 w-32 rounded-lg" />
+        </div>
+      } @else {
+        <div class="bg-card border border-border rounded-xl p-5 space-y-3">
+          <p class="text-foreground text-base leading-relaxed font-jakarta">
+            @for (w of sentenceWords(); track $index) {
+              <span
+                [class.text-brand]="w.isA"
+                [class.text-brand-secondary]="w.isB"
+                [class.font-bold]="w.isA || w.isB"
+              >
+                {{ w.original }}
+              </span>
+              <span> </span>
+            }
+          </p>
+          <button
+            [disabled]="playingKey() === 'sentence' || isAudioPlaying()"
+            (click)="playWord('sentence')"
+            class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer disabled:opacity-50 border"
+            [class.bg-brand-hover/10]="playingKey() === 'sentence'"
+            [class.text-brand-hover]="playingKey() === 'sentence'"
+            [class.border-brand-hover/30]="playingKey() === 'sentence'"
+            [class.bg-brand/10]="playingKey() !== 'sentence'"
+            [class.text-brand]="playingKey() !== 'sentence'"
+            [class.border-brand/20]="playingKey() !== 'sentence'"
+          >
+            @if (playingKey() === 'sentence') {
+              <svg
+                class="animate-spin h-3 w-3"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2.5"
+              >
+                <path
+                  d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"
+                />
+              </svg>
+              <span>Playing…</span>
+            } @else {
+              <ng-icon hlm name="lucideVolume2" size="12px" />
+              <span>Hear full sentence</span>
+            }
+          </button>
+        </div>
+      }
     </div>
 
     <!-- Navigation buttons -->

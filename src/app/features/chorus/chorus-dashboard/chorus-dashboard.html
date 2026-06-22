@@ -57,9 +57,9 @@
     <!-- Phrase card -->
     <div class="bg-card border border-border rounded p-5 space-y-3">
       @if (sentence().isLoading) {
-        <div class="animate-pulse space-y-3">
-          <div class="h-6 bg-muted rounded w-3/4"></div>
-          <div class="h-4 bg-muted rounded w-1/2"></div>
+        <div class="space-y-3">
+          <hlm-skeleton class="h-6 w-3/4 rounded" />
+          <hlm-skeleton class="h-4 w-1/2 rounded" />
         </div>
       } @else {
         <p class="text-foreground text-2xl lg:text-3xl font-semibold leading-normal font-jakarta">
@@ -126,11 +126,7 @@
       <div class="w-px h-16 bg-border mx-4 shrink-0"></div>
       <div class="flex flex-col items-center flex-1">
         @if (allTimeRepsState().isLoading) {
-          <span
-            class="text-4xl font-bold leading-none animate-pulse text-muted-foreground font-jakarta"
-          >
-            ...
-          </span>
+          <hlm-skeleton class="h-9 w-12 rounded" />
         } @else {
           <span class="text-4xl font-bold leading-none text-muted-foreground font-jakarta">
             {{ allTimeReps() | number }}

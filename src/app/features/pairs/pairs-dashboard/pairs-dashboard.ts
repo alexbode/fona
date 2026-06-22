@@ -23,6 +23,7 @@ import { AppRoutesHelper } from '@app/app.routes';
 import { CourseConfig, PairsConfig } from '@core/models/config';
 import { DataState } from '@core/models/state';
 import { AudioPlayer } from '@app/shared/audio-player/audio-player';
+import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
 
 @Component({
   selector: 'app-pairs-dashboard',
@@ -35,6 +36,7 @@ import { AudioPlayer } from '@app/shared/audio-player/audio-player';
     ButtonDirective,
     HlmButtonImports,
     AudioPlayer,
+    HlmSkeleton,
   ],
   providers: [
     provideIcons({

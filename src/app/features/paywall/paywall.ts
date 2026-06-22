@@ -8,9 +8,11 @@ import { DataService } from '@core/services/data.service';
 import { AppRoutesHelper } from '@app/app.routes';
 import { ButtonDirective } from '@app/directive/button';
 
+import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
+
 @Component({
   selector: 'app-paywall',
-  imports: [NgIcon, HlmIcon, ButtonDirective, TitleCasePipe],
+  imports: [NgIcon, HlmIcon, ButtonDirective, TitleCasePipe, HlmSkeleton],
   providers: [
     provideIcons({
       lucideChevronLeft,

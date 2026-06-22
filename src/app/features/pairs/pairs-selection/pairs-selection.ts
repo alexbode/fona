@@ -10,10 +10,12 @@ import { CourseConfig } from '@core/models/config';
 import { HlmBreadcrumbImports } from '@spartan-ng/helm/breadcrumb';
 import { DataState } from '@core/models/state';
 
+import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
+
 @Component({
   selector: 'app-pairs-selection',
   standalone: true,
-  imports: [NgIcon, HlmIcon, TitleCasePipe, HlmBreadcrumbImports],
+  imports: [NgIcon, HlmIcon, TitleCasePipe, HlmBreadcrumbImports, HlmSkeleton],
   providers: [
     provideIcons({
       lucideChevronLeft,

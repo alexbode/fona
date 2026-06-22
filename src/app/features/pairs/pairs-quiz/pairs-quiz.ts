@@ -33,9 +33,19 @@ interface QuizPair {
   wordB: number;
 }
 
+import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
+
 @Component({
   selector: 'app-pairs-quiz',
-  imports: [NgIcon, HlmIcon, TitleCasePipe, HlmBreadcrumbImports, ButtonDirective, AudioPlayer],
+  imports: [
+    NgIcon,
+    HlmIcon,
+    TitleCasePipe,
+    HlmBreadcrumbImports,
+    ButtonDirective,
+    AudioPlayer,
+    HlmSkeleton,
+  ],
   providers: [
     provideIcons({
       lucideChevronLeft,

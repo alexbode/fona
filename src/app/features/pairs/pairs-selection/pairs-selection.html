@@ -39,9 +39,7 @@
     @if (config().isLoading) {
       <div class="flex flex-col gap-3">
         @for (i of [1, 2, 3, 4]; track i) {
-          <div
-            class="w-full bg-card border border-border rounded-xl p-5 animate-pulse h-[86px]"
-          ></div>
+          <hlm-skeleton class="w-full h-[86px] rounded-xl" />
         }
       </div>
     } @else if (pairItems().length === 0) {

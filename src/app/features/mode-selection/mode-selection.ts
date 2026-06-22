@@ -10,9 +10,11 @@ import { LoggingService } from '@core/services/logging.service';
 import { CourseConfig } from '@core/models/config';
 import { HlmBreadcrumbImports } from '@spartan-ng/helm/breadcrumb';
 
+import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
+
 @Component({
   selector: 'app-mode-selection',
-  imports: [NgIcon, HlmIcon, TitleCasePipe, HlmBreadcrumbImports],
+  imports: [NgIcon, HlmIcon, TitleCasePipe, HlmBreadcrumbImports, HlmSkeleton],
   providers: [
     provideIcons({
       lucideChevronLeft,
@@ -52,9 +54,12 @@ export class ModeSelection {
     return lang.accents.find((a) => a.name.toLowerCase() === pathAccent) || null;
   });
 
+  configState = computed(() => {
+    return this.dataService.getCourseConfig(this.languageName(), this.accentName())();
+  });
+
   config: Signal<CourseConfig | null> = computed(() => {
-    const configState = this.dataService.getCourseConfig(this.languageName(), this.accentName())();
-    return configState.value;
+    return this.configState().value;
   });
 
   hasChorus = computed(() => {

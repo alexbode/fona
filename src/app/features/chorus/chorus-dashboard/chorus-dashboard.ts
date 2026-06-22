@@ -24,6 +24,7 @@ import { MatCardModule } from '@angular/material/card';
 import { HlmBreadcrumbImports } from '@spartan-ng/helm/breadcrumb';
 
 import { ButtonDirective } from '@app/directive/button';
+import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
 
 @Component({
   selector: 'app-chorus-dashboard',
@@ -37,6 +38,7 @@ import { ButtonDirective } from '@app/directive/button';
     TitleCasePipe,
     MatCardModule,
     HlmBreadcrumbImports,
+    HlmSkeleton,
   ],
   providers: [
     provideIcons({

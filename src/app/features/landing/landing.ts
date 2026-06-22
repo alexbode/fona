@@ -4,9 +4,11 @@ import { RouterLink } from '@angular/router';
 import { ButtonDirective } from '@app/directive/button';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 
+import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
+
 @Component({
   selector: 'app-landing',
-  imports: [RouterLink, ButtonDirective, HlmButtonImports],
+  imports: [RouterLink, ButtonDirective, HlmButtonImports, HlmSkeleton],
   templateUrl: './landing.html',
   styleUrl: './landing.scss',
 })
