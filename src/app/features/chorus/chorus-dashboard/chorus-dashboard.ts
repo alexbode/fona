@@ -58,7 +58,10 @@ export class ChorusDashboard {
 
   readonly language = input.required<string>();
   readonly accent = input.required<string>();
-  readonly sentenceIndex = input.required<string>();
+
+  // Internal state
+  readonly sentencesInSession = signal<number[]>([]);
+  readonly sentenceIndex = signal<number>(1);
 
   // Fetch language list to resolve native accent name
   readonly languagesState = this.dataService.getLanguageList();
@@ -96,6 +99,27 @@ export class ChorusDashboard {
     this.cumulativeReps.set(state?.cumulativeReps ?? 0);
 
     effect(() => {
+      const config = this.config().value;
+      if (
+        config &&
+        config.chorus &&
+        config.chorus.sentences &&
+        this.sentencesInSession().length === 0
+      ) {
+        const indices = new Set<number>();
+        const totalSentences = config.chorus.sentences.length;
+        const limit = Math.min(10, totalSentences);
+        while (indices.size < limit) {
+          indices.add(Math.floor(Math.random() * totalSentences));
+        }
+        const sentenceToAddToSession: number[] = Array.from(indices).map(
+          (index) => config.chorus.sentences[index],
+        );
+        this.sentencesInSession.set(sentenceToAddToSession);
+      }
+    });
+
+    effect(() => {
       const count = this.sentenceCount().value;
       const isLoading = this.sentenceCount().isLoading;
       const currentSentenceId = this.sentenceId();
@@ -118,10 +142,9 @@ export class ChorusDashboard {
   });
 
   sentenceId: Signal<number | null> = computed(() => {
-    const sentences =
-      this.dataService.getSessionState()().chorusSessionState?.sentencesInSession ?? null;
-    if (!sentences) return null;
-    return sentences[parseInt(this.sentenceIndex(), 10) - 1];
+    const sentences = this.sentencesInSession();
+    if (sentences.length === 0) return null;
+    return sentences[this.sentenceIndex() - 1];
   });
 
   readonly numSentences = 10;
@@ -143,43 +166,26 @@ export class ChorusDashboard {
 
   previousSentence() {
     this.audioPlayer()?.stopAudio();
-    if (Number(this.sentenceIndex()) > 1) {
-      this.router.navigate(
-        AppRoutesHelper.getChorusDashboardRoute(
-          this.language(),
-          this.accent(),
-          Number(this.sentenceIndex()) - 1,
-        ),
-        {
-          state: { cumulativeReps: this.cumulativeReps() },
-        },
-      );
+    if (this.sentenceIndex() > 1) {
+      this.sentenceIndex.update((idx) => idx - 1);
     }
   }
 
   nextSentence() {
     this.audioPlayer()?.stopAudio();
     const nextCumulative = this.cumulativeReps() + this.sessionCount();
-    if (Number(this.sentenceIndex()) < this.numSentences) {
-      this.router.navigate(
-        AppRoutesHelper.getChorusDashboardRoute(
-          this.language(),
-          this.accent(),
-          Number(this.sentenceIndex()) + 1,
-        ),
-        {
-          state: { cumulativeReps: nextCumulative },
-        },
-      );
+    if (this.sentenceIndex() < this.numSentences) {
+      this.cumulativeReps.set(nextCumulative);
+      this.sentenceIndex.update((idx) => idx + 1);
     }
   }
 
   disablePreviousButton() {
-    return Number(this.sentenceIndex()) === 1;
+    return this.sentenceIndex() === 1;
   }
 
   disableNextButton() {
-    return Number(this.sentenceIndex()) === this.numSentences;
+    return this.sentenceIndex() === this.numSentences;
   }
 
   sentenceCount: Signal<DataState<number>> = computed(() => {
@@ -199,17 +205,9 @@ export class ChorusDashboard {
   handleNext() {
     this.audioPlayer()?.stopAudio();
     const nextCumulative = this.cumulativeReps() + this.sessionCount();
-    if (Number(this.sentenceIndex()) < this.numSentences) {
-      this.router.navigate(
-        AppRoutesHelper.getChorusDashboardRoute(
-          this.language(),
-          this.accent(),
-          Number(this.sentenceIndex()) + 1,
-        ),
-        {
-          state: { cumulativeReps: nextCumulative },
-        },
-      );
+    if (this.sentenceIndex() < this.numSentences) {
+      this.cumulativeReps.set(nextCumulative);
+      this.sentenceIndex.update((idx) => idx + 1);
     } else {
       this.router.navigate(AppRoutesHelper.getSummaryRoute(this.language(), this.accent()), {
         state: {
@@ -231,7 +229,4 @@ export class ChorusDashboard {
     this.audioPlayer()?.stopAudio();
     this.router.navigate(AppRoutesHelper.getModeSelectionRoute(this.language(), this.accent()));
   }
-
-  // To allow template access to Number constructor
-  protected readonly Number = Number;
 }

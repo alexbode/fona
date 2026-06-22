@@ -48,7 +48,7 @@
     <div class="h-[2px] bg-secondary rounded-full overflow-hidden">
       <div
         class="h-full bg-primary rounded-full transition-all duration-500"
-        [style.width.%]="(Number(sentenceIndex()) / numSentences) * 100"
+        [style.width.%]="(sentenceIndex() / numSentences) * 100"
       ></div>
     </div>
   </div>
@@ -152,7 +152,7 @@
     </button>
 
     <div class="flex gap-3">
-      @if (Number(sentenceIndex()) > 1) {
+      @if (sentenceIndex() > 1) {
         <button
           appButton
           variant="secondary"
@@ -170,7 +170,7 @@
         (click)="handleNext()"
         class="flex-1 py-4 rounded text-sm cursor-pointer"
       >
-        {{ Number(sentenceIndex()) < numSentences ? 'Next phrase →' : 'Finish session →' }}
+        {{ sentenceIndex() < numSentences ? 'Next phrase →' : 'Finish session →' }}
       </button>
     </div>
   </div>

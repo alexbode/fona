@@ -11,8 +11,8 @@ export class AppRoutesHelper {
     ListAccents: ':language',
     // ex. /english/america
     ModeSelection: ':language/:accent',
-    // ex. /english/america/chorus/1
-    ChorusDashboard: ':language/:accent/chorus/:sentenceIndex',
+    // ex. /english/america/chorus
+    ChorusDashboard: ':language/:accent/chorus',
     // ex. /english/america/pairs
     PairsSelection: ':language/:accent/pairs',
     // ex. /english/america/pairs/1/example/1
@@ -59,8 +59,8 @@ export class AppRoutesHelper {
     return ['/', language.toLowerCase()];
   }
 
-  static getChorusDashboardRoute(language: string, accent: string, sentenceIndex: number): any[] {
-    return ['/', language.toLowerCase(), accent.toLowerCase(), 'chorus', sentenceIndex];
+  static getChorusDashboardRoute(language: string, accent: string): any[] {
+    return ['/', language.toLowerCase(), accent.toLowerCase(), 'chorus'];
   }
 
   static getPairsSelectionRoute(language: string, accent: string): any[] {

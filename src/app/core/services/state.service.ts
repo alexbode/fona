@@ -3,7 +3,7 @@ import { LoggingService } from '@core/services/logging.service';
 import { LRUCache } from '@app/core/helpers/lru-cache/lru-cache';
 import { Sentence } from '@core/models/sentence';
 import { CourseConfig } from '@core/models/config';
-import { DataState, SessionState } from '@core/models/state';
+import { DataState } from '@core/models/state';
 import { Language } from '@core/models/language';
 import { AppUser } from '@core/models/user';
 
@@ -41,20 +41,11 @@ export class StateService {
 
   #isLoggedIn = signal<DataState<boolean>>(createInitialState<boolean>(false));
   #currentUser = signal<DataState<AppUser>>(createInitialState<AppUser>());
-  #sessionState: WritableSignal<SessionState> = signal({} as SessionState);
 
   readonly currentUser = this.#currentUser.asReadonly();
   readonly isLoggedIn = this.#isLoggedIn.asReadonly();
   readonly languageList = this.#languageList.asReadonly();
   readonly totalSentenceCount = this.#totalSentenceCount.asReadonly();
-
-  getSessionState(): Signal<SessionState> {
-    return this.#sessionState.asReadonly();
-  }
-
-  setSessionState(value: Partial<SessionState>) {
-    this.#sessionState.update((current) => ({ ...current, ...value }));
-  }
 
   setTotalSentenceCount(value: Partial<DataState<number>>) {
     this.#totalSentenceCount.update((current) => ({ ...current, ...value }));
@@ -118,7 +109,7 @@ export class StateService {
     this.#sentenceCountMap.clear();
   }
 
-  incrementSentenceCount(sentenceId: number, isChorus: boolean = false): void {
+  incrementSentenceCount(sentenceId: number): void {
     if (!this.#sentenceCountMap.has(sentenceId)) {
       this.initializeSentenceCount(sentenceId);
     } else {
@@ -129,15 +120,6 @@ export class StateService {
         ...current,
         value: (current.value ?? 0) + 1,
       }));
-      if (isChorus) {
-        this.#sessionState.update((current) => ({
-          ...current,
-          chorusSessionState: {
-            cumulativeReps: (current.chorusSessionState?.cumulativeReps ?? 0) + 1,
-            sentencesInSession: current.chorusSessionState?.sentencesInSession ?? [],
-          },
-        }));
-      }
     }
   }
 

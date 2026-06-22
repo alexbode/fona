@@ -79,7 +79,7 @@ export class Summary implements OnInit {
   });
 
   chorusCumulativeReps = computed(() => {
-    return this.dataService.getSessionState()().chorusSessionState?.cumulativeReps;
+    return this.data.reps;
   });
 
   title = computed(() => {
@@ -114,10 +114,7 @@ export class Summary implements OnInit {
       this.router.navigate(AppRoutesHelper.getPairsSelectionRoute(this.language(), this.accent()));
       return;
     }
-    this.dataService.initializeChorusSessionState(this.config()?.value!);
-    this.router.navigate(
-      AppRoutesHelper.getChorusDashboardRoute(this.language(), this.accent(), 1),
-    );
+    this.router.navigate(AppRoutesHelper.getChorusDashboardRoute(this.language(), this.accent()));
   }
 
   onHome() {

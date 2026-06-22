@@ -84,9 +84,8 @@ export class ModeSelection {
       this.router.navigate(AppRoutesHelper.getLanguagesRoute());
       return;
     }
-    this.dataService.initializeChorusSessionState(this.config()!);
     this.router.navigate(
-      AppRoutesHelper.getChorusDashboardRoute(this.languageName(), this.accentName(), 1),
+      AppRoutesHelper.getChorusDashboardRoute(this.languageName(), this.accentName()),
     );
   }
 

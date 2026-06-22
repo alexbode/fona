@@ -125,7 +125,7 @@ export class AudioPlayer {
   incrementCounter() {
     const sentenceId = this.sentenceId();
     if (sentenceId) {
-      this.dataService.incrementSentenceCount(sentenceId, true);
+      this.dataService.incrementSentenceCount(sentenceId);
     }
   }
 
