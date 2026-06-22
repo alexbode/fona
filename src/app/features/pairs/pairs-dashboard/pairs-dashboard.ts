@@ -50,7 +50,7 @@ export class PairsDashboard implements OnDestroy {
   protected readonly language = input.required<string>();
   protected readonly accent = input.required<string>();
   protected readonly pairIndex = input.required<number>();
-  protected readonly exampleIndex = input.required<number>();
+  protected readonly exampleIndex = signal<number>(1);
 
   private readonly dataService = inject(DataService);
   private readonly router = inject(Router);
@@ -196,28 +196,23 @@ export class PairsDashboard implements OnDestroy {
   }
 
   previousExample() {
-    this.router.navigate(
-      AppRoutesHelper.getPairsDashboardRoute(
-        this.language(),
-        this.accent(),
-        this.pairIndex(),
-        this.exampleIndex() - 1,
-      ),
-    );
+    this.stopAudio();
+    if (this.exampleIndex() > 1) {
+      this.exampleIndex.update((idx) => idx - 1);
+    }
   }
 
   handleNext() {
+    this.stopAudio();
     if (this.exampleIndex() < this.numExamples()) {
-      this.router.navigate(
-        AppRoutesHelper.getPairsDashboardRoute(
-          this.language(),
-          this.accent(),
-          this.pairIndex(),
-          Number(this.exampleIndex()) + 1,
-        ),
-      );
+      this.exampleIndex.update((idx) => idx + 1);
     } else {
-      this.router.navigate(AppRoutesHelper.getSummaryRoute(this.language(), this.accent()));
+      this.router.navigate(AppRoutesHelper.getSummaryRoute(this.language(), this.accent()), {
+        state: {
+          mode: 'pairs',
+          accent: this.accentObj()?.nativeName || this.accent(),
+        },
+      });
     }
   }
 

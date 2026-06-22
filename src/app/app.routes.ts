@@ -15,8 +15,8 @@ export class AppRoutesHelper {
     ChorusDashboard: ':language/:accent/chorus',
     // ex. /english/america/pairs
     PairsSelection: ':language/:accent/pairs',
-    // ex. /english/america/pairs/1/example/1
-    PairsDashboard: ':language/:accent/pairs/:pairIndex/example/:exampleIndex',
+    // ex. /english/america/pairs/1
+    PairsDashboard: ':language/:accent/pairs/:pairIndex',
     // ex. /english/america/summary
     Summary: ':language/:accent/summary',
     // ex. /paywall/english/america
@@ -67,21 +67,8 @@ export class AppRoutesHelper {
     return ['/', language.toLowerCase(), accent.toLowerCase(), 'pairs'];
   }
 
-  static getPairsDashboardRoute(
-    language: string,
-    accent: string,
-    pairsIndex: number,
-    exampleIndex: number,
-  ): any[] {
-    return [
-      '/',
-      language.toLowerCase(),
-      accent.toLowerCase(),
-      'pairs',
-      pairsIndex,
-      'example',
-      exampleIndex,
-    ];
+  static getPairsDashboardRoute(language: string, accent: string, pairsIndex: number): any[] {
+    return ['/', language.toLowerCase(), accent.toLowerCase(), 'pairs', pairsIndex];
   }
 
   static getSummaryRoute(language: string, accent: string): any[] {

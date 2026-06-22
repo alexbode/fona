@@ -74,7 +74,7 @@ export class PairsSelection {
 
   onSelect(pairIndex: number): void {
     this.router.navigate(
-      AppRoutesHelper.getPairsDashboardRoute(this.languageName(), this.accentName(), pairIndex, 1),
+      AppRoutesHelper.getPairsDashboardRoute(this.languageName(), this.accentName(), pairIndex),
     );
   }
 
