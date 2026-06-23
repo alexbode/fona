@@ -1,10 +1,10 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { AppRoutesHelper } from '@app/app.routes';
 import { RouterLink } from '@angular/router';
 import { ButtonDirective } from '@app/directive/button';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
-
 import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
+import { DataService } from '@core/services/data.service';
 
 @Component({
   selector: 'app-landing',
@@ -13,6 +13,9 @@ import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
   styleUrl: './landing.scss',
 })
 export class Landing {
+  private readonly dataService = inject(DataService);
+  readonly isLoggedIn = this.dataService.isLoggedIn;
+
   appRoutesHelper = AppRoutesHelper;
   demoError = signal<boolean>(false);
 

@@ -14,6 +14,8 @@ import {
 } from '@ng-icons/lucide';
 import { ButtonDirective } from '@app/directive/button';
 import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
+import { HlmBreadcrumbImports } from '@spartan-ng/helm/breadcrumb';
+import { AppRoutesHelper } from '@app/app.routes';
 
 interface ExampleWord {
   word: string;
@@ -43,6 +45,7 @@ interface IpaItem {
     TitleCasePipe,
     HlmSkeleton,
     ButtonDirective,
+    HlmBreadcrumbImports,
   ],
   providers: [
     provideIcons({
@@ -59,6 +62,7 @@ interface IpaItem {
   styleUrl: './ipa.scss',
 })
 export class Ipa implements OnInit {
+  protected readonly AppRoutesHelper = AppRoutesHelper;
   private readonly router = inject(Router);
   private readonly location = inject(Location);
 
@@ -150,7 +154,7 @@ export class Ipa implements OnInit {
         if (this.consonantPlace() !== 'all' && item.placeOfArticulation !== this.consonantPlace()) return false;
         if (this.consonantVoicing() !== 'all' && item.voicing !== this.consonantVoicing()) return false;
       }
-      
+
       // Detailed Vowel filters
       if (cat === 'vowel') {
         if (this.vowelHeight() !== 'all' && item.vowelHeight !== this.vowelHeight()) return false;

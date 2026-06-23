@@ -29,9 +29,11 @@
       <button appButton hlmBtn [routerLink]="appRoutesHelper.getLanguagesRoute()">
         Start training now
       </button>
-      <button appButton variant="secondary" hlmBtn [routerLink]="appRoutesHelper.getSigninRoute()">
-        Sign in
-      </button>
+      @if (!isLoggedIn()) {
+        <button appButton variant="secondary" hlmBtn [routerLink]="appRoutesHelper.getSigninRoute()">
+          Sign in
+        </button>
+      }
     </div>
 
     <!-- Phonetic hero decoration -->
