@@ -1,0 +1,2512 @@
+[
+    {
+        "ipaSymbol": "p",
+        "ipaNumber": 101,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "bilabial",
+        "mannerOfArticulation": "plosive",
+        "voicing": "voiceless",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Press both lips together to stop airflow from the lungs, then release the air suddenly without vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiceless_bilabial_plosive.ogg",
+        "exampleWords": [
+            {
+                "word": "pen",
+                "language": "English",
+                "accent": "General American"
+            },
+            {
+                "word": "père",
+                "language": "French",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "b",
+        "ipaNumber": 102,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "bilabial",
+        "mannerOfArticulation": "plosive",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Press both lips together to stop airflow from the lungs, then release the air suddenly while vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_bilabial_plosive.ogg",
+        "exampleWords": [
+            {
+                "word": "bin",
+                "language": "English",
+                "accent": "General American"
+            },
+            {
+                "word": "banco",
+                "language": "Spanish",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "m",
+        "ipaNumber": 114,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "bilabial",
+        "mannerOfArticulation": "nasal",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Press both lips together to block air from leaving the mouth, allowing the air to escape through the nose while vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_bilabial_nasal.ogg",
+        "exampleWords": [
+            {
+                "word": "man",
+                "language": "English",
+                "accent": "General American"
+            },
+            {
+                "word": "Mutter",
+                "language": "German",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "f",
+        "ipaNumber": 128,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "labiodental",
+        "mannerOfArticulation": "fricative",
+        "voicing": "voiceless",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Place the lower lip lightly against the upper teeth and force air through the narrow space without vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiceless_labiodental_fricative.ogg",
+        "exampleWords": [
+            {
+                "word": "fan",
+                "language": "English",
+                "accent": "General American"
+            },
+            {
+                "word": "femme",
+                "language": "French",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "v",
+        "ipaNumber": 129,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "labiodental",
+        "mannerOfArticulation": "fricative",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Place the lower lip lightly against the upper teeth and force air through the narrow space while vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_labiodental_fricative.ogg",
+        "exampleWords": [
+            {
+                "word": "van",
+                "language": "English",
+                "accent": "General American"
+            },
+            {
+                "word": "vero",
+                "language": "Italian",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "t",
+        "ipaNumber": 103,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "alveolar",
+        "mannerOfArticulation": "plosive",
+        "voicing": "voiceless",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Place the tip of the tongue against the alveolar ridge (just behind the upper teeth) to block airflow, then release it suddenly without vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiceless_alveolar_plosive.ogg",
+        "exampleWords": [
+            {
+                "word": "top",
+                "language": "English",
+                "accent": "General American"
+            },
+            {
+                "word": "Tag",
+                "language": "German",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "s",
+        "ipaNumber": 132,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "alveolar",
+        "mannerOfArticulation": "fricative",
+        "voicing": "voiceless",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Place the blade of the tongue close to the alveolar ridge and force air through the narrow channel without vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiceless_alveolar_fricative.ogg",
+        "exampleWords": [
+            {
+                "word": "sit",
+                "language": "English",
+                "accent": "General American"
+            },
+            {
+                "word": "sushi",
+                "language": "Japanese",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "z",
+        "ipaNumber": 133,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "alveolar",
+        "mannerOfArticulation": "fricative",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Place the blade of the tongue close to the alveolar ridge and force air through the narrow channel while vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_alveolar_fricative.ogg",
+        "exampleWords": [
+            {
+                "word": "zoo",
+                "language": "English",
+                "accent": "General American"
+            },
+            {
+                "word": "zèbre",
+                "language": "French",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "k",
+        "ipaNumber": 109,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "velar",
+        "mannerOfArticulation": "plosive",
+        "voicing": "voiceless",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Raise the back of the tongue to the soft palate (velum) to stop airflow, then release it suddenly without vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiceless_velar_plosive.ogg",
+        "exampleWords": [
+            {
+                "word": "cat",
+                "language": "English",
+                "accent": "General American"
+            },
+            {
+                "word": "cou",
+                "language": "French",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɡ",
+        "ipaNumber": 110,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "velar",
+        "mannerOfArticulation": "plosive",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Raise the back of the tongue to the soft palate (velum) to stop airflow, then release it suddenly while vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_velar_plosive.ogg",
+        "exampleWords": [
+            {
+                "word": "go",
+                "language": "English",
+                "accent": "General American"
+            },
+            {
+                "word": "gut",
+                "language": "German",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ŋ",
+        "ipaNumber": 119,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "velar",
+        "mannerOfArticulation": "nasal",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Raise the back of the tongue to the soft palate (velum) to block oral airflow, allowing air to escape through the nose while vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_velar_nasal.ogg",
+        "exampleWords": [
+            {
+                "word": "sing",
+                "language": "English",
+                "accent": "General American"
+            },
+            {
+                "word": "máng",
+                "language": "Mandarin",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "i",
+        "ipaNumber": 301,
+        "vowelOrConsonant": "vowel",
+        "placeOfArticulation": null,
+        "mannerOfArticulation": null,
+        "voicing": "voiced",
+        "vowelHeight": "close",
+        "vowelBackness": "front",
+        "howToArticulate": "Position the tongue as far forward and as high in the mouth as possible. Lips are unrounded and vocal cords vibrate.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Close_front_unrounded_vowel.ogg",
+        "exampleWords": [
+            {
+                "word": "see",
+                "language": "English",
+                "accent": "General American"
+            },
+            {
+                "word": "si",
+                "language": "Spanish",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "y",
+        "ipaNumber": 309,
+        "vowelOrConsonant": "vowel",
+        "placeOfArticulation": null,
+        "mannerOfArticulation": null,
+        "voicing": "voiced",
+        "vowelHeight": "close",
+        "vowelBackness": "front",
+        "howToArticulate": "Position the tongue as far forward and as high in the mouth as possible, with the lips rounded. Vocal cords vibrate.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Close_front_rounded_vowel.ogg",
+        "exampleWords": [
+            {
+                "word": "tu",
+                "language": "French",
+                "accent": "Standard"
+            },
+            {
+                "word": "über",
+                "language": "German",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "u",
+        "ipaNumber": 308,
+        "vowelOrConsonant": "vowel",
+        "placeOfArticulation": null,
+        "mannerOfArticulation": null,
+        "voicing": "voiced",
+        "vowelHeight": "close",
+        "vowelBackness": "back",
+        "howToArticulate": "Position the tongue as far back and as high in the mouth as possible, with the lips strongly rounded. Vocal cords vibrate.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Close_back_rounded_vowel.ogg",
+        "exampleWords": [
+            {
+                "word": "boot",
+                "language": "English",
+                "accent": "General American"
+            },
+            {
+                "word": "tú",
+                "language": "Spanish",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "e",
+        "ipaNumber": 302,
+        "vowelOrConsonant": "vowel",
+        "placeOfArticulation": null,
+        "mannerOfArticulation": null,
+        "voicing": "voiced",
+        "vowelHeight": "close-mid",
+        "vowelBackness": "front",
+        "howToArticulate": "Position the tongue forward in the mouth, somewhat below the close position. Lips are unrounded.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Close-mid_front_unrounded_vowel.ogg",
+        "exampleWords": [
+            {
+                "word": "fée",
+                "language": "French",
+                "accent": "Standard"
+            },
+            {
+                "word": "mesa",
+                "language": "Spanish",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "o",
+        "ipaNumber": 307,
+        "vowelOrConsonant": "vowel",
+        "placeOfArticulation": null,
+        "mannerOfArticulation": null,
+        "voicing": "voiced",
+        "vowelHeight": "close-mid",
+        "vowelBackness": "back",
+        "howToArticulate": "Position the tongue back in the mouth, somewhat below the close position, with lips rounded.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Close-mid_back_rounded_vowel.ogg",
+        "exampleWords": [
+            {
+                "word": "eau",
+                "language": "French",
+                "accent": "Standard"
+            },
+            {
+                "word": "ocho",
+                "language": "Spanish",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ə",
+        "ipaNumber": 322,
+        "vowelOrConsonant": "vowel",
+        "placeOfArticulation": null,
+        "mannerOfArticulation": null,
+        "voicing": "voiced",
+        "vowelHeight": "mid",
+        "vowelBackness": "central",
+        "howToArticulate": "Position the tongue in the exact center of the mouth, relaxed. Lips are unrounded.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mid_central_vowel.ogg",
+        "exampleWords": [
+            {
+                "word": "about",
+                "language": "English",
+                "accent": "General American"
+            },
+            {
+                "word": "bitte",
+                "language": "German",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "a",
+        "ipaNumber": 304,
+        "vowelOrConsonant": "vowel",
+        "placeOfArticulation": null,
+        "mannerOfArticulation": null,
+        "voicing": "voiced",
+        "vowelHeight": "open",
+        "vowelBackness": "front",
+        "howToArticulate": "Position the tongue as far forward and as low in the mouth as possible. Lips are unrounded.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Open_front_unrounded_vowel.ogg",
+        "exampleWords": [
+            {
+                "word": "patte",
+                "language": "French",
+                "accent": "Standard"
+            },
+            {
+                "word": "padre",
+                "language": "Spanish",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɑ",
+        "ipaNumber": 305,
+        "vowelOrConsonant": "vowel",
+        "placeOfArticulation": null,
+        "mannerOfArticulation": null,
+        "voicing": "voiced",
+        "vowelHeight": "open",
+        "vowelBackness": "back",
+        "howToArticulate": "Position the tongue as far back and as low in the mouth as possible. Lips are unrounded.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Open_back_unrounded_vowel.ogg",
+        "exampleWords": [
+            {
+                "word": "father",
+                "language": "English",
+                "accent": "General American"
+            },
+            {
+                "word": "pâte",
+                "language": "French",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "d",
+        "ipaNumber": 104,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "alveolar",
+        "mannerOfArticulation": "plosive",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Place the tip of the tongue against the alveolar ridge to stop airflow, then release it suddenly while vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_alveolar_plosive.ogg",
+        "exampleWords": [
+            {
+                "word": "dog",
+                "language": "English",
+                "accent": "General American"
+            },
+            {
+                "word": "dos",
+                "language": "Spanish",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "n",
+        "ipaNumber": 116,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "alveolar",
+        "mannerOfArticulation": "nasal",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Place the tip of the tongue against the alveolar ridge to block oral airflow, allowing air to escape through the nose while vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_alveolar_nasal.ogg",
+        "exampleWords": [
+            {
+                "word": "no",
+                "language": "English",
+                "accent": "General American"
+            },
+            {
+                "word": "non",
+                "language": "French",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "θ",
+        "ipaNumber": 130,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "dental",
+        "mannerOfArticulation": "fricative",
+        "voicing": "voiceless",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Place the tip of the tongue against the upper teeth and force air through the narrow space without vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiceless_dental_fricative.ogg",
+        "exampleWords": [
+            {
+                "word": "thing",
+                "language": "English",
+                "accent": "General American"
+            },
+            {
+                "word": "zato",
+                "language": "Spanish",
+                "accent": "Castilian"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ð",
+        "ipaNumber": 131,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "dental",
+        "mannerOfArticulation": "fricative",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Place the tip of the tongue against the upper teeth and force air through the narrow space while vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_dental_fricative.ogg",
+        "exampleWords": [
+            {
+                "word": "this",
+                "language": "English",
+                "accent": "General American"
+            },
+            {
+                "word": "cada",
+                "language": "Spanish",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ʃ",
+        "ipaNumber": 134,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "postalveolar",
+        "mannerOfArticulation": "fricative",
+        "voicing": "voiceless",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Place the blade of the tongue just behind the alveolar ridge, round the lips slightly, and force air through without vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiceless_postalveolar_fricative.ogg",
+        "exampleWords": [
+            {
+                "word": "shoe",
+                "language": "English",
+                "accent": "General American"
+            },
+            {
+                "word": "chat",
+                "language": "French",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ʒ",
+        "ipaNumber": 135,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "postalveolar",
+        "mannerOfArticulation": "fricative",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Place the blade of the tongue just behind the alveolar ridge, round the lips slightly, and force air through while vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_postalveolar_fricative.ogg",
+        "exampleWords": [
+            {
+                "word": "vision",
+                "language": "English",
+                "accent": "General American"
+            },
+            {
+                "word": "jour",
+                "language": "French",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "x",
+        "ipaNumber": 140,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "velar",
+        "mannerOfArticulation": "fricative",
+        "voicing": "voiceless",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Raise the back of the tongue close to the soft palate (velum) and force air through the narrow gap without vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiceless_velar_fricative.ogg",
+        "exampleWords": [
+            {
+                "word": "Bach",
+                "language": "German",
+                "accent": "Standard"
+            },
+            {
+                "word": "caja",
+                "language": "Spanish",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "h",
+        "ipaNumber": 146,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "glottal",
+        "mannerOfArticulation": "fricative",
+        "voicing": "voiceless",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Force air out of the lungs through the open glottis, creating audible friction without vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiceless_glottal_fricative.ogg",
+        "exampleWords": [
+            {
+                "word": "hat",
+                "language": "English",
+                "accent": "General American"
+            },
+            {
+                "word": "Haus",
+                "language": "German",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "j",
+        "ipaNumber": 153,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "palatal",
+        "mannerOfArticulation": "approximant",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Raise the middle of the tongue toward the hard palate without making tight contact, allowing air to flow smoothly while vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_palatal_approximant.ogg",
+        "exampleWords": [
+            {
+                "word": "yes",
+                "language": "English",
+                "accent": "General American"
+            },
+            {
+                "word": "ja",
+                "language": "German",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "l",
+        "ipaNumber": 155,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "alveolar",
+        "mannerOfArticulation": "lateral approximant",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Place the tip of the tongue against the alveolar ridge, letting air flow smoothly around the sides of the tongue while vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_alveolar_lateral_approximant.ogg",
+        "exampleWords": [
+            {
+                "word": "let",
+                "language": "English",
+                "accent": "General American"
+            },
+            {
+                "word": "luz",
+                "language": "Spanish",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɪ",
+        "ipaNumber": 319,
+        "vowelOrConsonant": "vowel",
+        "placeOfArticulation": null,
+        "mannerOfArticulation": null,
+        "voicing": "voiced",
+        "vowelHeight": "near-close",
+        "vowelBackness": "front",
+        "howToArticulate": "Position the tongue slightly lower and more relaxed than a fully close position, toward the front of the mouth. Lips are unrounded.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Near-close_near-front_unrounded_vowel.ogg",
+        "exampleWords": [
+            {
+                "word": "sit",
+                "language": "English",
+                "accent": "General American"
+            },
+            {
+                "word": "bitte",
+                "language": "German",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ʊ",
+        "ipaNumber": 321,
+        "vowelOrConsonant": "vowel",
+        "placeOfArticulation": null,
+        "mannerOfArticulation": null,
+        "voicing": "voiced",
+        "vowelHeight": "near-close",
+        "vowelBackness": "back",
+        "howToArticulate": "Position the tongue slightly lower and more relaxed than a fully close position, toward the back of the mouth. Lips are somewhat rounded.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Near-close_near-back_rounded_vowel.ogg",
+        "exampleWords": [
+            {
+                "word": "book",
+                "language": "English",
+                "accent": "General American"
+            },
+            {
+                "word": "Mutter",
+                "language": "German",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɛ",
+        "ipaNumber": 303,
+        "vowelOrConsonant": "vowel",
+        "placeOfArticulation": null,
+        "mannerOfArticulation": null,
+        "voicing": "voiced",
+        "vowelHeight": "open-mid",
+        "vowelBackness": "front",
+        "howToArticulate": "Position the tongue lower than the middle of the mouth, toward the front. Lips are unrounded.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Open-mid_front_unrounded_vowel.ogg",
+        "exampleWords": [
+            {
+                "word": "bed",
+                "language": "English",
+                "accent": "General American"
+            },
+            {
+                "word": "bête",
+                "language": "French",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɔ",
+        "ipaNumber": 306,
+        "vowelOrConsonant": "vowel",
+        "placeOfArticulation": null,
+        "mannerOfArticulation": null,
+        "voicing": "voiced",
+        "vowelHeight": "open-mid",
+        "vowelBackness": "back",
+        "howToArticulate": "Position the tongue lower than the middle of the mouth, toward the back. Lips are slightly rounded.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Open-mid_back_rounded_vowel.ogg",
+        "exampleWords": [
+            {
+                "word": "thought",
+                "language": "English",
+                "accent": "General American"
+            },
+            {
+                "word": "sort",
+                "language": "French",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "æ",
+        "ipaNumber": 325,
+        "vowelOrConsonant": "vowel",
+        "placeOfArticulation": null,
+        "mannerOfArticulation": null,
+        "voicing": "voiced",
+        "vowelHeight": "near-open",
+        "vowelBackness": "front",
+        "howToArticulate": "Position the tongue very low in the mouth, almost fully open, and pushed forward. Lips are unrounded.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Near-open_front_unrounded_vowel.ogg",
+        "exampleWords": [
+            {
+                "word": "cat",
+                "language": "English",
+                "accent": "General American"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ʌ",
+        "ipaNumber": 314,
+        "vowelOrConsonant": "vowel",
+        "placeOfArticulation": null,
+        "mannerOfArticulation": null,
+        "voicing": "voiced",
+        "vowelHeight": "open-mid",
+        "vowelBackness": "back",
+        "howToArticulate": "Position the tongue lower than the middle of the mouth, relatively back but not entirely far back. Lips are unrounded.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Open-mid_back_unrounded_vowel.ogg",
+        "exampleWords": [
+            {
+                "word": "cup",
+                "language": "English",
+                "accent": "General American"
+            },
+            {
+                "word": "sun",
+                "language": "English",
+                "accent": "General American"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ʔ",
+        "ipaNumber": 113,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "glottal",
+        "mannerOfArticulation": "plosive",
+        "voicing": "voiceless",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Close the vocal cords entirely to stop airflow from the lungs, then release them suddenly without vibrating.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Glottal_stop.ogg",
+        "exampleWords": [
+            {
+                "word": "uh-oh",
+                "language": "English",
+                "accent": "General American"
+            },
+            {
+                "word": "Hawaiʻi",
+                "language": "Hawaiian",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "r",
+        "ipaNumber": 123,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "alveolar",
+        "mannerOfArticulation": "trill",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Direct air over the tip of the tongue so it repeatedly vibrates against the alveolar ridge while the vocal cords vibrate.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_alveolar_trill.ogg",
+        "exampleWords": [
+            {
+                "word": "perro",
+                "language": "Spanish",
+                "accent": "Standard"
+            },
+            {
+                "word": "rosso",
+                "language": "Italian",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɾ",
+        "ipaNumber": 124,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "alveolar",
+        "mannerOfArticulation": "tap",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Flick the tip of the tongue quickly against the alveolar ridge for a single, rapid contact while the vocal cords vibrate.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_alveolar_tap.ogg",
+        "exampleWords": [
+            {
+                "word": "better",
+                "language": "English",
+                "accent": "General American"
+            },
+            {
+                "word": "pero",
+                "language": "Spanish",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "q",
+        "ipaNumber": 111,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "uvular",
+        "mannerOfArticulation": "plosive",
+        "voicing": "voiceless",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Raise the very back of the tongue to the uvula to block airflow, then release it suddenly without vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiceless_uvular_plosive.ogg",
+        "exampleWords": [
+            {
+                "word": "Qatar",
+                "language": "Arabic",
+                "accent": "Modern Standard"
+            },
+            {
+                "word": "qamutit",
+                "language": "Greenlandic",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɲ",
+        "ipaNumber": 118,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "palatal",
+        "mannerOfArticulation": "nasal",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Raise the body of the tongue to the hard palate to block oral airflow, allowing air to escape through the nose while vocal cords vibrate.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_palatal_nasal.ogg",
+        "exampleWords": [
+            {
+                "word": "niño",
+                "language": "Spanish",
+                "accent": "Standard"
+            },
+            {
+                "word": "agneau",
+                "language": "French",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "w",
+        "ipaNumber": 170,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "labial-velar",
+        "mannerOfArticulation": "approximant",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Round the lips while simultaneously raising the back of the tongue toward the soft palate (velum). Vocal cords vibrate.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_labio-velar_approximant.ogg",
+        "exampleWords": [
+            {
+                "word": "water",
+                "language": "English",
+                "accent": "General American"
+            },
+            {
+                "word": "oui",
+                "language": "French",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ç",
+        "ipaNumber": 139,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "palatal",
+        "mannerOfArticulation": "fricative",
+        "voicing": "voiceless",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Raise the body of the tongue close to the hard palate and force air through the narrow gap without vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiceless_palatal_fricative.ogg",
+        "exampleWords": [
+            {
+                "word": "ich",
+                "language": "German",
+                "accent": "Standard"
+            },
+            {
+                "word": "kjøtt",
+                "language": "Norwegian",
+                "accent": "Urban East"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ʁ",
+        "ipaNumber": 143,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "uvular",
+        "mannerOfArticulation": "fricative",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Raise the back of the tongue close to the uvula and force air through the gap while the vocal cords vibrate.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_uvular_fricative.ogg",
+        "exampleWords": [
+            {
+                "word": "rose",
+                "language": "French",
+                "accent": "Standard"
+            },
+            {
+                "word": "Rat",
+                "language": "German",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ø",
+        "ipaNumber": 310,
+        "vowelOrConsonant": "vowel",
+        "placeOfArticulation": null,
+        "mannerOfArticulation": null,
+        "voicing": "voiced",
+        "vowelHeight": "close-mid",
+        "vowelBackness": "front",
+        "howToArticulate": "Position the tongue forward, slightly below the fully close position, with tightly rounded lips.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Close-mid_front_rounded_vowel.ogg",
+        "exampleWords": [
+            {
+                "word": "peu",
+                "language": "French",
+                "accent": "Standard"
+            },
+            {
+                "word": "schön",
+                "language": "German",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "œ",
+        "ipaNumber": 311,
+        "vowelOrConsonant": "vowel",
+        "placeOfArticulation": null,
+        "mannerOfArticulation": null,
+        "voicing": "voiced",
+        "vowelHeight": "open-mid",
+        "vowelBackness": "front",
+        "howToArticulate": "Position the tongue lower than the middle, forward in the mouth, keeping the lips rounded.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Open-mid_front_rounded_vowel.ogg",
+        "exampleWords": [
+            {
+                "word": "sœur",
+                "language": "French",
+                "accent": "Standard"
+            },
+            {
+                "word": "Hölle",
+                "language": "German",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɨ",
+        "ipaNumber": 317,
+        "vowelOrConsonant": "vowel",
+        "placeOfArticulation": null,
+        "mannerOfArticulation": null,
+        "voicing": "voiced",
+        "vowelHeight": "close",
+        "vowelBackness": "central",
+        "howToArticulate": "Position the tongue high and perfectly central in the mouth. Lips are spread or unrounded.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Close_central_unrounded_vowel.ogg",
+        "exampleWords": [
+            {
+                "word": "mysz",
+                "language": "Polish",
+                "accent": "Standard"
+            },
+            {
+                "word": "rɨ",
+                "language": "Guarani",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ʏ",
+        "ipaNumber": 320,
+        "vowelOrConsonant": "vowel",
+        "placeOfArticulation": null,
+        "mannerOfArticulation": null,
+        "voicing": "voiced",
+        "vowelHeight": "near-close",
+        "vowelBackness": "front",
+        "howToArticulate": "Position the tongue slightly below the fully close position, near the front of the mouth, with rounded lips.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Near-close_near-front_rounded_vowel.ogg",
+        "exampleWords": [
+            {
+                "word": "hübsch",
+                "language": "German",
+                "accent": "Standard"
+            },
+            {
+                "word": "hüt",
+                "language": "Alemannic",
+                "accent": "Swiss German"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɐ",
+        "ipaNumber": 324,
+        "vowelOrConsonant": "vowel",
+        "placeOfArticulation": null,
+        "mannerOfArticulation": null,
+        "voicing": "voiced",
+        "vowelHeight": "near-open",
+        "vowelBackness": "central",
+        "howToArticulate": "Position the tongue low and relaxed in the center of the mouth, slightly above fully open. Lips are unrounded.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Near-open_central_unrounded_vowel.ogg",
+        "exampleWords": [
+            {
+                "word": "nut",
+                "language": "English",
+                "accent": "Received Pronunciation"
+            },
+            {
+                "word": "besser",
+                "language": "German",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɯ",
+        "ipaNumber": 316,
+        "vowelOrConsonant": "vowel",
+        "placeOfArticulation": null,
+        "mannerOfArticulation": null,
+        "voicing": "voiced",
+        "vowelHeight": "close",
+        "vowelBackness": "back",
+        "howToArticulate": "Position the tongue high and far back, similar to [u], but keep the lips completely unrounded (spread).",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Close_back_unrounded_vowel.ogg",
+        "exampleWords": [
+            {
+                "word": "su",
+                "language": "Turkish",
+                "accent": "Standard"
+            },
+            {
+                "word": "tɯ",
+                "language": "Korean",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ʉ",
+        "ipaNumber": 318,
+        "vowelOrConsonant": "vowel",
+        "placeOfArticulation": null,
+        "mannerOfArticulation": null,
+        "voicing": "voiced",
+        "vowelHeight": "close",
+        "vowelBackness": "central",
+        "howToArticulate": "Position the tongue high and perfectly central in the mouth, with rounded lips.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Close_central_rounded_vowel.ogg",
+        "exampleWords": [
+            {
+                "word": "goose",
+                "language": "English",
+                "accent": "Australian"
+            },
+            {
+                "word": "hus",
+                "language": "Norwegian",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ʈ",
+        "ipaNumber": 105,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "retroflex",
+        "mannerOfArticulation": "plosive",
+        "voicing": "voiceless",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Curl the tip of the tongue back to touch the hard palate, stopping airflow, then release it suddenly without vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiceless_retroflex_plosive.ogg",
+        "exampleWords": [
+            {
+                "word": "टाटा (Tata)",
+                "language": "Hindi",
+                "accent": "Standard"
+            },
+            {
+                "word": "tåg",
+                "language": "Swedish",
+                "accent": "Central Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɖ",
+        "ipaNumber": 106,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "retroflex",
+        "mannerOfArticulation": "plosive",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Curl the tip of the tongue back to touch the hard palate, stopping airflow, then release it suddenly while vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_retroflex_plosive.ogg",
+        "exampleWords": [
+            {
+                "word": "डाल (daal)",
+                "language": "Hindi",
+                "accent": "Standard"
+            },
+            {
+                "word": "nord",
+                "language": "Swedish",
+                "accent": "Central Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "c",
+        "ipaNumber": 107,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "palatal",
+        "mannerOfArticulation": "plosive",
+        "voicing": "voiceless",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Raise the broad body of the tongue to the hard palate to stop airflow, then release it suddenly without vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiceless_palatal_plosive.ogg",
+        "exampleWords": [
+            {
+                "word": "tyúk",
+                "language": "Hungarian",
+                "accent": "Standard"
+            },
+            {
+                "word": "tělo",
+                "language": "Czech",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɟ",
+        "ipaNumber": 108,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "palatal",
+        "mannerOfArticulation": "plosive",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Raise the broad body of the tongue to the hard palate to stop airflow, then release it suddenly while vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_palatal_plosive.ogg",
+        "exampleWords": [
+            {
+                "word": "gyöngy",
+                "language": "Hungarian",
+                "accent": "Standard"
+            },
+            {
+                "word": "dědek",
+                "language": "Czech",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɱ",
+        "ipaNumber": 115,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "labiodental",
+        "mannerOfArticulation": "nasal",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Place the lower lip against the upper teeth to block oral airflow, allowing air to escape through the nose while the vocal cords vibrate.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Labiodental_nasal.ogg",
+        "exampleWords": [
+            {
+                "word": "symphony",
+                "language": "English",
+                "accent": "General American"
+            },
+            {
+                "word": "anfibio",
+                "language": "Spanish",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɳ",
+        "ipaNumber": 117,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "retroflex",
+        "mannerOfArticulation": "nasal",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Curl the tip of the tongue back to the hard palate to block oral airflow, allowing air to escape through the nose while vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_retroflex_nasal.ogg",
+        "exampleWords": [
+            {
+                "word": "रण (ran)",
+                "language": "Hindi",
+                "accent": "Standard"
+            },
+            {
+                "word": "Vänern",
+                "language": "Swedish",
+                "accent": "Central Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ʀ",
+        "ipaNumber": 122,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "uvular",
+        "mannerOfArticulation": "trill",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Direct air past the uvula so it vibrates rapidly against the back of the tongue while the vocal cords vibrate.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_uvular_trill.ogg",
+        "exampleWords": [
+            {
+                "word": "rouge",
+                "language": "French",
+                "accent": "20th Century Standard"
+            },
+            {
+                "word": "rot",
+                "language": "German",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɸ",
+        "ipaNumber": 126,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "bilabial",
+        "mannerOfArticulation": "fricative",
+        "voicing": "voiceless",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Bring both lips very close together and force air through the narrow slit without vibrating the vocal cords. (Like blowing out a candle).",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiceless_bilabial_fricative.ogg",
+        "exampleWords": [
+            {
+                "word": "富士 (Fuji)",
+                "language": "Japanese",
+                "accent": "Standard"
+            },
+            {
+                "word": "whare",
+                "language": "Māori",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "β",
+        "ipaNumber": 127,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "bilabial",
+        "mannerOfArticulation": "fricative",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Bring both lips very close together and force air through the narrow slit while vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_bilabial_fricative.ogg",
+        "exampleWords": [
+            {
+                "word": "cabo",
+                "language": "Spanish",
+                "accent": "Standard"
+            },
+            {
+                "word": "vuvu",
+                "language": "Ewe",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɣ",
+        "ipaNumber": 141,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "velar",
+        "mannerOfArticulation": "fricative",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Raise the back of the tongue close to the soft palate (velum) and force air through the narrow gap while vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_velar_fricative.ogg",
+        "exampleWords": [
+            {
+                "word": "amigo",
+                "language": "Spanish",
+                "accent": "Standard"
+            },
+            {
+                "word": "goed",
+                "language": "Dutch",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "χ",
+        "ipaNumber": 142,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "uvular",
+        "mannerOfArticulation": "fricative",
+        "voicing": "voiceless",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Raise the back of the tongue very close to the uvula and force air through the narrow gap to create audible friction without voicing.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiceless_uvular_fricative.ogg",
+        "exampleWords": [
+            {
+                "word": "Chanukah",
+                "language": "Hebrew",
+                "accent": "Modern"
+            },
+            {
+                "word": "koud",
+                "language": "Dutch",
+                "accent": "Northern"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ʋ",
+        "ipaNumber": 150,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "labiodental",
+        "mannerOfArticulation": "approximant",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Bring the lower lip close to the upper teeth without making tight contact, allowing smooth airflow while vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_labiodental_approximant.ogg",
+        "exampleWords": [
+            {
+                "word": "wat",
+                "language": "Dutch",
+                "accent": "Standard"
+            },
+            {
+                "word": "വല (vala)",
+                "language": "Malayalam",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɹ",
+        "ipaNumber": 151,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "alveolar",
+        "mannerOfArticulation": "approximant",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Raise the tip of the tongue toward the alveolar ridge without touching it, allowing smooth airflow while the vocal cords vibrate.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_alveolar_approximant.ogg",
+        "exampleWords": [
+            {
+                "word": "red",
+                "language": "English",
+                "accent": "General American"
+            },
+            {
+                "word": "rí",
+                "language": "Igbo",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ʎ",
+        "ipaNumber": 157,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "palatal",
+        "mannerOfArticulation": "lateral approximant",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Raise the broad body of the tongue to the hard palate, letting air flow smoothly around the sides of the tongue while vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_palatal_lateral_approximant.ogg",
+        "exampleWords": [
+            {
+                "word": "figlio",
+                "language": "Italian",
+                "accent": "Standard"
+            },
+            {
+                "word": "callo",
+                "language": "Spanish",
+                "accent": "Castilian"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɒ",
+        "ipaNumber": 313,
+        "vowelOrConsonant": "vowel",
+        "placeOfArticulation": null,
+        "mannerOfArticulation": null,
+        "voicing": "voiced",
+        "vowelHeight": "open",
+        "vowelBackness": "back",
+        "howToArticulate": "Position the tongue as far back and as low in the mouth as possible, while rounding the lips.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Open_back_rounded_vowel.ogg",
+        "exampleWords": [
+            {
+                "word": "lot",
+                "language": "English",
+                "accent": "Received Pronunciation"
+            },
+            {
+                "word": "bal",
+                "language": "Hungarian",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɢ",
+        "ipaNumber": 112,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "uvular",
+        "mannerOfArticulation": "plosive",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Raise the very back of the tongue to the uvula to block airflow, then release it suddenly while vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_uvular_plosive.ogg",
+        "exampleWords": [
+            {
+                "word": "qori",
+                "language": "Somali",
+                "accent": "Standard"
+            },
+            {
+                "word": "ʁaɢ",
+                "language": "Tabasaran",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɴ",
+        "ipaNumber": 120,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "uvular",
+        "mannerOfArticulation": "nasal",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Raise the very back of the tongue to the uvula to block oral airflow, allowing air to escape through the nose while vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Uvular_nasal.ogg",
+        "exampleWords": [
+            {
+                "word": "日本 (Nihon)",
+                "language": "Japanese",
+                "accent": "Standard (before pause)"
+            },
+            {
+                "word": "inngai",
+                "language": "Inuvialuktun",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ʙ",
+        "ipaNumber": 121,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "bilabial",
+        "mannerOfArticulation": "trill",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Direct air through relaxed, closed lips so they vibrate together rapidly while the vocal cords vibrate (like a 'brrr' sound).",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_bilabial_trill.ogg",
+        "exampleWords": [
+            {
+                "word": "mbwa",
+                "language": "Kele",
+                "accent": "Standard"
+            },
+            {
+                "word": "fõ",
+                "language": "Nias",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɽ",
+        "ipaNumber": 125,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "retroflex",
+        "mannerOfArticulation": "tap",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Curl the tip of the tongue back and flick it quickly downward against the hard palate for a single contact while the vocal cords vibrate.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_retroflex_flap.ogg",
+        "exampleWords": [
+            {
+                "word": "बड़ा (baṛā)",
+                "language": "Hindi",
+                "accent": "Standard"
+            },
+            {
+                "word": "bara",
+                "language": "Hausa",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ʂ",
+        "ipaNumber": 136,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "retroflex",
+        "mannerOfArticulation": "fricative",
+        "voicing": "voiceless",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Curl the tip of the tongue back toward the hard palate and force air through the narrow gap without vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiceless_retroflex_fricative.ogg",
+        "exampleWords": [
+            {
+                "word": "十 (shí)",
+                "language": "Mandarin",
+                "accent": "Standard"
+            },
+            {
+                "word": "fors",
+                "language": "Swedish",
+                "accent": "Central Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ʐ",
+        "ipaNumber": 137,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "retroflex",
+        "mannerOfArticulation": "fricative",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Curl the tip of the tongue back toward the hard palate and force air through the narrow gap while vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_retroflex_fricative.ogg",
+        "exampleWords": [
+            {
+                "word": "人 (rén)",
+                "language": "Mandarin",
+                "accent": "Standard"
+            },
+            {
+                "word": "żaba",
+                "language": "Polish",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ħ",
+        "ipaNumber": 144,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "pharyngeal",
+        "mannerOfArticulation": "fricative",
+        "voicing": "voiceless",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Constrict the muscles of the pharynx (deep in the throat) and force air through to create a hoarse friction without vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiceless_pharyngeal_fricative.ogg",
+        "exampleWords": [
+            {
+                "word": "حَمَام (ḥamām)",
+                "language": "Arabic",
+                "accent": "Modern Standard"
+            },
+            {
+                "word": "חַשְׁמַל (ḥashmal)",
+                "language": "Hebrew",
+                "accent": "Mizrahi"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ʕ",
+        "ipaNumber": 145,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "pharyngeal",
+        "mannerOfArticulation": "fricative",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Constrict the muscles of the pharynx and force air through while vibrating the vocal cords, producing a deep, strangled-sounding friction.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_pharyngeal_fricative.ogg",
+        "exampleWords": [
+            {
+                "word": "عَرَبِيّ (ʿarabiyy)",
+                "language": "Arabic",
+                "accent": "Modern Standard"
+            },
+            {
+                "word": "עִבְרִית (ʿivrit)",
+                "language": "Hebrew",
+                "accent": "Mizrahi"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɦ",
+        "ipaNumber": 147,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "glottal",
+        "mannerOfArticulation": "fricative",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Force air through the glottis just forcefully enough to cause the vocal cords to vibrate, essentially producing a 'voiced H'.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_glottal_fricative.ogg",
+        "exampleWords": [
+            {
+                "word": "hora",
+                "language": "Czech",
+                "accent": "Standard"
+            },
+            {
+                "word": "hoed",
+                "language": "Dutch",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɬ",
+        "ipaNumber": 148,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "alveolar",
+        "mannerOfArticulation": "lateral fricative",
+        "voicing": "voiceless",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Place the tip of the tongue firmly against the alveolar ridge and force air past the sides of the tongue to create a hiss, without vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiceless_alveolar_lateral_fricative.ogg",
+        "exampleWords": [
+            {
+                "word": "llan",
+                "language": "Welsh",
+                "accent": "Standard"
+            },
+            {
+                "word": "hlala",
+                "language": "Zulu",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɮ",
+        "ipaNumber": 149,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "alveolar",
+        "mannerOfArticulation": "lateral fricative",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Place the tip of the tongue firmly against the alveolar ridge and force air past the sides of the tongue while vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_alveolar_lateral_fricative.ogg",
+        "exampleWords": [
+            {
+                "word": "dlala",
+                "language": "Zulu",
+                "accent": "Standard"
+            },
+            {
+                "word": "долоо (doloo)",
+                "language": "Mongolian",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɰ",
+        "ipaNumber": 154,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "velar",
+        "mannerOfArticulation": "approximant",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Raise the back of the tongue toward the soft palate without touching it, allowing smooth airflow with voicing (sounds like a 'w' but without rounded lips).",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_velar_approximant.ogg",
+        "exampleWords": [
+            {
+                "word": "agua",
+                "language": "Spanish",
+                "accent": "Standard"
+            },
+            {
+                "word": "naoi",
+                "language": "Irish",
+                "accent": "Connacht"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ʟ",
+        "ipaNumber": 158,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "velar",
+        "mannerOfArticulation": "lateral approximant",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Raise the back of the tongue firmly to the soft palate and let air flow smoothly around the sides of the tongue while vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_velar_lateral_approximant.ogg",
+        "exampleWords": [
+            {
+                "word": "aʟaʟ",
+                "language": "Mid-Wahgi",
+                "accent": "Standard"
+            },
+            {
+                "word": "milk",
+                "language": "English",
+                "accent": "Southern US (Dark L variant)"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɤ",
+        "ipaNumber": 315,
+        "vowelOrConsonant": "vowel",
+        "placeOfArticulation": null,
+        "mannerOfArticulation": null,
+        "voicing": "voiced",
+        "vowelHeight": "close-mid",
+        "vowelBackness": "back",
+        "howToArticulate": "Position the tongue back in the mouth, somewhat below the close position, keeping the lips completely unrounded.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Close-mid_back_unrounded_vowel.ogg",
+        "exampleWords": [
+            {
+                "word": "喝 (hē)",
+                "language": "Mandarin",
+                "accent": "Standard"
+            },
+            {
+                "word": "เงิน (ngoen)",
+                "language": "Thai",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɵ",
+        "ipaNumber": 323,
+        "vowelOrConsonant": "vowel",
+        "placeOfArticulation": null,
+        "mannerOfArticulation": null,
+        "voicing": "voiced",
+        "vowelHeight": "close-mid",
+        "vowelBackness": "central",
+        "howToArticulate": "Position the tongue exactly in the center of the mouth, somewhat below the close position, and round the lips tightly.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Close-mid_central_rounded_vowel.ogg",
+        "exampleWords": [
+            {
+                "word": "dum",
+                "language": "Swedish",
+                "accent": "Central Standard"
+            },
+            {
+                "word": "出 (ceot1)",
+                "language": "Cantonese",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ʝ",
+        "ipaNumber": 138,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "palatal",
+        "mannerOfArticulation": "fricative",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Raise the body of the tongue close to the hard palate and force air through the narrow gap while vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_palatal_fricative.ogg",
+        "exampleWords": [
+            {
+                "word": "yo",
+                "language": "Spanish",
+                "accent": "Some Latin American dialects"
+            },
+            {
+                "word": "jord",
+                "language": "Swedish",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɻ",
+        "ipaNumber": 152,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "retroflex",
+        "mannerOfArticulation": "approximant",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Curl the tip of the tongue back toward the hard palate without touching it, allowing smooth airflow while vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_retroflex_approximant.ogg",
+        "exampleWords": [
+            {
+                "word": "red",
+                "language": "English",
+                "accent": "Some General American dialects"
+            },
+            {
+                "word": "தமிழ் (Tamil)",
+                "language": "Tamil",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɭ",
+        "ipaNumber": 156,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "retroflex",
+        "mannerOfArticulation": "lateral approximant",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Curl the tip of the tongue back to the hard palate, letting air flow smoothly around the sides of the tongue while vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_retroflex_lateral_approximant.ogg",
+        "exampleWords": [
+            {
+                "word": "pärla",
+                "language": "Swedish",
+                "accent": "Central Standard"
+            },
+            {
+                "word": "புளி (puḷi)",
+                "language": "Tamil",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɶ",
+        "ipaNumber": 312,
+        "vowelOrConsonant": "vowel",
+        "placeOfArticulation": null,
+        "mannerOfArticulation": null,
+        "voicing": "voiced",
+        "vowelHeight": "open",
+        "vowelBackness": "front",
+        "howToArticulate": "Position the tongue as far forward and as low in the mouth as possible, with the lips strongly rounded.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Open_front_rounded_vowel.ogg",
+        "exampleWords": [
+            {
+                "word": "børn",
+                "language": "Danish",
+                "accent": "Standard"
+            },
+            {
+                "word": "hö",
+                "language": "Swedish",
+                "accent": "Dialectal"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɞ",
+        "ipaNumber": 326,
+        "vowelOrConsonant": "vowel",
+        "placeOfArticulation": null,
+        "mannerOfArticulation": null,
+        "voicing": "voiced",
+        "vowelHeight": "open-mid",
+        "vowelBackness": "central",
+        "howToArticulate": "Position the tongue exactly in the center of the mouth, somewhat low, and round the lips tightly.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Open-mid_central_rounded_vowel.ogg",
+        "exampleWords": [
+            {
+                "word": "tomhail",
+                "language": "Irish",
+                "accent": "Standard"
+            },
+            {
+                "word": "köt",
+                "language": "Somali",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ʍ",
+        "ipaNumber": 169,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "labial-velar",
+        "mannerOfArticulation": "fricative",
+        "voicing": "voiceless",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Round the lips while raising the back of the tongue toward the velum, forcing air through without vibrating the vocal cords (a voiceless 'w').",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiceless_labio-velar_fricative.ogg",
+        "exampleWords": [
+            {
+                "word": "which",
+                "language": "English",
+                "accent": "Scottish / Southern US"
+            },
+            {
+                "word": "hwat",
+                "language": "Old English",
+                "accent": "Historical"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɥ",
+        "ipaNumber": 171,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "labio-palatal",
+        "mannerOfArticulation": "approximant",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Round the lips while simultaneously raising the body of the tongue toward the hard palate, allowing smooth airflow with voicing.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_labio-palatal_approximant.ogg",
+        "exampleWords": [
+            {
+                "word": "huit",
+                "language": "French",
+                "accent": "Standard"
+            },
+            {
+                "word": "月 (yuè)",
+                "language": "Mandarin",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ʜ",
+        "ipaNumber": 172,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "epiglottal",
+        "mannerOfArticulation": "fricative",
+        "voicing": "voiceless",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Constrict the epiglottis firmly against the pharyngeal wall deep in the throat and force air through without vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiceless_epiglottal_fricative.ogg",
+        "exampleWords": [
+            {
+                "word": "хьо (ḩo)",
+                "language": "Chechen",
+                "accent": "Standard"
+            },
+            {
+                "word": "мех (mex)",
+                "language": "Agul",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ʡ",
+        "ipaNumber": 173,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "epiglottal",
+        "mannerOfArticulation": "plosive",
+        "voicing": "voiceless",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Fold the epiglottis completely against the pharyngeal wall to block airflow, then release it suddenly without vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Epiglottal_stop.ogg",
+        "exampleWords": [
+            {
+                "word": "nd̠oːʡo",
+                "language": "Dahalo",
+                "accent": "Standard"
+            },
+            {
+                "word": "maʡ",
+                "language": "Jah Hut",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ʢ",
+        "ipaNumber": 174,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "epiglottal",
+        "mannerOfArticulation": "fricative",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Constrict the epiglottis against the pharyngeal wall and force air through while vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_epiglottal_fricative.ogg",
+        "exampleWords": [
+            {
+                "word": "تَعَشَّى (taʢaʃʃa)",
+                "language": "Arabic",
+                "accent": "Some regional dialects"
+            },
+            {
+                "word": "عمر (ʢumar)",
+                "language": "Siwi",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɓ",
+        "ipaNumber": 162,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "bilabial",
+        "mannerOfArticulation": "implosive",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Press the lips together, lower the larynx to create mild suction in the mouth, and release the lips while the vocal cords vibrate.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_bilabial_implosive.ogg",
+        "exampleWords": [
+            {
+                "word": "ɓaɓe",
+                "language": "Hausa",
+                "accent": "Standard"
+            },
+            {
+                "word": "baba",
+                "language": "Swahili",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɺ",
+        "ipaNumber": 181,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "alveolar",
+        "mannerOfArticulation": "lateral flap",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Flick the tip of the tongue quickly against the alveolar ridge while simultaneously letting air escape around the sides of the tongue.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_alveolar_lateral_flap.ogg",
+        "exampleWords": [
+            {
+                "word": "ラーメン (rāmen)",
+                "language": "Japanese",
+                "accent": "Standard"
+            },
+            {
+                "word": "bila",
+                "language": "Wayuu",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɕ",
+        "ipaNumber": 182,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "alveolo-palatal",
+        "mannerOfArticulation": "fricative",
+        "voicing": "voiceless",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Raise the blade of the tongue close to the alveolo-palatal region (behind the alveolar ridge) and force air through without voicing. (Sounds like a soft, breathy 'sh').",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiceless_alveolo-palatal_fricative.ogg",
+        "exampleWords": [
+            {
+                "word": "西 (xī)",
+                "language": "Mandarin",
+                "accent": "Standard"
+            },
+            {
+                "word": "kök",
+                "language": "Swedish",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ʑ",
+        "ipaNumber": 183,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "alveolo-palatal",
+        "mannerOfArticulation": "fricative",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Raise the blade of the tongue close to the alveolo-palatal region and force air through while vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_alveolo-palatal_fricative.ogg",
+        "exampleWords": [
+            {
+                "word": "źrebię",
+                "language": "Polish",
+                "accent": "Standard"
+            },
+            {
+                "word": "日 (rì)",
+                "language": "Mandarin",
+                "accent": "Some regional dialects"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ⱱ",
+        "ipaNumber": 184,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "labiodental",
+        "mannerOfArticulation": "flap",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Draw the lower lip back slightly into the mouth and flick it rapidly outward against the upper teeth while vibrating the vocal cords.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Labiodental_flap.ogg",
+        "exampleWords": [
+            {
+                "word": "vwa",
+                "language": "Mono",
+                "accent": "Standard"
+            },
+            {
+                "word": "vwab",
+                "language": "Kera",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɗ",
+        "ipaNumber": 163,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "alveolar",
+        "mannerOfArticulation": "implosive",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Lower the larynx to create a slight vacuum in the mouth, then release the tongue from the alveolar ridge while the vocal cords vibrate.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_alveolar_implosive.ogg",
+        "exampleWords": [
+            {
+                "word": "ɗemngal",
+                "language": "Fula",
+                "accent": "Standard"
+            },
+            {
+                "word": "ڏر (ɗaru)",
+                "language": "Sindhi",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ʄ",
+        "ipaNumber": 164,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "palatal",
+        "mannerOfArticulation": "implosive",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Lower the larynx to create a slight vacuum, then release the broad body of the tongue from the hard palate while the vocal cords vibrate.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_palatal_implosive.ogg",
+        "exampleWords": [
+            {
+                "word": "jambo",
+                "language": "Swahili",
+                "accent": "Some regional dialects"
+            },
+            {
+                "word": "ڄِڀَ (ʄibha)",
+                "language": "Sindhi",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɠ",
+        "ipaNumber": 165,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "velar",
+        "mannerOfArticulation": "implosive",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Lower the larynx to create a slight vacuum, then release the back of the tongue from the soft palate (velum) while the vocal cords vibrate.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_velar_implosive.ogg",
+        "exampleWords": [
+            {
+                "word": "gari",
+                "language": "Swahili",
+                "accent": "Some regional dialects"
+            },
+            {
+                "word": "ڳئون (ɠau)",
+                "language": "Sindhi",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ʛ",
+        "ipaNumber": 166,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "uvular",
+        "mannerOfArticulation": "implosive",
+        "voicing": "voiced",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Lower the larynx to create a slight vacuum, then release the very back of the tongue from the uvula while the vocal cords vibrate.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_uvular_implosive.ogg",
+        "exampleWords": [
+            {
+                "word": "ʛa",
+                "language": "Mam",
+                "accent": "Standard"
+            },
+            {
+                "word": "ʛa",
+                "language": "Q'eqchi'",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ɧ",
+        "ipaNumber": 175,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "palatal-velar",
+        "mannerOfArticulation": "fricative",
+        "voicing": "voiceless",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Simultaneously articulate a voiceless postalveolar fricative (like 'sh') and a voiceless velar fricative (like 'ch' in Bach).",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiceless_dorso-palatal_velar_fricative.ogg",
+        "exampleWords": [
+            {
+                "word": "sju",
+                "language": "Swedish",
+                "accent": "Central Standard"
+            },
+            {
+                "word": "stjärna",
+                "language": "Swedish",
+                "accent": "Central Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ʘ",
+        "ipaNumber": 176,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "bilabial",
+        "mannerOfArticulation": "click",
+        "voicing": "voiceless",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Smack the lips together sharply by creating a vacuum in the mouth with the tongue, then abruptly opening the lips.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Bilabial_click.ogg",
+        "exampleWords": [
+            {
+                "word": "ʘàa",
+                "language": "Taa (ǃXóõ)",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ǀ",
+        "ipaNumber": 177,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "dental",
+        "mannerOfArticulation": "click",
+        "voicing": "voiceless",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Place the tip of the tongue against the back of the front teeth, create a vacuum, and pull it away sharply (similar to a 'tsk-tsk' sound).",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Dental_click.ogg",
+        "exampleWords": [
+            {
+                "word": "ukucela",
+                "language": "Xhosa",
+                "accent": "Standard"
+            },
+            {
+                "word": "icici",
+                "language": "Zulu",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ǃ",
+        "ipaNumber": 178,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "alveolar",
+        "mannerOfArticulation": "click",
+        "voicing": "voiceless",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Press the tip of the tongue against the alveolar ridge (roof of the mouth), create a vacuum, and pull it down sharply to make a hollow popping sound.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Postalveolar_click.ogg",
+        "exampleWords": [
+            {
+                "word": "iqaqa",
+                "language": "Xhosa",
+                "accent": "Standard"
+            },
+            {
+                "word": "iqaqa",
+                "language": "Zulu",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ǂ",
+        "ipaNumber": 179,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "palatal",
+        "mannerOfArticulation": "click",
+        "voicing": "voiceless",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Press the flat body of the tongue firmly against the hard palate, create a vacuum, and pull it away sharply to create a crisp, flat popping sound.",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Palatoalveolar_click.ogg",
+        "exampleWords": [
+            {
+                "word": "ǂûu",
+                "language": "Taa (ǃXóõ)",
+                "accent": "Standard"
+            },
+            {
+                "word": "igqira",
+                "language": "Xhosa",
+                "accent": "Standard"
+            }
+        ]
+    },
+    {
+        "ipaSymbol": "ǁ",
+        "ipaNumber": 180,
+        "vowelOrConsonant": "consonant",
+        "placeOfArticulation": "alveolar",
+        "mannerOfArticulation": "lateral click",
+        "voicing": "voiceless",
+        "vowelHeight": null,
+        "vowelBackness": null,
+        "howToArticulate": "Press the tongue against the roof of the mouth, create a vacuum, and release the air sharply around the sides of the teeth (like the sound used to urge a horse).",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Alveolar_lateral_click.ogg",
+        "exampleWords": [
+            {
+                "word": "ixesha",
+                "language": "Xhosa",
+                "accent": "Standard"
+            },
+            {
+                "word": "ixoxo",
+                "language": "Zulu",
+                "accent": "Standard"
+            }
+        ]
+    }
+]
