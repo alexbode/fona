@@ -57,7 +57,7 @@
         "vowelHeight": null,
         "vowelBackness": null,
         "howToArticulate": "Press both lips together to block air from leaving the mouth, allowing the air to escape through the nose while vibrating the vocal cords.",
-        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_bilabial_nasal.ogg",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Bilabial_nasal.ogg",
         "exampleWords": [
             {
                 "word": "man",
@@ -249,7 +249,7 @@
         "vowelHeight": null,
         "vowelBackness": null,
         "howToArticulate": "Raise the back of the tongue to the soft palate (velum) to block oral airflow, allowing air to escape through the nose while vibrating the vocal cords.",
-        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_velar_nasal.ogg",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Retroflex_nasal.ogg",
         "exampleWords": [
             {
                 "word": "sing",
@@ -489,7 +489,7 @@
         "vowelHeight": null,
         "vowelBackness": null,
         "howToArticulate": "Place the tip of the tongue against the alveolar ridge to block oral airflow, allowing air to escape through the nose while vibrating the vocal cords.",
-        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_alveolar_nasal.ogg",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Alveolar_nasal.ogg",
         "exampleWords": [
             {
                 "word": "no",
@@ -657,7 +657,7 @@
         "vowelHeight": null,
         "vowelBackness": null,
         "howToArticulate": "Raise the middle of the tongue toward the hard palate without making tight contact, allowing air to flow smoothly while vibrating the vocal cords.",
-        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_palatal_approximant.ogg",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Palatal_approximant.ogg",
         "exampleWords": [
             {
                 "word": "yes",
@@ -681,7 +681,7 @@
         "vowelHeight": null,
         "vowelBackness": null,
         "howToArticulate": "Place the tip of the tongue against the alveolar ridge, letting air flow smoothly around the sides of the tongue while vibrating the vocal cords.",
-        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_alveolar_lateral_approximant.ogg",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Alveolar_lateral_approximant.ogg",
         "exampleWords": [
             {
                 "word": "let",
@@ -868,7 +868,7 @@
         "vowelHeight": null,
         "vowelBackness": null,
         "howToArticulate": "Direct air over the tip of the tongue so it repeatedly vibrates against the alveolar ridge while the vocal cords vibrate.",
-        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_alveolar_trill.ogg",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Alveolar_trill.ogg",
         "exampleWords": [
             {
                 "word": "perro",
@@ -892,7 +892,7 @@
         "vowelHeight": null,
         "vowelBackness": null,
         "howToArticulate": "Flick the tip of the tongue quickly against the alveolar ridge for a single, rapid contact while the vocal cords vibrate.",
-        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_alveolar_tap.ogg",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Alveolar_tap.ogg",
         "exampleWords": [
             {
                 "word": "better",
@@ -940,7 +940,7 @@
         "vowelHeight": null,
         "vowelBackness": null,
         "howToArticulate": "Raise the body of the tongue to the hard palate to block oral airflow, allowing air to escape through the nose while vocal cords vibrate.",
-        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Voiced_palatal_nasal.ogg",
+        "soundUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Palatal_nasal.ogg",
         "exampleWords": [
             {
                 "word": "niño",
