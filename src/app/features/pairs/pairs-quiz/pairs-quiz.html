@@ -1,22 +1,10 @@
 <div class="flex flex-col flex-1 h-full bg-background select-none">
   <!-- Headless Audio Players -->
-  <app-audio-player
-    #playerA
-    [language]="languageName()"
-    [accent]="accentName()"
-    [sentenceId]="wordAId()"
-    [loop]="false"
-    class="hidden"
-  ></app-audio-player>
+  <app-audio-player #playerA [language]="languageName()" [accent]="accentName()" [sentenceId]="wordAId()" [loop]="false"
+    class="hidden"></app-audio-player>
 
-  <app-audio-player
-    #playerB
-    [language]="languageName()"
-    [accent]="accentName()"
-    [sentenceId]="wordBId()"
-    [loop]="false"
-    class="hidden"
-  ></app-audio-player>
+  <app-audio-player #playerB [language]="languageName()" [accent]="accentName()" [sentenceId]="wordBId()" [loop]="false"
+    class="hidden"></app-audio-player>
 
   <!-- Navigation Breadcrumbs -->
   <nav hlmBreadcrumb class="px-5 py-4 shrink-0">
@@ -28,15 +16,12 @@
       <li hlmBreadcrumbItem>
         <a hlmBreadcrumbLink [link]="AppRoutesHelper.getAccentsRoute(languageName())">{{
           languageObj()?.nativeName | titlecase
-        }}</a>
+          }}</a>
       </li>
       <li hlmBreadcrumbSeparator></li>
       <li hlmBreadcrumbItem>
-        <a
-          hlmBreadcrumbLink
-          [link]="AppRoutesHelper.getModeSelectionRoute(languageName(), accentName())"
-          >{{ accentObj()?.nativeName | titlecase }}</a
-        >
+        <a hlmBreadcrumbLink [link]="AppRoutesHelper.getModeSelectionRoute(languageName(), accentName())">{{
+          accentObj()?.nativeName | titlecase }}</a>
       </li>
       <li hlmBreadcrumbSeparator></li>
       <li hlmBreadcrumbItem>
@@ -57,10 +42,7 @@
         </span>
       </div>
       <div class="h-[2px] bg-secondary rounded-full overflow-hidden w-48">
-        <div
-          class="h-full bg-brand rounded-full duration-500"
-          [style.width.%]="progressPercent()"
-        ></div>
+        <div class="h-full bg-brand rounded-full duration-500" [style.width.%]="progressPercent()"></div>
       </div>
     </div>
     <div class="text-right">
@@ -73,141 +55,105 @@
 
   <div class="flex-1 flex flex-col px-5 pb-8 gap-4 overflow-y-auto">
     @if (isSentenceLoading()) {
-      <!-- Loading Skeleton -->
-      <div
-        class="bg-card border border-border rounded px-4 py-3 flex items-center justify-between gap-3"
-      >
-        <hlm-skeleton class="h-4 w-1/3 rounded" />
-        <hlm-skeleton class="h-6 w-12 rounded" />
-      </div>
+    <!-- Loading Skeleton -->
+    <div class="bg-card border border-border rounded px-4 py-3 flex items-center justify-between gap-3">
+      <hlm-skeleton class="h-4 w-1/3 rounded" />
+      <hlm-skeleton class="h-6 w-12 rounded" />
+    </div>
 
-      <hlm-skeleton class="w-full h-[58px] rounded" />
+    <hlm-skeleton class="w-full h-[58px] rounded" />
 
-      <div class="grid grid-cols-2 gap-3">
-        <div
-          class="rounded p-5 border border-border bg-card flex flex-col items-center justify-center gap-2"
-        >
-          <hlm-skeleton class="h-6 w-2/3 rounded" />
-          <hlm-skeleton class="h-4 w-1/2 rounded" />
-        </div>
-        <div
-          class="rounded p-5 border border-border bg-card flex flex-col items-center justify-center gap-2"
-        >
-          <hlm-skeleton class="h-6 w-2/3 rounded" />
-          <hlm-skeleton class="h-4 w-1/2 rounded" />
-        </div>
+    <div class="grid grid-cols-2 gap-3">
+      <div class="rounded p-5 border border-border bg-card flex flex-col items-center justify-center gap-2">
+        <hlm-skeleton class="h-6 w-2/3 rounded" />
+        <hlm-skeleton class="h-4 w-1/2 rounded" />
       </div>
+      <div class="rounded p-5 border border-border bg-card flex flex-col items-center justify-center gap-2">
+        <hlm-skeleton class="h-6 w-2/3 rounded" />
+        <hlm-skeleton class="h-4 w-1/2 rounded" />
+      </div>
+    </div>
     } @else {
-      <!-- Focus note -->
-      <div
-        class="bg-card border border-border rounded px-4 py-3 flex items-center justify-between gap-3"
-      >
-        <p class="text-xs text-muted-foreground flex-1 font-sans">
-          <span class="text-brand font-sans">listen for: </span>
-          {{ focusNote() }}
-        </p>
-        <button
-          (click)="onIpa()"
-          class="flex items-center gap-1 px-2 py-1 rounded border border-border text-xs shrink-0 hover:border-brand/40 bg-brand/5 text-brand cursor-pointer"
-        >
-          <ng-icon hlm name="lucideBookOpen" size="11px" />
-          IPA
-        </button>
-      </div>
-
-      <!-- Play button -->
-      <button
-        appButton
-        size="none"
-        (click)="handlePlay()"
-        [disabled]="selected() !== null"
-        class="w-full py-4 rounded text-base flex items-center justify-center gap-2 cursor-pointer disabled:cursor-default disabled:opacity-80 border border-transparent"
-        [class.bg-brand-hover]="isAudioPlaying()"
-        [class.text-white]="isAudioPlaying() || selected() === null"
-        [class.bg-brand]="!isAudioPlaying() && selected() === null"
-        [class.bg-secondary]="selected() !== null"
-        [class.text-muted-foreground]="selected() !== null"
-        [class.border-border]="selected() !== null"
-      >
-        <ng-icon hlm name="lucideVolume2" size="18px" />
-        <span>{{ playButtonText() }}</span>
+    <!-- Focus note -->
+    <div class="bg-card border border-border rounded px-4 py-3 flex items-center justify-between gap-3">
+      <p class="text-xs text-muted-foreground flex-1 font-sans">
+        <span class="text-brand font-sans">listen for: </span>
+        {{ focusNote() }}
+      </p>
+      <button (click)="onIpa()"
+        class="flex items-center gap-1 px-2 py-1 rounded border border-border text-xs shrink-0 hover:border-brand/40 bg-brand/5 text-brand cursor-pointer">
+        <ng-icon hlm name="lucideBookOpen" size="11px" />
+        IPA
       </button>
+    </div>
 
-      <!-- Word pair options -->
-      <div class="grid grid-cols-2 gap-3">
-        @for (choice of ['A', 'B']; track choice) {
-          <button
-            hlmCard
-            (click)="handleCardClick(choice)"
-            class="p-5 text-center cursor-pointer flex flex-col items-center justify-center group"
-            [class.border-brand]="selected() !== null && choiceCorrect(choice)"
-            [class.bg-brand/10]="selected() !== null && choiceCorrect(choice)"
-            [class.border-pairs]="selected() !== null && choiceIncorrect(choice)"
-            [class.bg-pairs/10]="selected() !== null && choiceIncorrect(choice)"
-            [class.border-border]="
+    <!-- Play button -->
+    <button appButton size="none" (click)="handlePlay()" [disabled]="selected() !== null"
+      class="w-full py-4 text-base flex items-center justify-center gap-2 cursor-pointer disabled:cursor-default disabled:opacity-80 border border-transparent"
+      [class.bg-brand-hover]="isAudioPlaying()" [class.text-white]="isAudioPlaying() || selected() === null"
+      [class.bg-brand]="!isAudioPlaying() && selected() === null" [class.bg-secondary]="selected() !== null"
+      [class.text-muted-foreground]="selected() !== null" [class.border-border]="selected() !== null">
+      <ng-icon hlm name="lucideVolume2" size="18px" />
+      <span>{{ playButtonText() }}</span>
+    </button>
+
+    <!-- Word pair options -->
+    <div class="grid grid-cols-2 gap-3">
+      @for (choice of ['A', 'B']; track choice) {
+      <button hlmCard (click)="handleCardClick(choice)"
+        class="p-5 text-center cursor-pointer flex flex-col items-center justify-center group"
+        [class.border-brand]="selected() !== null && choiceCorrect(choice)"
+        [class.bg-brand/10]="selected() !== null && choiceCorrect(choice)"
+        [class.border-pairs]="selected() !== null && choiceIncorrect(choice)"
+        [class.bg-pairs/10]="selected() !== null && choiceIncorrect(choice)" [class.border-border]="
               selected() === null || (!choiceCorrect(choice) && !choiceIncorrect(choice))
-            "
-            [class.bg-card]="
+            " [class.bg-card]="
               selected() === null || (!choiceCorrect(choice) && !choiceIncorrect(choice))
-            "
-          >
-            <div class="text-xl font-bold mb-1 font-jakarta">
-              {{ choice === 'A' ? wordASentence()?.text : wordBSentence()?.text }}
-            </div>
-            <div class="text-xs font-sans text-muted-foreground">
-              /{{ choice === 'A' ? wordASentence()?.ipa : wordBSentence()?.ipa }}/
-            </div>
-            @if (selected() !== null) {
-              <div
-                class="mt-3 flex items-center gap-1 text-xs text-muted-foreground group-hover:text-foreground"
-              >
-                <ng-icon hlm name="lucideVolume2" size="14px" />
-                <span>Listen</span>
-              </div>
-
-              <div class="mt-2.5">
-                @if (choiceCorrect(choice)) {
-                  <span class="text-xs text-brand font-medium flex items-center gap-1">
-                    <ng-icon hlm name="lucideCheckCircle" size="14px" />
-                    Correct
-                  </span>
-                } @else if (choiceIncorrect(choice)) {
-                  <span class="text-xs text-pairs font-medium flex items-center gap-1">
-                    <ng-icon hlm name="lucideXCircle" size="14px" />
-                    Incorrect
-                  </span>
-                }
-              </div>
-            }
-          </button>
-        }
-      </div>
-
-      @if (selected() !== null) {
-        <div
-          class="rounded border px-4 py-3 text-sm font-sans"
-          [class.border-brand]="isCurrentChoiceCorrect()"
-          [class.bg-brand/5]="isCurrentChoiceCorrect()"
-          [class.text-brand]="isCurrentChoiceCorrect()"
-          [class.border-pairs]="!isCurrentChoiceCorrect()"
-          [class.bg-pairs/5]="!isCurrentChoiceCorrect()"
-          [class.text-pairs]="!isCurrentChoiceCorrect()"
-        >
-          {{ resultText() }}
+            ">
+        <div class="text-xl font-bold mb-1 font-jakarta">
+          {{ choice === 'A' ? wordASentence()?.text : wordBSentence()?.text }}
         </div>
-      }
+        <div class="text-xs font-sans text-muted-foreground">
+          /{{ choice === 'A' ? wordASentence()?.ipa : wordBSentence()?.ipa }}/
+        </div>
+        @if (selected() !== null) {
+        <div class="mt-3 flex items-center gap-1 text-xs text-muted-foreground group-hover:text-foreground">
+          <ng-icon hlm name="lucideVolume2" size="14px" />
+          <span>Listen</span>
+        </div>
 
-      @if (selected() !== null) {
-        <button
-          appButton
-          variant="secondary"
-          size="none"
-          (click)="handleNext()"
-          class="w-full py-4 rounded font-semibold text-sm border border-border text-muted-foreground hover:text-foreground hover:border-foreground/20 cursor-pointer mt-auto"
-        >
-          {{ pairIdx() < quizPairs().length - 1 ? 'Next pair →' : 'Finish session →' }}
-        </button>
+        <div class="mt-2.5">
+          @if (choiceCorrect(choice)) {
+          <span class="text-xs text-brand font-medium flex items-center gap-1">
+            <ng-icon hlm name="lucideCheckCircle" size="14px" />
+            Correct
+          </span>
+          } @else if (choiceIncorrect(choice)) {
+          <span class="text-xs text-pairs font-medium flex items-center gap-1">
+            <ng-icon hlm name="lucideXCircle" size="14px" />
+            Incorrect
+          </span>
+          }
+        </div>
+        }
+      </button>
       }
+    </div>
+
+    @if (selected() !== null) {
+    <div class="rounded border px-4 py-3 text-sm font-sans" [class.border-brand]="isCurrentChoiceCorrect()"
+      [class.bg-brand/5]="isCurrentChoiceCorrect()" [class.text-brand]="isCurrentChoiceCorrect()"
+      [class.border-pairs]="!isCurrentChoiceCorrect()" [class.bg-pairs/5]="!isCurrentChoiceCorrect()"
+      [class.text-pairs]="!isCurrentChoiceCorrect()">
+      {{ resultText() }}
+    </div>
     }
+
+    @if (selected() !== null) {
+    <button appButton variant="secondary" size="none" (click)="handleNext()"
+      class="w-full py-4 rounded font-semibold text-sm border border-border text-muted-foreground hover:text-foreground hover:border-foreground/20 cursor-pointer mt-auto">
+      {{ pairIdx() < quizPairs().length - 1 ? 'Next pair →' : 'Finish session →' }} </button>
+        }
+        }
   </div>
 </div>
