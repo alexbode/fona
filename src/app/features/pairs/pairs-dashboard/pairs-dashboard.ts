@@ -24,6 +24,7 @@ import { CourseConfig, PairsConfig } from '@core/models/config';
 import { DataState } from '@core/models/state';
 import { AudioPlayer } from '@app/shared/audio-player/audio-player';
 import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
+import { HlmCardImports } from '@spartan-ng/helm/card';
 
 @Component({
   selector: 'app-pairs-dashboard',
@@ -37,6 +38,7 @@ import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
     HlmButtonImports,
     AudioPlayer,
     HlmSkeleton,
+    HlmCardImports,
   ],
   providers: [
     provideIcons({

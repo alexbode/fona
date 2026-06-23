@@ -72,17 +72,18 @@
       <div class="flex gap-3">
         <!-- Word A Card -->
         @if (wordASentence().isLoading) {
-          <div class="flex-1 bg-card border border-border rounded-xl p-4 flex flex-col gap-3">
+          <hlm-card size="sm" class="flex-1 p-4 flex flex-col gap-3">
             <hlm-skeleton class="w-10 h-10 rounded-lg" />
             <div class="space-y-2">
               <hlm-skeleton class="h-5 w-24 rounded" />
               <hlm-skeleton class="h-3 w-16 rounded" />
             </div>
             <hlm-skeleton class="h-8 w-full rounded-lg" />
-          </div>
+          </hlm-card>
         } @else {
-          <div
-            class="flex-1 bg-card border border-border rounded-xl p-4 flex flex-col gap-3 transition-colors duration-200"
+          <hlm-card
+            size="sm"
+            class="flex-1 p-4 flex flex-col gap-3 transition-colors duration-200"
             [class.border-brand/60]="playingKey() === 'word-a'"
           >
             <div
@@ -127,22 +128,23 @@
                 <span>Hear "{{ wordAText() }}"</span>
               }
             </button>
-          </div>
+          </hlm-card>
         }
 
         <!-- Word B Card -->
         @if (wordBSentence().isLoading) {
-          <div class="flex-1 bg-card border border-border rounded-xl p-4 flex flex-col gap-3">
+          <hlm-card size="sm" class="flex-1 p-4 flex flex-col gap-3">
             <hlm-skeleton class="w-10 h-10 rounded-lg" />
             <div class="space-y-2">
               <hlm-skeleton class="h-5 w-24 rounded" />
               <hlm-skeleton class="h-3 w-16 rounded" />
             </div>
             <hlm-skeleton class="h-8 w-full rounded-lg" />
-          </div>
+          </hlm-card>
         } @else {
-          <div
-            class="flex-1 bg-card border border-border rounded-xl p-4 flex flex-col gap-3 transition-colors duration-200"
+          <hlm-card
+            size="sm"
+            class="flex-1 p-4 flex flex-col gap-3 transition-colors duration-200"
             [class.border-brand-secondary/60]="playingKey() === 'word-b'"
           >
             <div
@@ -187,7 +189,7 @@
                 <span>Hear "{{ wordBText() }}"</span>
               }
             </button>
-          </div>
+          </hlm-card>
         }
       </div>
     </div>
@@ -198,15 +200,15 @@
         In context
       </div>
       @if (sentenceObj().isLoading) {
-        <div class="bg-card border border-border rounded-xl p-5 space-y-4">
+        <hlm-card class="p-5 space-y-4">
           <div class="space-y-2">
             <hlm-skeleton class="h-5 w-3/4 rounded" />
             <hlm-skeleton class="h-5 w-1/2 rounded" />
           </div>
           <hlm-skeleton class="h-8 w-32 rounded-lg" />
-        </div>
+        </hlm-card>
       } @else {
-        <div class="bg-card border border-border rounded-xl p-5 space-y-3">
+        <hlm-card class="p-5 space-y-3">
           <p class="text-foreground text-base leading-relaxed font-jakarta">
             @for (w of sentenceWords(); track $index) {
               <span
@@ -248,7 +250,7 @@
               <span>Hear full sentence</span>
             }
           </button>
-        </div>
+        </hlm-card>
       }
     </div>
 

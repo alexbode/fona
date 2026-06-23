@@ -30,7 +30,9 @@
     @if (configState().isLoading) {
       <div class="flex flex-col gap-4">
         @for (i of [1, 2, 3]; track i) {
-          <div class="w-full bg-card border border-border rounded p-6 flex items-start gap-4">
+          <hlm-card
+            class="w-full p-6 flex flex-row items-start gap-4 pointer-events-none select-none"
+          >
             <hlm-skeleton class="w-10 h-10 rounded shrink-0" />
             <div class="flex-1 space-y-3">
               <hlm-skeleton class="h-6 w-32 rounded" />
@@ -40,7 +42,7 @@
               </div>
               <hlm-skeleton class="h-3 w-40 rounded mt-3" />
             </div>
-          </div>
+          </hlm-card>
         }
       </div>
     }
@@ -48,8 +50,9 @@
     <!-- Chorusing Option -->
     @if (hasChorus()) {
       <button
+        hlmCard
         (click)="onSelectChorusing()"
-        class="w-full bg-card border border-border rounded p-6 text-left hover:border-primary/40 group cursor-pointer"
+        class="w-full p-6 text-left hover:border-primary/40 group cursor-pointer"
       >
         <div class="flex items-start gap-4">
           <div class="w-10 h-10 rounded flex items-center justify-center shrink-0 bg-brand/10">
@@ -72,8 +75,9 @@
     <!-- Minimal Pairs Option -->
     @if (hasPairs()) {
       <button
+        hlmCard
         (click)="onSelectMinimalPairs()"
-        class="w-full bg-card border border-border rounded p-6 text-left hover:border-accent/40 group cursor-pointer"
+        class="w-full p-6 text-left hover:border-accent/40 group cursor-pointer"
       >
         <div class="flex items-start gap-4">
           <div class="w-10 h-10 rounded flex items-center justify-center shrink-0 bg-pairs/10">
@@ -96,8 +100,9 @@
     <!-- Minimal Pairs Quiz Option -->
     @if (hasPairsQuiz()) {
       <button
+        hlmCard
         (click)="onSelectPairsQuiz()"
-        class="w-full bg-card border border-border rounded p-6 text-left hover:border-primary/40 group cursor-pointer"
+        class="w-full p-6 text-left hover:border-primary/40 group cursor-pointer"
       >
         <div class="flex items-start gap-4">
           <div class="w-10 h-10 rounded flex items-center justify-center shrink-0 bg-pairs/10">

@@ -8,14 +8,14 @@ import { DataService } from '@core/services/data.service';
 import { AppRoutesHelper } from '@app/app.routes';
 import { CourseConfig } from '@core/models/config';
 import { HlmBreadcrumbImports } from '@spartan-ng/helm/breadcrumb';
+import { HlmCardImports } from '@spartan-ng/helm/card';
 import { DataState } from '@core/models/state';
-
 import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
 
 @Component({
   selector: 'app-pairs-selection',
   standalone: true,
-  imports: [NgIcon, HlmIcon, TitleCasePipe, HlmBreadcrumbImports, HlmSkeleton],
+  imports: [NgIcon, HlmIcon, TitleCasePipe, HlmBreadcrumbImports, HlmSkeleton, HlmCardImports],
   providers: [
     provideIcons({
       lucideChevronLeft,

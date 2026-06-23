@@ -10,38 +10,38 @@
   <!-- Stats -->
   <div class="grid grid-cols-2 gap-3 mb-8">
     @if (isPairsQuiz()) {
-      <div class="bg-card border border-border rounded p-5 text-center">
+      <hlm-card class="p-5 text-center">
         <div class="text-5xl font-bold text-brand font-jakarta">{{ accuracyPercentage() }}%</div>
         <div class="text-muted-foreground text-xs mt-1 tracking-widest uppercase">accuracy</div>
-      </div>
-      <div class="bg-card border border-border rounded p-5 text-center">
+      </hlm-card>
+      <hlm-card class="p-5 text-center">
         <div class="text-5xl font-bold text-muted-foreground font-jakarta">
           {{ streakValue() }}
         </div>
         <div class="text-muted-foreground text-xs mt-1 tracking-widest uppercase">best streak</div>
-      </div>
+      </hlm-card>
     } @else {
-      <div class="bg-card border border-border rounded p-5 text-center">
+      <hlm-card class="p-5 text-center">
         <div class="text-5xl font-bold text-brand font-jakarta">
           {{ chorusCumulativeReps() }}
         </div>
         <div class="text-muted-foreground text-xs mt-1 tracking-widest uppercase">total reps</div>
-      </div>
-      <div class="bg-card border border-border rounded p-5 text-center">
+      </hlm-card>
+      <hlm-card class="p-5 text-center">
         <div class="text-5xl font-bold text-muted-foreground font-jakarta">
           {{ data.total }}
         </div>
         <div class="text-muted-foreground text-xs mt-1 tracking-widest uppercase">phrases</div>
-      </div>
+      </hlm-card>
     }
   </div>
 
   <!-- Motivational message -->
-  <div class="bg-card border border-border rounded p-5 mb-8">
+  <hlm-card class="p-5 mb-8">
     <p class="text-foreground text-base leading-relaxed italic font-jakarta">
       {{ message }}
     </p>
-  </div>
+  </hlm-card>
 
   <!-- Incorrect Pairs Review -->
   @if (isPairsQuiz() && data.incorrectPairs && data.incorrectPairs.length > 0) {
@@ -51,8 +51,8 @@
       </div>
       <div class="max-h-[240px] overflow-y-auto space-y-2 pr-1">
         @for (item of data.incorrectPairs; track $index) {
-          <div
-            class="bg-card border border-border rounded-xl p-4 flex items-center justify-between gap-4"
+          <hlm-card
+            class="p-4 flex flex-row items-center justify-between gap-4"
           >
             <div class="flex items-center gap-3">
               <span
@@ -64,7 +64,7 @@
                 {{ item.correct }} of {{ item.total }} correct
               </span>
             </div>
-          </div>
+          </hlm-card>
         }
       </div>
     </div>

@@ -9,12 +9,12 @@ import { AppRoutesHelper } from '@app/app.routes';
 import { LoggingService } from '@core/services/logging.service';
 import { CourseConfig } from '@core/models/config';
 import { HlmBreadcrumbImports } from '@spartan-ng/helm/breadcrumb';
-
+import { HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
 
 @Component({
   selector: 'app-mode-selection',
-  imports: [NgIcon, HlmIcon, TitleCasePipe, HlmBreadcrumbImports, HlmSkeleton],
+  imports: [NgIcon, HlmIcon, TitleCasePipe, HlmBreadcrumbImports, HlmSkeleton, HlmCardImports],
   providers: [
     provideIcons({
       lucideChevronLeft,

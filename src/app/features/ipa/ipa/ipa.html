@@ -2,22 +2,18 @@
   <!-- Navigation Breadcrumbs -->
   <nav hlmBreadcrumb class="px-5 py-4 shrink-0">
     <ol hlmBreadcrumbList>
+      @if (selectedItem(); as item) {
       <li hlmBreadcrumbItem>
-        <a hlmBreadcrumbLink [link]="AppRoutesHelper.getLanguagesRoute()">Languages</a>
+        <a hlmBreadcrumbLink [link]="AppRoutesHelper.getIpaRoute()">IPA Guide</a>
       </li>
       <li hlmBreadcrumbSeparator></li>
-      @if (selectedItem(); as item) {
-        <li hlmBreadcrumbItem>
-          <a hlmBreadcrumbLink [link]="AppRoutesHelper.getIpaRoute()">IPA Guide</a>
-        </li>
-        <li hlmBreadcrumbSeparator></li>
-        <li hlmBreadcrumbItem>
-          <span hlmBreadcrumbPage>Phoneme /{{ item.ipaSymbol }}/</span>
-        </li>
+      <li hlmBreadcrumbItem>
+        <span hlmBreadcrumbPage>Phoneme /{{ item.ipaSymbol }}/</span>
+      </li>
       } @else {
-        <li hlmBreadcrumbItem>
-          <span hlmBreadcrumbPage>IPA Guide</span>
-        </li>
+      <li hlmBreadcrumbItem>
+        <span hlmBreadcrumbPage>IPA Guide</span>
+      </li>
       }
     </ol>
   </nav>
@@ -43,12 +39,13 @@
 
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
         @for (i of [1,2,3,4,5,6,7,8,9,10,11,12]; track i) {
-        <div
-          class="flex flex-col items-center justify-between p-5 h-40 rounded-2xl border border-border bg-card/20 space-y-4">
+        <hlm-card
+          size="sm"
+          class="flex flex-col items-center justify-between p-5 h-40 space-y-4 pointer-events-none select-none">
           <div hlmSkeleton class="h-6 w-6 rounded-full self-end"></div>
           <div hlmSkeleton class="h-12 w-12 rounded-md"></div>
           <div hlmSkeleton class="h-4 w-20 rounded-sm"></div>
-        </div>
+        </hlm-card>
         }
       </div>
     </div>
@@ -68,8 +65,8 @@
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <!-- Left Panel: Symbol & Basic Info -->
-        <div
-          class="md:col-span-1 flex flex-col items-center justify-center p-8 rounded-3xl border border-border bg-card/30 backdrop-blur-sm relative text-center shadow-lg">
+        <hlm-card
+          class="md:col-span-1 flex flex-col items-center justify-center p-8 relative text-center shadow-lg">
           <div class="text-8xl font-extrabold text-brand mb-6 font-jakarta tracking-tighter">
             /{{ item.ipaSymbol }}/
           </div>
@@ -130,12 +127,12 @@
               <span class="font-semibold text-foreground">{{ item.ipaNumber }}</span>
             </div>
           </div>
-        </div>
+        </hlm-card>
 
         <!-- Right Panel: Articulation & Examples -->
         <div class="md:col-span-2 space-y-6">
           <!-- Articulation -->
-          <div class="p-6 rounded-3xl border border-border bg-card/30 backdrop-blur-sm shadow-md">
+          <hlm-card class="p-6 shadow-md">
             <h2 class="text-lg font-bold text-foreground font-jakarta mb-3 flex items-center gap-2">
               <ng-icon hlm name="lucideBookOpen" size="18px" class="text-brand" />
               How to Articulate
@@ -143,16 +140,16 @@
             <p class="text-muted-foreground text-sm leading-relaxed">
               {{ item.howToArticulate }}
             </p>
-          </div>
+          </hlm-card>
 
           <!-- Examples -->
-          <div class="p-6 rounded-3xl border border-border bg-card/30 backdrop-blur-sm shadow-md">
+          <hlm-card class="p-6 shadow-md">
             <h2 class="text-lg font-bold text-foreground font-jakarta mb-4">
               Example Words
             </h2>
 
             @if (item.exampleWords && item.exampleWords.length > 0) {
-            <div class="overflow-hidden rounded-2xl border border-border bg-card/10">
+            <div hlmCard class="overflow-hidden">
               <table class="w-full text-left border-collapse">
                 <thead>
                   <tr
@@ -174,9 +171,9 @@
               </table>
             </div>
             } @else {
-            <p class="text-sm text-muted-foreground italic">No example words are currently loaded for this symbol.</p>
+            <p class="text-xs text-muted-foreground italic">No example words recorded yet.</p>
             }
-          </div>
+          </hlm-card>
         </div>
       </div>
     </div>
@@ -285,8 +282,10 @@
     @if (filteredIpaItems().length > 0) {
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
       @for (item of filteredIpaItems(); track item.ipaNumber) {
-      <div (click)="selectItem(item)"
-        class="group relative flex flex-col items-center justify-between p-6 h-44 rounded-2xl border border-border bg-card/30 hover:bg-card/60 hover:border-brand/40 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer overflow-hidden">
+      <hlm-card
+        size="sm"
+        (click)="selectItem(item)"
+        class="group relative flex flex-col items-center justify-between p-6 h-44 hover:border-primary/40 hover:bg-secondary/50 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer overflow-hidden">
         <!-- Play Sound Overlay Button -->
         <button (click)="playIpaSound(item.soundUrl, $event)"
           class="absolute top-3.5 right-3.5 p-2 rounded-full bg-secondary/80 text-muted-foreground group-hover:bg-brand group-hover:text-brand-foreground opacity-60 group-hover:opacity-100 transition-all duration-200 cursor-pointer z-10"
@@ -316,13 +315,13 @@
             {{ item.vowelOrConsonant === 'consonant' ? item.placeOfArticulation : item.vowelBackness }}
           </div>
         </div>
-      </div>
+      </hlm-card>
       }
     </div>
     } @else {
     <!-- Empty State -->
-    <div
-      class="flex flex-col items-center justify-center py-16 text-center border border-dashed border-border rounded-3xl bg-card/10">
+    <div hlmCard
+      class="flex flex-col items-center justify-center py-16 text-center border border-dashed border-border bg-card/50">
       <div class="text-muted-foreground mb-4">🔍</div>
       <h3 class="text-md font-bold mb-1">No Phonemes Found</h3>
       <p class="text-xs text-muted-foreground max-w-xs mb-4">Try adjusting your filters or search terms to find other

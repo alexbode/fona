@@ -20,7 +20,7 @@ import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { lucideChevronLeft, lucideBookOpen } from '@ng-icons/lucide';
-import { MatCardModule } from '@angular/material/card';
+import { HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmBreadcrumbImports } from '@spartan-ng/helm/breadcrumb';
 
 import { ButtonDirective } from '@app/directive/button';
@@ -36,7 +36,7 @@ import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
     HlmIcon,
     DecimalPipe,
     TitleCasePipe,
-    MatCardModule,
+    HlmCardImports,
     HlmBreadcrumbImports,
     HlmSkeleton,
   ],

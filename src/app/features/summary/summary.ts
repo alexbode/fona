@@ -21,10 +21,11 @@ export interface SummaryData {
 }
 
 import { ButtonDirective } from '@app/directive/button';
+import { HlmCardImports } from '@spartan-ng/helm/card';
 
 @Component({
   selector: 'app-summary',
-  imports: [ButtonDirective],
+  imports: [ButtonDirective, HlmCardImports],
   templateUrl: './summary.html',
 })
 export class Summary implements OnInit {

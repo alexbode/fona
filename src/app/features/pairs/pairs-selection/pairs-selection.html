@@ -49,8 +49,9 @@
     } @else {
       @for (item of pairItems(); track item.id) {
         <button
+          hlmCard
           (click)="onSelect(item.id)"
-          class="w-full bg-card border border-border rounded-xl p-5 text-left hover:border-primary/30 cursor-pointer"
+          class="w-full p-5 text-left hover:border-primary/30 cursor-pointer"
         >
           <div class="flex items-center gap-4">
             <!-- Symbol pair display -->

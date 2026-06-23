@@ -16,6 +16,7 @@ import { ButtonDirective } from '@app/directive/button';
 import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
 import { HlmBreadcrumbImports } from '@spartan-ng/helm/breadcrumb';
 import { AppRoutesHelper } from '@app/app.routes';
+import { HlmCardImports } from '@spartan-ng/helm/card';
 
 interface ExampleWord {
   word: string;
@@ -46,6 +47,7 @@ interface IpaItem {
     HlmSkeleton,
     ButtonDirective,
     HlmBreadcrumbImports,
+    HlmCardImports,
   ],
   providers: [
     provideIcons({
