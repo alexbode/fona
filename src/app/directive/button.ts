@@ -6,9 +6,9 @@ export const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: 'font-semibold hover:opacity-90 bg-brand text-brand-foreground',
+        primary: 'font-semibold hover:opacity-90 bg-brand text-brand-foreground rounded-lg',
         secondary:
-          'font-medium border border-border hover:border-primary/30 hover:bg-secondary text-foreground',
+          'font-medium border border-border hover:border-primary/30 hover:bg-secondary text-fofrench/paris/pairs-quizreground',
       },
       size: {
         none: '',

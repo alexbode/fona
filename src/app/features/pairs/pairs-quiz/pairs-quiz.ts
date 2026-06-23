@@ -23,6 +23,7 @@ import { DataService } from '@core/services/data.service';
 import { AppRoutesHelper } from '@app/app.routes';
 import { CourseConfig, PairsQuizConfig } from '@core/models/config';
 import { HlmBreadcrumbImports } from '@spartan-ng/helm/breadcrumb';
+import { HlmCardImports } from '@spartan-ng/helm/card';
 import { ButtonDirective } from '@app/directive/button';
 import { AudioPlayer } from '@app/shared/audio-player/audio-player';
 
@@ -45,6 +46,7 @@ import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
     ButtonDirective,
     AudioPlayer,
     HlmSkeleton,
+    HlmCardImports,
   ],
   providers: [
     provideIcons({

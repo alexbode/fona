@@ -117,16 +117,17 @@
 
       <!-- Play button -->
       <button
+        appButton
+        size="none"
         (click)="handlePlay()"
         [disabled]="selected() !== null"
-        class="w-full py-4 rounded font-semibold text-base flex items-center justify-center gap-2 cursor-pointer disabled:cursor-default disabled:opacity-80 border"
+        class="w-full py-4 rounded text-base flex items-center justify-center gap-2 cursor-pointer disabled:cursor-default disabled:opacity-80 border border-transparent"
         [class.bg-brand-hover]="isAudioPlaying()"
         [class.text-white]="isAudioPlaying() || selected() === null"
         [class.bg-brand]="!isAudioPlaying() && selected() === null"
         [class.bg-secondary]="selected() !== null"
         [class.text-muted-foreground]="selected() !== null"
         [class.border-border]="selected() !== null"
-        [class.border-transparent]="selected() === null"
       >
         <ng-icon hlm name="lucideVolume2" size="18px" />
         <span>{{ playButtonText() }}</span>
@@ -136,8 +137,9 @@
       <div class="grid grid-cols-2 gap-3">
         @for (choice of ['A', 'B']; track choice) {
           <button
+            hlmCard
             (click)="handleCardClick(choice)"
-            class="rounded p-5 text-center border cursor-pointer flex flex-col items-center justify-center group"
+            class="p-5 text-center cursor-pointer flex flex-col items-center justify-center group"
             [class.border-brand]="selected() !== null && choiceCorrect(choice)"
             [class.bg-brand/10]="selected() !== null && choiceCorrect(choice)"
             [class.border-pairs]="selected() !== null && choiceIncorrect(choice)"

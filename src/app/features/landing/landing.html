@@ -26,11 +26,11 @@
     </p>
 
     <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-      <button appButton hlmBtn [routerLink]="appRoutesHelper.getLanguagesRoute()">
+      <button appButton [routerLink]="appRoutesHelper.getLanguagesRoute()">
         Start training now
       </button>
       @if (!isLoggedIn()) {
-        <button appButton variant="secondary" hlmBtn [routerLink]="appRoutesHelper.getSigninRoute()">
+        <button appButton variant="secondary" [routerLink]="appRoutesHelper.getSigninRoute()">
           Sign in
         </button>
       }
@@ -175,7 +175,7 @@
       Like a musician learning by ear, consistent reps are what move the needle. Start your first
       session today — no equipment required.
     </p>
-    <button appButton hlmBtn size="lg" [routerLink]="appRoutesHelper.getLanguagesRoute()">
+    <button appButton size="lg" [routerLink]="appRoutesHelper.getLanguagesRoute()">
       Start training now
     </button>
   </div>
