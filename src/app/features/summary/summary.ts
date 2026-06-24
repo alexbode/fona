@@ -1,9 +1,12 @@
 import { Component, inject, input, OnInit, computed, Signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AppRoutesHelper } from '@app/app.routes';
 import { DataService } from '@core/services/data.service';
 import { DataState } from '@core/models/state';
 import { CourseConfig } from '@core/models/config';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import { lucideChevronRight } from '@ng-icons/lucide';
 
 export interface SummaryData {
   reps: number;
@@ -26,10 +29,16 @@ import { HlmCardImports } from '@spartan-ng/helm/card';
 
 @Component({
   selector: 'app-summary',
-  imports: [ButtonDirective, HlmCardImports],
+  imports: [ButtonDirective, HlmCardImports, RouterLink, NgIcon, HlmIcon],
+  providers: [
+    provideIcons({
+      lucideChevronRight,
+    }),
+  ],
   templateUrl: './summary.html',
 })
 export class Summary implements OnInit {
+  protected readonly AppRoutesHelper = AppRoutesHelper;
   private readonly router = inject(Router);
   private readonly dataService = inject(DataService);
 
@@ -109,6 +118,17 @@ export class Summary implements OnInit {
   streakValue = computed(() => {
     return this.data.streak ?? 0;
   });
+
+  getPairIndex(ipaA: string, ipaB: string): number | null {
+    const cfg = this.config().value;
+    if (!cfg || !cfg.pairs) return null;
+    const index = cfg.pairs.findIndex(
+      (p) =>
+        (p.ipa_a === ipaA && p.ipa_b === ipaB) ||
+        (p.ipa_a === ipaB && p.ipa_b === ipaA),
+    );
+    return index !== -1 ? index + 1 : null;
+  }
 
   onGoAgain() {
     if (this.data.mode === 'pairs_quiz') {

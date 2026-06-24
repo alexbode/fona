@@ -1,8 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop'; // Added
-import { Router, NavigationEnd, RouterLink } from '@angular/router'; // Added NavigationEnd & RouterLink
-import { Location } from '@angular/common'; // Added
-import { filter, map } from 'rxjs'; // Added
+import { toSignal } from '@angular/core/rxjs-interop';
+import { Router, NavigationEnd, RouterLink } from '@angular/router';
+import { Location } from '@angular/common';
+import { filter, map } from 'rxjs';
 
 import { AuthService } from '@core/services/auth.service';
 import { DataService } from '@core/services/data.service';
