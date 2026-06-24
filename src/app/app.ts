@@ -1,6 +1,6 @@
 import { Component, signal, ChangeDetectionStrategy, inject } from '@angular/core';
 import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
-// import { Navbar } from '@features/navbar/navbar';
+import { Navbar } from '@features/navbar/navbar';
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Location } from '@angular/common';
@@ -10,7 +10,7 @@ import { Footer } from '@app/shared/footer/footer';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HlmSidebarImports, Footer],
+  imports: [RouterOutlet, HlmSidebarImports, Footer, Navbar],
   templateUrl: './app.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.scss',

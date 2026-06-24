@@ -7,6 +7,8 @@ import {
   computed,
   Signal,
   viewChild,
+  OnInit,
+  OnDestroy,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { DecimalPipe, TitleCasePipe } from '@angular/common';
@@ -19,12 +21,37 @@ import { Sentence } from '@core/models/sentence';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import { lucideChevronLeft, lucideBookOpen } from '@ng-icons/lucide';
+import {
+  lucideChevronLeft,
+  lucideBookOpen,
+  lucideVolume2,
+  lucideX,
+} from '@ng-icons/lucide';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmBreadcrumbImports } from '@spartan-ng/helm/breadcrumb';
 
 import { ButtonDirective } from '@app/directive/button';
 import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
+
+interface ExampleWord {
+  word: string;
+  language: string;
+  accent: string;
+}
+
+interface IpaItem {
+  ipaSymbol: string;
+  ipaNumber: number;
+  vowelOrConsonant: 'vowel' | 'consonant';
+  placeOfArticulation: string | null;
+  mannerOfArticulation: string | null;
+  voicing: string;
+  vowelHeight: string | null;
+  vowelBackness: string | null;
+  howToArticulate: string;
+  soundUrl: string;
+  exampleWords: ExampleWord[];
+}
 
 @Component({
   selector: 'app-chorus-dashboard',
@@ -44,6 +71,8 @@ import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
     provideIcons({
       lucideChevronLeft,
       lucideBookOpen,
+      lucideVolume2,
+      lucideX,
     }),
   ],
   templateUrl: './chorus-dashboard.html',
@@ -53,7 +82,7 @@ import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
     '(window:keydown.arrowright)': 'nextSentence()',
   },
 })
-export class ChorusDashboard {
+export class ChorusDashboard implements OnInit, OnDestroy {
   protected readonly AppRoutesHelper = AppRoutesHelper;
   protected readonly dataService = inject(DataService);
   private readonly router = inject(Router);
@@ -92,6 +121,96 @@ export class ChorusDashboard {
   setSpeed(speed: string) {
     this.playbackSpeed.set(speed);
   }
+
+  // IPA Dialog state
+  readonly allIpaItems = signal<IpaItem[]>([]);
+  readonly selectedIpaItem = signal<IpaItem | null>(null);
+  readonly playingIpaSoundUrl = signal<string | null>(null);
+  private currentIpaAudio: HTMLAudioElement | null = null;
+
+  async ngOnInit() {
+    try {
+      const response = await fetch('/ipa.json');
+      if (response.ok) {
+        const data = await response.json() as IpaItem[];
+        this.allIpaItems.set(data);
+      }
+    } catch (err) {
+      console.error('Failed to load IPA data in ChorusDashboard', err);
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.currentIpaAudio) {
+      this.currentIpaAudio.pause();
+      this.currentIpaAudio = null;
+    }
+  }
+
+  openIpaDetails(char: string) {
+    this.audioPlayer()?.stopAudio();
+    const item = this.allIpaItems().find((i) => i.ipaSymbol === char);
+    if (item) {
+      this.selectedIpaItem.set(item);
+    }
+  }
+
+  closeIpaDetails() {
+    this.selectedIpaItem.set(null);
+    if (this.currentIpaAudio) {
+      this.currentIpaAudio.pause();
+      this.currentIpaAudio = null;
+    }
+    this.playingIpaSoundUrl.set(null);
+  }
+
+  playIpaSound(url: string, event?: Event) {
+    if (event) {
+      event.stopPropagation();
+    }
+    if (!url) return;
+
+    if (this.currentIpaAudio) {
+      this.currentIpaAudio.pause();
+      this.currentIpaAudio = null;
+    }
+
+    this.playingIpaSoundUrl.set(url);
+    const audio = new Audio(url);
+    this.currentIpaAudio = audio;
+
+    audio.play()
+      .then(() => {
+        audio.onended = () => {
+          if (this.currentIpaAudio === audio) {
+            this.playingIpaSoundUrl.set(null);
+          }
+        };
+      })
+      .catch((err) => {
+        console.error('Failed to play sound', err);
+        if (this.currentIpaAudio === audio) {
+          this.playingIpaSoundUrl.set(null);
+        }
+      });
+  }
+
+  readonly ipaWords = computed(() => {
+    const ipaText = this.sentenceIpa();
+    if (!ipaText) return [];
+    const symbolsSet = new Set(this.allIpaItems().map((item) => item.ipaSymbol));
+    const words = ipaText.split(' ');
+    return words.map((word) => {
+      const chars = Array.from(word).map((char) => ({
+        char,
+        isClickable: symbolsSet.has(char),
+      }));
+      return {
+        word,
+        chars,
+      };
+    });
+  });
 
   protected readonly sessionCount = signal<number>(0);
   protected readonly cumulativeReps = signal<number>(0);

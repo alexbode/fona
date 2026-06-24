@@ -1,48 +1,39 @@
 <div hlmSidebarWrapper>
-  <hlm-sidebar>
+  <!-- <hlm-sidebar>
     <div hlmSidebarContent>
       <div hlmSidebarGroup>
         <div hlmSidebarGroupLabel>Application</div>
         <div hlmSidebarGroupContent>
           <ul hlmSidebarMenu>
             @for (item of _items; track item.title) {
-              <li hlmSidebarMenuItem>
-                <a hlmSidebarMenuButton>
-                  <ng-icon hlm [name]="item.icon" />
-                  <span>{{ item.title }}</span>
-                </a>
-              </li>
+            <li hlmSidebarMenuItem>
+              <a hlmSidebarMenuButton>
+                <ng-icon hlm [name]="item.icon" />
+                <span>{{ item.title }}</span>
+              </a>
+            </li>
             }
           </ul>
         </div>
       </div>
     </div>
-  </hlm-sidebar>
+  </hlm-sidebar> -->
   <main hlmSidebarInset>
     <header
-      class="sticky top-0 z-50 flex h-12 items-center justify-between border-b border-border bg-background/85 px-4 backdrop-blur-md"
-    >
+      class="sticky top-0 z-50 flex h-12 items-center justify-between border-b border-border bg-background/85 px-4 backdrop-blur-md">
       <div class="flex items-center gap-3">
-        <button hlmSidebarTrigger class="cursor-pointer"><span class="sr-only"></span></button>
-        <a
-          [routerLink]="appRoutesHelper.getLanguagesRoute()"
-          class="cursor-pointer flex items-center"
-        >
+        <!-- <button hlmSidebarTrigger class="cursor-pointer"><span class="sr-only"></span></button> -->
+        <a [routerLink]="appRoutesHelper.getLanguagesRoute()" class="cursor-pointer flex items-center">
           <img src="https://speakfona.com/logo.png" alt="fona" class="h-8 w-8 object-contain" />
         </a>
       </div>
 
       @if (!isLoggedIn()) {
-        <button
-          appButton
-          size="sm"
-          [routerLink]="appRoutesHelper.getSigninRoute()"
-          class="cursor-pointer"
-        >
-          Sign in
-        </button>
+      <button appButton size="sm" [routerLink]="appRoutesHelper.getSigninRoute()" class="cursor-pointer">
+        Sign in
+      </button>
       } @else {
-        <button appButton size="sm" class="cursor-pointer" (click)="signOut()">Sign out</button>
+      <button appButton size="sm" class="cursor-pointer" (click)="signOut()">Sign out</button>
       }
     </header>
     <ng-content />

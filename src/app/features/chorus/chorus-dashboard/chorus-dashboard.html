@@ -96,8 +96,22 @@
             {{ sentenceText() }}
           </p>
           <div class="flex items-center justify-between gap-3">
-            <p class="text-muted-foreground text-base lg:text-lg flex-1 font-mono">
-              {{ sentenceIpa() }}
+            <p class="text-muted-foreground text-base lg:text-lg flex-1 font-mono tracking-wide flex flex-wrap gap-x-3 gap-y-1">
+              @for (word of ipaWords(); track $index) {
+                <span class="inline-block whitespace-nowrap">
+                  @for (token of word.chars; track $index) {
+                    @if (token.isClickable) {
+                      <button
+                        (click)="openIpaDetails(token.char)"
+                        class="inline-block text-muted-foreground hover:text-brand hover:bg-brand/10 hover:underline px-0.5 rounded cursor-pointer transition-colors font-bold select-text"
+                        [title]="'Learn about /' + token.char + '/'"
+                      >{{ token.char }}</button>
+                    } @else {
+                      <span class="select-text">{{ token.char }}</span>
+                    }
+                  }
+                </span>
+              }
             </p>
             <button
               (click)="onIpa()"
@@ -198,6 +212,144 @@
         >
           {{ sentenceIndex() < numSentences() ? 'Next phrase →' : 'Finish session →' }}
         </button>
+      </div>
+    </div>
+  }
+
+  <!-- IPA Detail Overlay Dialog -->
+  @if (selectedIpaItem(); as item) {
+    <div
+      class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm transition-all duration-300 animate-in fade-in"
+      (click)="closeIpaDetails()"
+    >
+      <div
+        class="bg-card text-card-foreground w-full max-w-lg rounded-2xl border border-border p-6 shadow-2xl relative flex flex-col max-h-[85vh] overflow-y-auto animate-in zoom-in-95 duration-200"
+        (click)="$event.stopPropagation()"
+      >
+        <!-- Close Button -->
+        <button
+          (click)="closeIpaDetails()"
+          class="absolute top-4 right-4 p-2 rounded-full hover:bg-secondary text-muted-foreground hover:text-foreground cursor-pointer transition-colors"
+          aria-label="Close details"
+        >
+          <ng-icon hlm name="lucideX" size="18px" />
+        </button>
+
+        <!-- Main Title / Symbol -->
+        <div class="flex flex-col items-center justify-center text-center mt-2 mb-6">
+          <div class="text-6xl font-extrabold text-brand mb-4 font-jakarta tracking-tighter select-all">
+            /{{ item.ipaSymbol }}/
+          </div>
+
+          <!-- Play sound button -->
+          <button
+            (click)="playIpaSound(item.soundUrl, $event)"
+            appButton
+            variant="primary"
+            size="sm"
+            class="flex items-center gap-2 rounded-2xl px-5 py-3 cursor-pointer shadow-md shadow-brand/10 hover:shadow-brand/20 transition-all font-semibold"
+          >
+            @if (playingIpaSoundUrl() === item.soundUrl) {
+              <span class="flex items-center gap-1.5">
+                <span class="animate-ping h-2 w-2 rounded-full bg-brand-foreground"></span>
+                Playing...
+              </span>
+            } @else {
+              <ng-icon hlm name="lucideVolume2" size="16px" />
+              <span>Listen Phoneme</span>
+            }
+          </button>
+        </div>
+
+        <!-- Info Grid / Articulation Details -->
+        <div class="space-y-4">
+          <!-- Classifications -->
+          <div class="bg-secondary/20 rounded-xl p-4 border border-border/40 grid grid-cols-2 gap-3 text-sm">
+            <div class="flex flex-col">
+              <span class="text-xs text-muted-foreground">Category</span>
+              <span class="font-bold uppercase text-foreground mt-0.5">{{ item.vowelOrConsonant }}</span>
+            </div>
+            <div class="flex flex-col">
+              <span class="text-xs text-muted-foreground">Voicing</span>
+              <span class="font-bold uppercase text-foreground mt-0.5">{{ item.voicing }}</span>
+            </div>
+
+            @if (item.vowelOrConsonant === 'consonant') {
+              @if (item.placeOfArticulation) {
+                <div class="flex flex-col col-span-2 sm:col-span-1">
+                  <span class="text-xs text-muted-foreground">Place</span>
+                  <span class="font-bold uppercase text-foreground mt-0.5">{{ item.placeOfArticulation }}</span>
+                </div>
+              }
+              @if (item.mannerOfArticulation) {
+                <div class="flex flex-col col-span-2 sm:col-span-1">
+                  <span class="text-xs text-muted-foreground">Manner</span>
+                  <span class="font-bold uppercase text-foreground mt-0.5">{{ item.mannerOfArticulation }}</span>
+                </div>
+              }
+            } @else {
+              @if (item.vowelHeight) {
+                <div class="flex flex-col col-span-2 sm:col-span-1">
+                  <span class="text-xs text-muted-foreground">Height</span>
+                  <span class="font-bold uppercase text-foreground mt-0.5">{{ item.vowelHeight }}</span>
+                </div>
+              }
+              @if (item.vowelBackness) {
+                <div class="flex flex-col col-span-2 sm:col-span-1">
+                  <span class="text-xs text-muted-foreground">Backness</span>
+                  <span class="font-bold uppercase text-foreground mt-0.5">{{ item.vowelBackness }}</span>
+                </div>
+              }
+            }
+
+            <div class="flex flex-col col-span-2 pt-2 border-t border-border/40">
+              <span class="text-xs text-muted-foreground">IPA Number</span>
+              <span class="font-semibold text-foreground mt-0.5">{{ item.ipaNumber }}</span>
+            </div>
+          </div>
+
+          <!-- How to Articulate -->
+          <div class="space-y-1.5">
+            <h4 class="text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5">
+              <ng-icon hlm name="lucideBookOpen" size="13px" class="text-brand" />
+              How to Articulate
+            </h4>
+            <p class="text-foreground text-sm leading-relaxed bg-secondary/10 p-3.5 rounded-xl border border-border/20">
+              {{ item.howToArticulate }}
+            </p>
+          </div>
+
+          <!-- Examples -->
+          <div class="space-y-1.5">
+            <h4 class="text-xs font-bold text-muted-foreground uppercase tracking-wider">
+              Example Words
+            </h4>
+            @if (item.exampleWords && item.exampleWords.length > 0) {
+              <div class="border border-border/60 rounded-xl overflow-hidden shadow-sm">
+                <table class="w-full text-left border-collapse text-xs">
+                  <thead>
+                    <tr class="bg-secondary/40 border-b border-border/60 font-semibold text-muted-foreground uppercase">
+                      <th class="p-2.5">Word</th>
+                      <th class="p-2.5">Language</th>
+                      <th class="p-2.5">Accent</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-border/40 text-foreground">
+                    @for (ex of item.exampleWords; track ex.word) {
+                      <tr class="hover:bg-secondary/20 transition-colors">
+                        <td class="p-2.5 font-bold">{{ ex.word }}</td>
+                        <td class="p-2.5 text-muted-foreground">{{ ex.language }}</td>
+                        <td class="p-2.5 text-muted-foreground">{{ ex.accent }}</td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            } @else {
+              <p class="text-xs text-muted-foreground italic bg-secondary/5 p-3 rounded-xl border border-border/10">No example words recorded yet.</p>
+            }
+          </div>
+        </div>
       </div>
     </div>
   }

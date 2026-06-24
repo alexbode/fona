@@ -9,8 +9,7 @@ import { DataService } from '@core/services/data.service';
 import { AppRoutesHelper } from '@app/app.routes';
 import { ResponsiveService } from '@app/core/services/responsive.service';
 import { ButtonDirective } from '@app/directive/button';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { HlmIcon } from '@spartan-ng/helm/icon';
+import { provideIcons } from '@ng-icons/core';
 import {
   lucideArrowUp,
   lucideInbox,
@@ -25,7 +24,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [HlmButtonImports, HlmSidebarImports, NgIcon, HlmIcon, RouterLink, ButtonDirective],
+  imports: [HlmButtonImports, HlmSidebarImports, RouterLink, ButtonDirective],
   providers: [
     provideIcons({
       lucideArrowUp,
