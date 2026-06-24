@@ -96,8 +96,53 @@ export class DataService {
   }
 
   loadSentences(sentenceIds: number[]): void {
+    const idsToFetch: number[] = [];
     for (const sentenceId of sentenceIds) {
-      this.getSentence(sentenceId);
+      const existingSignal = this.stateService.getSentence(sentenceId);
+      if (existingSignal === null) {
+        this.stateService.initializeSentence(sentenceId);
+        idsToFetch.push(sentenceId);
+      }
+    }
+
+    if (idsToFetch.length > 0) {
+      this.fetchAndHydrateSentences(idsToFetch);
+    }
+  }
+
+  private async fetchAndHydrateSentences(sentenceIds: number[]): Promise<void> {
+    try {
+      const fetchedSentences = await this.fetchService.fetchSentences(sentenceIds);
+      const fetchedMap = new Map<number, Sentence>();
+      for (const item of fetchedSentences) {
+        fetchedMap.set(item.id, item.sentence);
+      }
+
+      for (const sentenceId of sentenceIds) {
+        const sentence = fetchedMap.get(sentenceId);
+        if (sentence) {
+          this.stateService.setSentence(sentenceId, {
+            value: sentence,
+            isLoading: false,
+            error: null,
+          });
+        } else {
+          this.stateService.setSentence(sentenceId, {
+            value: null,
+            isLoading: false,
+            error: 'Sentence not found.',
+          });
+        }
+      }
+    } catch (error) {
+      this.logger.error(`Failed to fetch sentences for [${sentenceIds.join(', ')}]`, error);
+      for (const sentenceId of sentenceIds) {
+        this.stateService.setSentence(sentenceId, {
+          value: null,
+          isLoading: false,
+          error: 'Failed to fetch sentence.',
+        });
+      }
     }
   }
 
@@ -214,6 +259,43 @@ export class DataService {
         isLoading: false,
         error: null,
       });
+
+      // Extract all sentence IDs from the course config and pre-fetch them in a single batch
+      const sentenceIds = new Set<number>();
+      if (fetchedConfig.chorus?.sentences) {
+        for (const id of fetchedConfig.chorus.sentences) {
+          sentenceIds.add(id);
+        }
+      }
+      if (fetchedConfig.pairs) {
+        for (const pair of fetchedConfig.pairs) {
+          if (pair.sentences) {
+            for (const id of pair.sentences) {
+              sentenceIds.add(id);
+            }
+          }
+          if (pair.words_a) {
+            for (const id of pair.words_a) {
+              sentenceIds.add(id);
+            }
+          }
+          if (pair.words_b) {
+            for (const id of pair.words_b) {
+              sentenceIds.add(id);
+            }
+          }
+        }
+      }
+      if (fetchedConfig.pairsQuiz) {
+        for (const quiz of fetchedConfig.pairsQuiz) {
+          if (quiz.word_a) sentenceIds.add(quiz.word_a);
+          if (quiz.word_b) sentenceIds.add(quiz.word_b);
+        }
+      }
+
+      if (sentenceIds.size > 0) {
+        this.loadSentences(Array.from(sentenceIds));
+      }
     } catch (error) {
       this.logger.error(`Failed to fetch config for ${language}/${accent}`, error);
       this.stateService.setCourseConfig(language, accent, {

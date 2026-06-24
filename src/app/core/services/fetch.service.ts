@@ -98,6 +98,30 @@ export class FetchService {
     } as Sentence;
   }
 
+  async fetchSentences(sentenceIds: number[]): Promise<{ id: number; sentence: Sentence }[]> {
+    this.logger.debug('fetch.service.ts fetchSentences | sentenceIds:', sentenceIds);
+    if (isDevMode()) await this.sleep(2000);
+
+    const { data, error } = await this.supabase
+      .from('sentence')
+      .select('id, text, ipa, pinyin')
+      .in('id', sentenceIds);
+
+    if (error) {
+      this.logger.error('fetch.service.ts fetchSentences | error:', error);
+      throw error;
+    }
+
+    return (data || []).map((item) => ({
+      id: item.id,
+      sentence: {
+        text: item.text,
+        ipa: item.ipa,
+        pinyin: item.pinyin,
+      } as Sentence,
+    }));
+  }
+
   async fetchAudio(sentenceId: number, audioTtlSeconds: number = 3700): Promise<string> {
     this.logger.debug('fetch.service.ts fetchAudio | sentenceId:', sentenceId);
     if (isDevMode()) await this.sleep(2000);
