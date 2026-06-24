@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AppRoutesHelper } from '@app/app.routes';
 import { RouterLink } from '@angular/router';
 import { ButtonDirective } from '@app/directive/button';
@@ -17,7 +17,7 @@ export class Landing {
   readonly isLoggedIn = this.dataService.isLoggedIn;
 
   appRoutesHelper = AppRoutesHelper;
-  demoError = signal<boolean>(false);
+  readonly currentYear = new Date().getFullYear();
 
   phoneticSymbols = ['/ɪ/', '/θ/', '/ɾ/', '/øː/', '/ɑː/', '/ʒ/', '/ŋ/', '/æ/', '/ɔɪ/'];
 
@@ -92,26 +92,4 @@ export class Landing {
       role: 'Marketing Lead',
     },
   ];
-
-  playDemoSound(lang: string, text: string): void {
-    if ('speechSynthesis' in window) {
-      this.demoError.set(false);
-      window.speechSynthesis.cancel();
-
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = lang;
-      utterance.rate = 0.8;
-
-      const voices = window.speechSynthesis.getVoices();
-      const targetVoice = voices.find((v) => v.lang.startsWith(lang.split('-')[0]));
-
-      if (targetVoice) {
-        utterance.voice = targetVoice;
-      }
-
-      window.speechSynthesis.speak(utterance);
-    } else {
-      this.demoError.set(true);
-    }
-  }
 }
