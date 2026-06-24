@@ -6,10 +6,11 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { Location } from '@angular/common';
 import { filter, map } from 'rxjs';
 import { AppRoutesHelper } from '@app/app.routes';
+import { Footer } from '@app/shared/footer/footer';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Navbar, HlmSidebarImports],
+  imports: [RouterOutlet, Navbar, HlmSidebarImports, Footer],
   templateUrl: './app.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.scss',
@@ -36,3 +37,4 @@ export class App {
     return this.appRoutesHelper.authFlowRoutes.map(String).includes(cleanUrl);
   }
 }
+

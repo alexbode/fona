@@ -17,7 +17,6 @@ export class Landing {
   readonly isLoggedIn = this.dataService.isLoggedIn;
 
   appRoutesHelper = AppRoutesHelper;
-  readonly currentYear = new Date().getFullYear();
 
   phoneticSymbols = ['/ɪ/', '/θ/', '/ɾ/', '/øː/', '/ɑː/', '/ʒ/', '/ŋ/', '/æ/', '/ɔɪ/'];
 
