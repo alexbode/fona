@@ -18,3 +18,17 @@
     animation: bounce-wave 0.8s ease-in-out infinite;
   }
 }
+
+.ipa-char-btn {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -12px;
+    bottom: -12px;
+    left: -6px;
+    right: -6px;
+    cursor: pointer;
+  }
+}

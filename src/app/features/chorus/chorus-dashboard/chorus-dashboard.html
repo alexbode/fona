@@ -96,14 +96,14 @@
             {{ sentenceText() }}
           </p>
           <div class="flex items-center justify-between gap-3">
-            <p class="text-muted-foreground text-base lg:text-lg flex-1 font-mono tracking-wide flex flex-wrap gap-x-3 gap-y-1">
+            <p class="text-muted-foreground text-2xl lg:text-3xl flex-1 font-mono tracking-wide flex flex-wrap gap-x-3 gap-y-1">
               @for (word of ipaWords(); track $index) {
                 <span class="inline-block whitespace-nowrap">
                   @for (token of word.chars; track $index) {
                     @if (token.isClickable) {
                       <button
-                        (click)="openIpaDetails(token.char)"
-                        class="inline-block text-muted-foreground hover:text-brand hover:bg-brand/10 hover:underline px-0.5 rounded cursor-pointer transition-colors font-bold select-text"
+                        (click)="openIpaDetails(word.chars, token.char)"
+                        class="inline-block text-brand/80 hover:text-brand hover:bg-brand/10 hover:scale-110 active:scale-95 px-1 py-0.5 mx-0.5 rounded border-b border-dashed border-brand/40 hover:border-solid hover:border-brand cursor-pointer transition-all font-bold select-text ipa-char-btn"
                         [title]="'Learn about /' + token.char + '/'"
                       >{{ token.char }}</button>
                     } @else {
@@ -237,9 +237,41 @@
 
         <!-- Main Title / Symbol -->
         <div class="flex flex-col items-center justify-center text-center mt-2 mb-6">
-          <div class="text-6xl font-extrabold text-brand mb-4 font-jakarta tracking-tighter select-all">
-            /{{ item.ipaSymbol }}/
-          </div>
+          <!-- Word IPA Context Navigator -->
+          @if (selectedWordTokens(); as tokens) {
+            <div class="flex flex-col items-center justify-center w-full mb-5">
+              <span class="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2 font-jakarta select-none">
+                Word Sounds
+              </span>
+              <div class="flex items-center justify-center flex-wrap gap-1 px-4 py-2.5 bg-secondary/30 rounded-2xl border border-border/40 font-mono text-3xl select-none">
+                <span class="text-muted-foreground/60 mr-1">/</span>
+                @for (t of tokens; track $index) {
+                  @if (t.isClickable) {
+                    <button
+                      (click)="selectIpaToken(t.char)"
+                      class="min-w-[44px] h-[44px] px-1 rounded-xl text-3xl font-extrabold flex items-center justify-center transition-all cursor-pointer relative"
+                      [class.bg-brand]="item.ipaSymbol === t.char"
+                      [class.text-brand-foreground]="item.ipaSymbol === t.char"
+                      [class.shadow-md]="item.ipaSymbol === t.char"
+                      [class.shadow-brand/20]="item.ipaSymbol === t.char"
+                      [class.text-brand]="item.ipaSymbol !== t.char"
+                      [class.hover:bg-brand/10]="item.ipaSymbol !== t.char"
+                      [title]="'Learn about /' + t.char + '/'"
+                    >
+                      {{ t.char }}
+                    </button>
+                  } @else {
+                    <span class="px-0.5 text-muted-foreground/70 font-semibold flex items-center justify-center min-w-[20px]">{{ t.char }}</span>
+                  }
+                }
+                <span class="text-muted-foreground/60 ml-1">/</span>
+              </div>
+            </div>
+          } @else {
+            <div class="text-6xl font-extrabold text-brand mb-4 font-jakarta tracking-tighter select-all">
+              /{{ item.ipaSymbol }}/
+            </div>
+          }
 
           <!-- Play sound button -->
           <button

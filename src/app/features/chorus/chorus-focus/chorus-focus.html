@@ -41,9 +41,9 @@
         @for (section of [1, 2]; track section) {
           <div class="space-y-3">
             <hlm-skeleton class="h-6 w-32 rounded" />
-            <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-3">
-              @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track i) {
-                <hlm-skeleton class="h-[76px] rounded-xl" />
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              @for (i of [1, 2, 3, 4, 5, 6]; track i) {
+                <hlm-skeleton class="h-44 rounded-xl" />
               }
             </div>
           </div>
@@ -56,16 +56,16 @@
           <h3 class="text-sm font-semibold text-muted-foreground tracking-wider uppercase font-jakarta">
             Vowels
           </h3>
-          <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-3">
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
             @for (sound of vowels(); track sound) {
               <button
                 hlmCard
                 [disabled]="(ipaCounts()[sound] || 0) === 0"
                 (click)="onSelect(sound)"
-                class="flex flex-col items-center justify-center p-3 rounded-xl border text-center transition-all duration-300 sound-tile cursor-pointer disabled:opacity-40 disabled:pointer-events-none"
+                class="group relative flex flex-col items-center justify-between p-6 h-44 border hover:border-primary/40 hover:bg-secondary/50 shadow-sm hover:shadow-md transition-all duration-300 sound-tile cursor-pointer disabled:opacity-30 disabled:pointer-events-none overflow-hidden"
               >
-                <span class="text-xl font-bold font-mono text-brand">/{{ sound }}/</span>
-                <span class="text-[10px] text-muted-foreground mt-1 font-sans">
+                <span class="my-auto text-4xl font-extrabold text-brand group-hover:scale-110 transition-transform duration-300 font-mono">/{{ sound }}/</span>
+                <span class="text-[10px] text-muted-foreground/80 font-semibold truncate uppercase tracking-widest mt-2 select-none">
                   {{ ipaCounts()[sound] || 0 }} phrases
                 </span>
               </button>
@@ -80,16 +80,16 @@
           <h3 class="text-sm font-semibold text-muted-foreground tracking-wider uppercase font-jakarta">
             Semi-Vowels
           </h3>
-          <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-3">
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
             @for (sound of semiVowels(); track sound) {
               <button
                 hlmCard
                 [disabled]="(ipaCounts()[sound] || 0) === 0"
                 (click)="onSelect(sound)"
-                class="flex flex-col items-center justify-center p-3 rounded-xl border text-center transition-all duration-300 sound-tile cursor-pointer disabled:opacity-40 disabled:pointer-events-none"
+                class="group relative flex flex-col items-center justify-between p-6 h-44 border hover:border-primary/40 hover:bg-secondary/50 shadow-sm hover:shadow-md transition-all duration-300 sound-tile cursor-pointer disabled:opacity-30 disabled:pointer-events-none overflow-hidden"
               >
-                <span class="text-xl font-bold font-mono text-brand-secondary">/{{ sound }}/</span>
-                <span class="text-[10px] text-muted-foreground mt-1 font-sans">
+                <span class="my-auto text-4xl font-extrabold text-brand-secondary group-hover:scale-110 transition-transform duration-300 font-mono">/{{ sound }}/</span>
+                <span class="text-[10px] text-muted-foreground/80 font-semibold truncate uppercase tracking-widest mt-2 select-none">
                   {{ ipaCounts()[sound] || 0 }} phrases
                 </span>
               </button>
@@ -104,16 +104,16 @@
           <h3 class="text-sm font-semibold text-muted-foreground tracking-wider uppercase font-jakarta">
             Consonants
           </h3>
-          <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-3">
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
             @for (sound of consonants(); track sound) {
               <button
                 hlmCard
                 [disabled]="(ipaCounts()[sound] || 0) === 0"
                 (click)="onSelect(sound)"
-                class="flex flex-col items-center justify-center p-3 rounded-xl border text-center transition-all duration-300 sound-tile cursor-pointer disabled:opacity-40 disabled:pointer-events-none"
+                class="group relative flex flex-col items-center justify-between p-6 h-44 border hover:border-primary/40 hover:bg-secondary/50 shadow-sm hover:shadow-md transition-all duration-300 sound-tile cursor-pointer disabled:opacity-30 disabled:pointer-events-none overflow-hidden"
               >
-                <span class="text-xl font-bold font-mono text-pairs">/{{ sound }}/</span>
-                <span class="text-[10px] text-muted-foreground mt-1 font-sans">
+                <span class="my-auto text-4xl font-extrabold text-pairs group-hover:scale-110 transition-transform duration-300 font-mono">/{{ sound }}/</span>
+                <span class="text-[10px] text-muted-foreground/80 font-semibold truncate uppercase tracking-widest mt-2 select-none">
                   {{ ipaCounts()[sound] || 0 }} phrases
                 </span>
               </button>

@@ -125,6 +125,7 @@ export class ChorusDashboard implements OnInit, OnDestroy {
   // IPA Dialog state
   readonly allIpaItems = signal<IpaItem[]>([]);
   readonly selectedIpaItem = signal<IpaItem | null>(null);
+  readonly selectedWordTokens = signal<{ char: string; isClickable: boolean }[] | null>(null);
   readonly playingIpaSoundUrl = signal<string | null>(null);
   private currentIpaAudio: HTMLAudioElement | null = null;
 
@@ -147,8 +148,16 @@ export class ChorusDashboard implements OnInit, OnDestroy {
     }
   }
 
-  openIpaDetails(char: string) {
+  openIpaDetails(chars: { char: string; isClickable: boolean }[], char: string) {
     this.audioPlayer()?.stopAudio();
+    this.selectedWordTokens.set(chars);
+    const item = this.allIpaItems().find((i) => i.ipaSymbol === char);
+    if (item) {
+      this.selectedIpaItem.set(item);
+    }
+  }
+
+  selectIpaToken(char: string) {
     const item = this.allIpaItems().find((i) => i.ipaSymbol === char);
     if (item) {
       this.selectedIpaItem.set(item);
@@ -157,6 +166,7 @@ export class ChorusDashboard implements OnInit, OnDestroy {
 
   closeIpaDetails() {
     this.selectedIpaItem.set(null);
+    this.selectedWordTokens.set(null);
     if (this.currentIpaAudio) {
       this.currentIpaAudio.pause();
       this.currentIpaAudio = null;
