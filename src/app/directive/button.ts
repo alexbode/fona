@@ -2,13 +2,13 @@ import { Directive, input, computed } from '@angular/core';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 export const buttonVariants = cva(
-  'inline-flex items-center justify-center text-base outline-none select-none cursor-pointer',
+  'inline-flex items-center justify-center text-base outline-none select-none cursor-pointer rounded-lg',
   {
     variants: {
       variant: {
-        primary: 'font-semibold hover:opacity-90 bg-brand text-brand-foreground rounded-lg',
+        primary: 'font-semibold hover:opacity-90 bg-brand text-brand-foreground',
         secondary:
-          'font-medium border border-border hover:border-primary/30 hover:bg-secondary text-fofrench/paris/pairs-quizreground',
+          'font-medium border border-border hover:border-primary/30 hover:bg-secondary text-foreground',
       },
       size: {
         none: '',

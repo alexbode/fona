@@ -38,8 +38,9 @@ export class AuthService {
     }
   }
 
-  async signUp(email: string, password: string) {
-    const response = await this.supabase.auth.signUp({ email, password });
+  async signUp(email: string, password: string, name?: string) {
+    const options = name ? { data: { name } } : undefined;
+    const response = await this.supabase.auth.signUp({ email, password, options });
     this.logger.debug('auth.service.ts signUp | Sign-up response:', response);
     return response;
   }

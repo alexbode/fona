@@ -44,6 +44,7 @@ export class Signup implements OnInit {
 
   // Strongly typed reactive form
   loginForm = this.fb.nonNullable.group({
+    name: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],
     rememberMe: [false],
@@ -65,7 +66,7 @@ export class Signup implements OnInit {
     this.isLoading.set(true);
     this.errorMessage.set(null);
 
-    const { email, password, rememberMe } = this.loginForm.getRawValue();
+    const { name, email, password, rememberMe } = this.loginForm.getRawValue();
 
     try {
       if (rememberMe) {
@@ -73,7 +74,7 @@ export class Signup implements OnInit {
       } else {
         localStorage.removeItem('fona_saved_username');
       }
-      const { data, error } = await this.authService.signUp(email, password);
+      const { data, error } = await this.authService.signUp(email, password, name);
 
       if (error) throw error;
 
