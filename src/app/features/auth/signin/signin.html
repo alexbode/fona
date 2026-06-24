@@ -67,9 +67,12 @@
         />
         <span>Remember Email</span>
       </label>
-      <button type="button" class="text-xs text-brand hover:underline cursor-pointer">
+      <a
+        [routerLink]="appRoutesHelper.getForgotPasswordRoute()"
+        class="text-xs text-brand hover:underline cursor-pointer"
+      >
         Forgot password?
-      </button>
+      </a>
     </div>
 
     <!-- Submit Button -->

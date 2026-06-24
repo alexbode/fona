@@ -59,6 +59,20 @@ export class AuthService {
     return response;
   }
 
+  async sendPasswordResetEmail(email: string, redirectTo: string) {
+    const response = await this.supabase.auth.resetPasswordForEmail(email, {
+      redirectTo,
+    });
+    this.logger.debug('auth.service.ts sendPasswordResetEmail | response:', response);
+    return response;
+  }
+
+  async updatePassword(password: string) {
+    const response = await this.supabase.auth.updateUser({ password });
+    this.logger.debug('auth.service.ts updatePassword | response:', response);
+    return response;
+  }
+
   async signOut() {
     localStorage.removeItem(`sb-${this.projectId}-auth-token`);
     const response = await this.supabase.auth.signOut();

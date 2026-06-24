@@ -5,6 +5,8 @@ export class AppRoutesHelper {
     Home: '',
     Signup: 'signup',
     Signin: 'signin',
+    ForgotPassword: 'forgot-password',
+    ResetPassword: 'reset-password',
     ListLanguages: 'languages',
     Ipa: 'ipa',
     // ex. /english  /spanish
@@ -25,7 +27,12 @@ export class AppRoutesHelper {
     PairsQuiz: ':language/:accent/pairs-quiz',
   } as const;
 
-  static readonly authFlowRoutes = [AppRoutesHelper.routes.Signin, AppRoutesHelper.routes.Signup];
+  static readonly authFlowRoutes = [
+    AppRoutesHelper.routes.Signin,
+    AppRoutesHelper.routes.Signup,
+    AppRoutesHelper.routes.ForgotPassword,
+    AppRoutesHelper.routes.ResetPassword,
+  ];
 
   static getPairsQuizRoute(language: string, accent: string): any[] {
     return ['/', language.toLowerCase(), accent.toLowerCase(), 'pairs-quiz'];
@@ -37,6 +44,14 @@ export class AppRoutesHelper {
 
   static getSigninRoute(): any[] {
     return ['/', AppRoutesHelper.routes.Signin];
+  }
+
+  static getForgotPasswordRoute(): any[] {
+    return ['/', AppRoutesHelper.routes.ForgotPassword];
+  }
+
+  static getResetPasswordRoute(): any[] {
+    return ['/', AppRoutesHelper.routes.ResetPassword];
   }
 
   static getModeSelectionRoute(language: string, accent: string): any[] {
@@ -92,6 +107,16 @@ const staticRoutes: Routes = [
   {
     path: AppRoutesHelper.routes.Signup,
     loadComponent: () => import('@features/auth/signup/signup').then((m) => m.Signup),
+  },
+  {
+    path: AppRoutesHelper.routes.ForgotPassword,
+    loadComponent: () =>
+      import('@features/auth/forgot-password/forgot-password').then((m) => m.ForgotPassword),
+  },
+  {
+    path: AppRoutesHelper.routes.ResetPassword,
+    loadComponent: () =>
+      import('@features/auth/reset-password/reset-password').then((m) => m.ResetPassword),
   },
   {
     path: AppRoutesHelper.routes.ListLanguages,
