@@ -1,0 +1,54 @@
+<section class="relative min-h-[calc(100vh-3rem)] overflow-hidden bg-background">
+  <!-- Mesh gradient background -->
+  <div class="absolute inset-0 pointer-events-none bg-mesh-landing-hero"></div>
+  <!-- Subtle grid -->
+  <div class="absolute inset-0 pointer-events-none opacity-[0.03] bg-subtle-grid"></div>
+
+  <div class="relative max-w-3xl mx-auto px-6 py-16">
+    <!-- Back to Home -->
+    <a
+      [routerLink]="appRoutesHelper.getHomeRoute()"
+      class="inline-flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground mb-8 transition-colors cursor-pointer"
+    >
+      <ng-icon hlm name="lucideChevronLeft" size="14px" />
+      Back to Home
+    </a>
+
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold text-foreground mb-4 font-jakarta">
+        Get in <span class="text-gradient-brand">Touch</span>
+      </h1>
+      <p class="text-base text-muted-foreground max-w-xl mx-auto leading-relaxed">
+        Fona is built by the community. We track all support requests, bugs, and feature ideas transparently on GitHub.
+      </p>
+    </div>
+
+    <!-- Contact Options Card -->
+    <div class="bg-card-dark border border-border rounded-xl p-8 text-center max-w-xl mx-auto relative overflow-hidden">
+      <!-- Subtle top lighting effect -->
+      <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-48 h-24 bg-brand/10 blur-xl rounded-full pointer-events-none"></div>
+
+      <div class="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-brand/10 text-brand mb-6">
+        <ng-icon hlm name="lucideGithub" size="24px" />
+      </div>
+
+      <h2 class="text-xl font-semibold text-foreground mb-3 font-jakarta">GitHub Issues</h2>
+      
+      <p class="text-sm text-muted-foreground leading-relaxed mb-8 max-w-md mx-auto">
+        Have feedback, discovered a bug, or want to suggest a new accent? Create an issue on our official GitHub repository. We actively monitor and respond to submissions.
+      </p>
+
+      <a
+        appButton
+        href="https://github.com/alexbode/fona/issues"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 cursor-pointer font-jakarta"
+      >
+        <span>Create a GitHub Issue</span>
+        <ng-icon hlm name="lucideExternalLink" size="14px" />
+      </a>
+    </div>
+  </div>
+</section>

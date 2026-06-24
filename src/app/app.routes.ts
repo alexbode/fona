@@ -9,6 +9,9 @@ export class AppRoutesHelper {
     ResetPassword: 'reset-password',
     ListLanguages: 'languages',
     Ipa: 'ipa',
+    Privacy: 'privacy',
+    Terms: 'terms',
+    Contact: 'contact',
     // ex. /english  /spanish
     ListAccents: ':language',
     // ex. /english/america
@@ -64,6 +67,18 @@ export class AppRoutesHelper {
 
   static getIpaRoute(): any[] {
     return ['/', AppRoutesHelper.routes.Ipa];
+  }
+
+  static getPrivacyRoute(): any[] {
+    return ['/', AppRoutesHelper.routes.Privacy];
+  }
+
+  static getTermsRoute(): any[] {
+    return ['/', AppRoutesHelper.routes.Terms];
+  }
+
+  static getContactRoute(): any[] {
+    return ['/', AppRoutesHelper.routes.Contact];
   }
 
   static getLanguagesRoute(): any[] {
@@ -126,6 +141,18 @@ const staticRoutes: Routes = [
   {
     path: AppRoutesHelper.routes.Ipa,
     loadComponent: () => import('@features/ipa/ipa/ipa').then((m) => m.Ipa),
+  },
+  {
+    path: AppRoutesHelper.routes.Privacy,
+    loadComponent: () => import('@features/privacy/privacy').then((m) => m.Privacy),
+  },
+  {
+    path: AppRoutesHelper.routes.Terms,
+    loadComponent: () => import('@features/terms/terms').then((m) => m.Terms),
+  },
+  {
+    path: AppRoutesHelper.routes.Contact,
+    loadComponent: () => import('@features/contact/contact').then((m) => m.Contact),
   },
 ];
 const dynamicRoutes: Routes = [

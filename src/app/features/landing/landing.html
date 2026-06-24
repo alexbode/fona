@@ -193,13 +193,24 @@
       <span class="text-xs text-muted-foreground"> © {{ currentYear }} Fona. All rights reserved. </span>
     </div>
     <div class="flex items-center gap-5">
-      @for (l of ['Privacy', 'Terms', 'Contact']; track l) {
-        <span
-          class="text-xs text-muted-foreground hover:text-foreground cursor-pointer transition-colors"
-        >
-          {{ l }}
-        </span>
-      }
+      <a
+        [routerLink]="appRoutesHelper.getPrivacyRoute()"
+        class="text-xs text-muted-foreground hover:text-foreground cursor-pointer transition-colors no-underline"
+      >
+        Privacy
+      </a>
+      <a
+        [routerLink]="appRoutesHelper.getTermsRoute()"
+        class="text-xs text-muted-foreground hover:text-foreground cursor-pointer transition-colors no-underline"
+      >
+        Terms
+      </a>
+      <a
+        [routerLink]="appRoutesHelper.getContactRoute()"
+        class="text-xs text-muted-foreground hover:text-foreground cursor-pointer transition-colors no-underline"
+      >
+        Contact
+      </a>
     </div>
   </div>
 </footer>
