@@ -9,9 +9,10 @@ export interface SummaryData {
   reps: number;
   total: number;
   accent: string;
-  mode?: 'chorus' | 'pairs' | 'pairs_quiz';
+  mode?: 'chorus' | 'pairs' | 'pairs_quiz' | 'chorus_focus';
   correct?: number;
   streak?: number;
+  ipa?: string;
   incorrectPairs?: {
     ipaA: string;
     ipaB: string;
@@ -90,6 +91,9 @@ export class Summary implements OnInit {
     if (this.data.mode === 'pairs') {
       return 'Minimal Pairs';
     }
+    if (this.data.mode === 'chorus_focus') {
+      return this.data.ipa ? `Chorus Focus (/${this.data.ipa}/)` : 'Chorus Focus';
+    }
     return 'Chorusing';
   });
 
@@ -113,6 +117,19 @@ export class Summary implements OnInit {
     }
     if (this.data.mode === 'pairs') {
       this.router.navigate(AppRoutesHelper.getPairsSelectionRoute(this.language(), this.accent()));
+      return;
+    }
+    if (this.data.mode === 'chorus_focus') {
+      if (this.data.ipa) {
+        this.router.navigate(
+          AppRoutesHelper.getChorusDashboardRoute(this.language(), this.accent()),
+          { queryParams: { ipa: this.data.ipa } },
+        );
+      } else {
+        this.router.navigate(
+          AppRoutesHelper.getChorusFocusSelectionRoute(this.language(), this.accent()),
+        );
+      }
       return;
     }
     this.router.navigate(AppRoutesHelper.getChorusDashboardRoute(this.language(), this.accent()));

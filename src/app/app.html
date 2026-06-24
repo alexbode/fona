@@ -1,4 +1,4 @@
-@if (isCurrentPathPartOfAuthFlow()) {
+<!-- @if (isCurrentPathPartOfAuthFlow()) {
   <router-outlet />
 } @else {
   <app-navbar>
@@ -9,5 +9,10 @@
       <app-footer />
     </div>
   </app-navbar>
-}
-
+} -->
+<div class="flex flex-col min-h-[calc(100vh-3rem)]">
+  <div class="flex-grow flex flex-col">
+    <router-outlet />
+  </div>
+  <app-footer />
+</div>

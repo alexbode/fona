@@ -60,10 +60,12 @@ export class ChorusDashboard {
 
   readonly language = input.required<string>();
   readonly accent = input.required<string>();
+  readonly ipa = input<string>(); // Bind query parameter 'ipa'
 
   // Internal state
   readonly sentencesInSession = signal<number[]>([]);
   readonly sentenceIndex = signal<number>(1);
+  readonly sessionInitialized = signal<boolean>(false);
 
   // Fetch language list to resolve native accent name
   readonly languagesState = this.dataService.getLanguageList();
@@ -102,12 +104,26 @@ export class ChorusDashboard {
 
     effect(() => {
       const config = this.config().value;
-      if (
-        config &&
-        config.chorus &&
-        config.chorus.sentences &&
-        this.sentencesInSession().length === 0
-      ) {
+      const targetIpa = this.ipa();
+      if (!config || !config.chorus || !config.chorus.sentences || this.sessionInitialized()) {
+        return;
+      }
+
+      if (targetIpa) {
+        // Chorus Focus mode: Wait for all sentences to load, then filter by IPA symbol
+        const allLoaded = config.chorus.sentences.every(
+          (id) => !this.dataService.getSentence(id)().isLoading,
+        );
+        if (allLoaded) {
+          const matchingIds = config.chorus.sentences.filter((id) => {
+            const s = this.dataService.getSentence(id)().value;
+            return s && s.ipa && s.ipa.includes(targetIpa);
+          });
+          this.sentencesInSession.set(matchingIds);
+          this.sessionInitialized.set(true);
+        }
+      } else {
+        // Standard Chorusing mode: Pick 10 random sentences
         const indices = new Set<number>();
         const totalSentences = config.chorus.sentences.length;
         const limit = Math.min(10, totalSentences);
@@ -118,6 +134,7 @@ export class ChorusDashboard {
           (index) => config.chorus.sentences[index],
         );
         this.sentencesInSession.set(sentenceToAddToSession);
+        this.sessionInitialized.set(true);
       }
     });
 
@@ -149,7 +166,7 @@ export class ChorusDashboard {
     return sentences[this.sentenceIndex() - 1];
   });
 
-  readonly numSentences = 10;
+  readonly numSentences = computed(() => this.sentencesInSession().length);
 
   sentence: Signal<DataState<Sentence>> = computed(() => {
     const id = this.sentenceId();
@@ -176,7 +193,7 @@ export class ChorusDashboard {
   nextSentence() {
     this.audioPlayer()?.stopAudio();
     const nextCumulative = this.cumulativeReps() + this.sessionCount();
-    if (this.sentenceIndex() < this.numSentences) {
+    if (this.sentenceIndex() < this.numSentences()) {
       this.cumulativeReps.set(nextCumulative);
       this.sentenceIndex.update((idx) => idx + 1);
     }
@@ -187,7 +204,7 @@ export class ChorusDashboard {
   }
 
   disableNextButton() {
-    return this.sentenceIndex() === this.numSentences;
+    return this.sentenceIndex() === this.numSentences();
   }
 
   sentenceCount: Signal<DataState<number>> = computed(() => {
@@ -207,16 +224,17 @@ export class ChorusDashboard {
   handleNext() {
     this.audioPlayer()?.stopAudio();
     const nextCumulative = this.cumulativeReps() + this.sessionCount();
-    if (this.sentenceIndex() < this.numSentences) {
+    if (this.sentenceIndex() < this.numSentences()) {
       this.cumulativeReps.set(nextCumulative);
       this.sentenceIndex.update((idx) => idx + 1);
     } else {
       this.router.navigate(AppRoutesHelper.getSummaryRoute(this.language(), this.accent()), {
         state: {
-          mode: 'chorusing',
+          mode: this.ipa() ? 'chorus_focus' : 'chorus',
           reps: nextCumulative,
-          total: this.numSentences,
+          total: this.numSentences(),
           accent: this.accentObj()?.nativeName || this.accent(),
+          ipa: this.ipa(),
         },
       });
     }

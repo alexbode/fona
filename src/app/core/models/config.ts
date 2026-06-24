@@ -4,6 +4,9 @@ export interface CourseConfig {
   id: string;
   language: string;
   accent: string;
+  vowels: string[];
+  semiVowels?: string[];
+  consonants: string[];
   chorus: ChorusConfig;
   pairs: PairsConfig[];
   pairsQuiz: PairsQuizConfig[];

@@ -32,142 +32,173 @@
       </li>
       <li hlmBreadcrumbSeparator></li>
       <li hlmBreadcrumbItem>
-        <span hlmBreadcrumbPage>Chorusing</span>
+        <span hlmBreadcrumbPage>
+          @if (ipa()) {
+            Chorus Focus: /{{ ipa() }}/
+          } @else {
+            Chorusing
+          }
+        </span>
       </li>
     </ol>
   </nav>
 
-  <!-- Progress Bar -->
-  <div class="px-5 pb-4 shrink-0">
-    <div class="flex items-center justify-between mb-2">
-      <span class="text-muted-foreground text-xs">
-        {{ sentenceIndex() }} / {{ numSentences }}
-      </span>
-      <span class="text-muted-foreground text-xs"> phrase </span>
-    </div>
-    <div class="h-[2px] bg-secondary rounded-full overflow-hidden">
-      <div
-        class="h-full bg-primary rounded-full transition-all duration-500"
-        [style.width.%]="(sentenceIndex() / numSentences) * 100"
-      ></div>
-    </div>
-  </div>
-
-  <div class="flex-1 flex flex-col px-5 pb-8 gap-5 overflow-y-auto">
-    <!-- Phrase card -->
-    <hlm-card class="p-5 space-y-3">
-      @if (sentence().isLoading) {
-        <div class="space-y-3">
-          <hlm-skeleton class="h-6 w-3/4 rounded" />
-          <hlm-skeleton class="h-4 w-1/2 rounded" />
-        </div>
-      } @else {
-        <p class="text-foreground text-2xl lg:text-3xl font-semibold leading-normal font-jakarta">
-          {{ sentenceText() }}
-        </p>
-        <div class="flex items-center justify-between gap-3">
-          <p class="text-muted-foreground text-base lg:text-lg flex-1 font-mono">
-            {{ sentenceIpa() }}
-          </p>
-          <button
-            (click)="onIpa()"
-            class="flex items-center gap-1 px-2.5 py-1 rounded border border-brand/20 text-brand bg-brand/5 text-xs shrink-0 hover:border-brand/40 cursor-pointer"
-          >
-            <ng-icon hlm name="lucideBookOpen" size="11px" />
-            IPA
-          </button>
-        </div>
-        @if (hasPinyin()) {
-          <div class="border-t border-border pt-3">
-            <p class="text-xs text-muted-foreground">
-              <span class="text-primary">pronunciation: </span>
-              {{ sentencePinyin() }}
-            </p>
-          </div>
-        }
-      }
-    </hlm-card>
-
-    <!-- Playback Speed Control -->
-    <hlm-card class="p-5 flex flex-col gap-3 justify-center h-28">
-      <div class="flex items-center justify-between">
-        <span class="text-xs font-medium text-muted-foreground"> Playback Speed </span>
+  @if (sessionInitialized() && sentencesInSession().length === 0) {
+    <div class="flex-1 flex flex-col items-center justify-center p-6 text-center">
+      <div class="w-16 h-16 rounded-full bg-brand/10 flex items-center justify-center mb-4 text-brand">
+        <ng-icon hlm name="lucideBookOpen" size="28px" />
       </div>
-      <div
-        class="flex items-center justify-center p-1 bg-secondary rounded-lg border border-border"
+      <h3 class="text-xl font-bold text-foreground mb-2">No phrases found</h3>
+      <p class="text-muted-foreground text-sm max-w-sm mb-6 font-sans">
+        We couldn't find any sentences in this accent containing the IPA sound <strong>/{{ ipa() }}/</strong>.
+      </p>
+      <button
+        appButton
+        (click)="onBack()"
+        class="px-6 py-2 cursor-pointer"
       >
-        @for (speed of ['25', '50', '75', '90', '100', '110']; track speed) {
-          <button
-            type="button"
-            (click)="setSpeed(speed)"
-            class="flex-1 py-1.5 text-xs font-semibold rounded transition-all cursor-pointer text-center font-jakarta"
-            [class.bg-background]="playbackSpeed() === speed"
-            [class.text-foreground]="playbackSpeed() === speed"
-            [class.text-muted-foreground]="playbackSpeed() !== speed"
-            [class.shadow-sm]="playbackSpeed() === speed"
+        Go Back
+      </button>
+    </div>
+  } @else {
+    <!-- Progress Bar -->
+    <div class="px-5 pb-4 shrink-0">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-muted-foreground text-xs">
+          {{ sentenceIndex() }} / {{ numSentences() }}
+        </span>
+        <span class="text-muted-foreground text-xs">
+          @if (ipa()) {
+            focus: <span class="font-mono font-bold text-brand">/{{ ipa() }}/</span>
+          } @else {
+            phrase
+          }
+        </span>
+      </div>
+      <div class="h-[2px] bg-secondary rounded-full overflow-hidden">
+        <div
+          class="h-full bg-primary rounded-full transition-all duration-500"
+          [style.width.%]="numSentences() > 0 ? (sentenceIndex() / numSentences()) * 100 : 0"
+        ></div>
+      </div>
+    </div>
+
+    <div class="flex-1 flex flex-col px-5 pb-8 gap-5 overflow-y-auto">
+      <!-- Phrase card -->
+      <hlm-card class="p-5 space-y-3">
+        @if (sentence().isLoading) {
+          <div class="space-y-3">
+            <hlm-skeleton class="h-6 w-3/4 rounded" />
+            <hlm-skeleton class="h-4 w-1/2 rounded" />
+          </div>
+        } @else {
+          <p class="text-foreground text-2xl lg:text-3xl font-semibold leading-normal font-jakarta">
+            {{ sentenceText() }}
+          </p>
+          <div class="flex items-center justify-between gap-3">
+            <p class="text-muted-foreground text-base lg:text-lg flex-1 font-mono">
+              {{ sentenceIpa() }}
+            </p>
+            <button
+              (click)="onIpa()"
+              class="flex items-center gap-1 px-2.5 py-1 rounded border border-brand/20 text-brand bg-brand/5 text-xs shrink-0 hover:border-brand/40 cursor-pointer"
+            >
+              <ng-icon hlm name="lucideBookOpen" size="11px" />
+              IPA
+            </button>
+          </div>
+          @if (hasPinyin()) {
+            <div class="border-t border-border pt-3">
+              <p class="text-xs text-muted-foreground">
+                <span class="text-primary">pronunciation: </span>
+                {{ sentencePinyin() }}
+              </p>
+            </div>
+          }
+        }
+      </hlm-card>
+
+      <!-- Playback Speed Control -->
+      <hlm-card class="p-5 flex flex-col gap-3 justify-center h-28">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-medium text-muted-foreground"> Playback Speed </span>
+        </div>
+        <div
+          class="flex items-center justify-center p-1 bg-secondary rounded-lg border border-border"
+        >
+          @for (speed of ['25', '50', '75', '90', '100', '110']; track speed) {
+            <button
+              type="button"
+              (click)="setSpeed(speed)"
+              class="flex-1 py-1.5 text-xs font-semibold rounded transition-all cursor-pointer text-center font-jakarta"
+              [class.bg-background]="playbackSpeed() === speed"
+              [class.text-foreground]="playbackSpeed() === speed"
+              [class.text-muted-foreground]="playbackSpeed() !== speed"
+              [class.shadow-sm]="playbackSpeed() === speed"
+            >
+              {{ speed }}%
+            </button>
+          }
+        </div>
+      </hlm-card>
+
+      <!-- Rep counter -->
+      <hlm-card class="py-5 px-5 flex flex-row items-center justify-between">
+        <div class="flex flex-col items-center flex-1">
+          <!-- Badge showing session reps -->
+          <div
+            class="flex items-center justify-center min-w-[40px] h-10 px-3 rounded-full border border-brand/20 text-brand bg-brand/10 font-bold text-lg"
           >
-            {{ speed }}%
+            {{ sessionCount() }}
+          </div>
+          <div class="text-muted-foreground text-xs mt-1">repititions</div>
+        </div>
+        <div class="w-px h-16 bg-border mx-4 shrink-0"></div>
+        <div class="flex flex-col items-center flex-1">
+          @if (allTimeRepsState().isLoading) {
+            <hlm-skeleton class="h-9 w-12 rounded" />
+          } @else {
+            <span class="text-4xl font-bold leading-none text-muted-foreground font-jakarta">
+              {{ allTimeReps() | number }}
+            </span>
+          }
+          <div class="text-muted-foreground text-xs tracking-widest uppercase mt-1">all time</div>
+        </div>
+      </hlm-card>
+
+      <!-- Controls -->
+      <button
+        appButton
+        size="none"
+        (click)="handlePlay()"
+        class="w-full py-4 rounded text-base cursor-pointer gap-2 text-white font-jakarta"
+        [class.bg-brand-hover]="dataService.isAudioPlaying()"
+      >
+        {{ dataService.isAudioPlaying() ? '🔊 Listening — speak along!' : '▶ Play & Chorus' }}
+      </button>
+
+      <div class="flex gap-3">
+        @if (sentenceIndex() > 1) {
+          <button
+            appButton
+            variant="secondary"
+            size="none"
+            (click)="previousSentence()"
+            class="flex-1 py-4 rounded text-sm cursor-pointer"
+          >
+            ← Prev phrase
           </button>
         }
-      </div>
-    </hlm-card>
-
-    <!-- Rep counter -->
-    <hlm-card class="py-5 px-5 flex flex-row items-center justify-between">
-      <div class="flex flex-col items-center flex-1">
-        <!-- Badge showing session reps -->
-        <div
-          class="flex items-center justify-center min-w-[40px] h-10 px-3 rounded-full border border-brand/20 text-brand bg-brand/10 font-bold text-lg"
-        >
-          {{ sessionCount() }}
-        </div>
-        <div class="text-muted-foreground text-xs mt-1">repititions</div>
-      </div>
-      <div class="w-px h-16 bg-border mx-4 shrink-0"></div>
-      <div class="flex flex-col items-center flex-1">
-        @if (allTimeRepsState().isLoading) {
-          <hlm-skeleton class="h-9 w-12 rounded" />
-        } @else {
-          <span class="text-4xl font-bold leading-none text-muted-foreground font-jakarta">
-            {{ allTimeReps() | number }}
-          </span>
-        }
-        <div class="text-muted-foreground text-xs tracking-widest uppercase mt-1">all time</div>
-      </div>
-    </hlm-card>
-
-    <!-- Controls -->
-    <button
-      appButton
-      size="none"
-      (click)="handlePlay()"
-      class="w-full py-4 rounded text-base cursor-pointer gap-2 text-white font-jakarta"
-      [class.bg-brand-hover]="dataService.isAudioPlaying()"
-    >
-      {{ dataService.isAudioPlaying() ? '🔊 Listening — speak along!' : '▶ Play & Chorus' }}
-    </button>
-
-    <div class="flex gap-3">
-      @if (sentenceIndex() > 1) {
         <button
           appButton
           variant="secondary"
           size="none"
-          (click)="previousSentence()"
+          (click)="handleNext()"
           class="flex-1 py-4 rounded text-sm cursor-pointer"
         >
-          ← Prev phrase
+          {{ sentenceIndex() < numSentences() ? 'Next phrase →' : 'Finish session →' }}
         </button>
-      }
-      <button
-        appButton
-        variant="secondary"
-        size="none"
-        (click)="handleNext()"
-        class="flex-1 py-4 rounded text-sm cursor-pointer"
-      >
-        {{ sentenceIndex() < numSentences ? 'Next phrase →' : 'Finish session →' }}
-      </button>
+      </div>
     </div>
-  </div>
+  }
 </div>

@@ -72,6 +72,30 @@
       </button>
     }
 
+    <!-- Chorus Focus Option -->
+    @if (hasChorusFocus()) {
+      <button
+        hlmCard
+        (click)="onSelectChorusFocus()"
+        class="w-full p-6 text-left hover:border-primary/40 group cursor-pointer"
+      >
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 rounded flex items-center justify-center shrink-0 bg-brand/10">
+            <ng-icon hlm name="lucideTarget" size="18px" class="text-brand" />
+          </div>
+          <div>
+            <div class="text-foreground font-bold text-lg font-jakarta">Chorus Focus</div>
+            <p class="text-muted-foreground text-sm mt-1 leading-relaxed">
+              Target a specific IPA sound. Practice with all sentences from this accent that contain that phoneme.
+            </p>
+            <div class="text-brand text-xs mt-3 tracking-widest uppercase font-medium">
+              Targeted practice — sound mastery
+            </div>
+          </div>
+        </div>
+      </button>
+    }
+
     <!-- Minimal Pairs Option -->
     @if (hasPairs()) {
       <button

@@ -1,0 +1,1 @@
+import {K as Ko}from'./chunk-BgFwAWlg.js';import {U as Uv}from'./main-43LBKF5Q.js';var t=class o{constructor(){Ko(()=>"bg-muted rounded-md block motion-safe:animate-pulse");}static \u0275fac=function(s){return new(s||o)};static \u0275dir=Uv({type:o,selectors:[["","hlmSkeleton",""],["hlm-skeleton"]],hostAttrs:["data-slot","skeleton"]})};export{t};

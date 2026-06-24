@@ -18,6 +18,8 @@ export class AppRoutesHelper {
     ModeSelection: ':language/:accent',
     // ex. /english/america/chorus
     ChorusDashboard: ':language/:accent/chorus',
+    // ex. /english/america/chorus-focus
+    ChorusFocusSelection: ':language/:accent/chorus-focus',
     // ex. /english/america/pairs
     PairsSelection: ':language/:accent/pairs',
     // ex. /english/america/pairs/1
@@ -93,6 +95,10 @@ export class AppRoutesHelper {
     return ['/', language.toLowerCase(), accent.toLowerCase(), 'chorus'];
   }
 
+  static getChorusFocusSelectionRoute(language: string, accent: string): any[] {
+    return ['/', language.toLowerCase(), accent.toLowerCase(), 'chorus-focus'];
+  }
+
   static getPairsSelectionRoute(language: string, accent: string): any[] {
     return ['/', language.toLowerCase(), accent.toLowerCase(), 'pairs'];
   }
@@ -164,6 +170,11 @@ const dynamicRoutes: Routes = [
     path: AppRoutesHelper.routes.ChorusDashboard,
     loadComponent: () =>
       import('@features/chorus/chorus-dashboard/chorus-dashboard').then((m) => m.ChorusDashboard),
+  },
+  {
+    path: AppRoutesHelper.routes.ChorusFocusSelection,
+    loadComponent: () =>
+      import('@features/chorus/chorus-focus/chorus-focus').then((m) => m.ChorusFocus),
   },
   {
     path: AppRoutesHelper.routes.PairsDashboard,

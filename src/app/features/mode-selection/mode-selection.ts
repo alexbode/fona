@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { TitleCasePipe } from '@angular/common';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import { lucideChevronLeft, lucideMic, lucideVolume2 } from '@ng-icons/lucide';
+import { lucideChevronLeft, lucideMic, lucideVolume2, lucideTarget } from '@ng-icons/lucide';
 import { DataService } from '@core/services/data.service';
 import { AppRoutesHelper } from '@app/app.routes';
 import { LoggingService } from '@core/services/logging.service';
@@ -20,6 +20,7 @@ import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
       lucideChevronLeft,
       lucideMic,
       lucideVolume2,
+      lucideTarget,
     }),
   ],
   templateUrl: './mode-selection.html',
@@ -67,6 +68,16 @@ export class ModeSelection {
     return !!(cfg && cfg.chorus && cfg.chorus.sentences && cfg.chorus.sentences.length > 0);
   });
 
+  hasChorusFocus = computed(() => {
+    const cfg = this.config();
+    return !!(
+      cfg &&
+      ((cfg.vowels && cfg.vowels.length > 0) ||
+        (cfg.consonants && cfg.consonants.length > 0) ||
+        (cfg.semiVowels && cfg.semiVowels.length > 0))
+    );
+  });
+
   hasPairs = computed(() => {
     const cfg = this.config();
     return !!(cfg && cfg.pairs && cfg.pairs.length > 0);
@@ -91,6 +102,12 @@ export class ModeSelection {
     }
     this.router.navigate(
       AppRoutesHelper.getChorusDashboardRoute(this.languageName(), this.accentName()),
+    );
+  }
+
+  onSelectChorusFocus(): void {
+    this.router.navigate(
+      AppRoutesHelper.getChorusFocusSelectionRoute(this.languageName(), this.accentName()),
     );
   }
 

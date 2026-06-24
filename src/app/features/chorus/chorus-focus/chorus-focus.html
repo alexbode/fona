@@ -1,0 +1,126 @@
+<div class="flex flex-col flex-1 h-full bg-background select-none">
+  <!-- Navigation Breadcrumbs -->
+  <nav hlmBreadcrumb class="px-5 py-4 shrink-0">
+    <ol hlmBreadcrumbList>
+      <li hlmBreadcrumbItem>
+        <a hlmBreadcrumbLink [link]="AppRoutesHelper.getLanguagesRoute()">Languages</a>
+      </li>
+      <li hlmBreadcrumbSeparator></li>
+      <li hlmBreadcrumbItem>
+        <a hlmBreadcrumbLink [link]="AppRoutesHelper.getAccentsRoute(languageName())">{{
+          language()?.nativeName | titlecase
+        }}</a>
+      </li>
+      <li hlmBreadcrumbSeparator></li>
+      <li hlmBreadcrumbItem>
+        <a
+          hlmBreadcrumbLink
+          [link]="AppRoutesHelper.getModeSelectionRoute(languageName(), accentName())"
+          >{{ accent()?.nativeName | titlecase }}</a
+        >
+      </li>
+      <li hlmBreadcrumbSeparator></li>
+      <li hlmBreadcrumbItem>
+        <span hlmBreadcrumbPage>Chorus Focus</span>
+      </li>
+    </ol>
+  </nav>
+
+  <!-- Title Section -->
+  <div class="px-5 pb-3 shrink-0">
+    <h2 class="text-2xl font-bold text-foreground font-jakarta">Chorus Focus</h2>
+    <p class="text-muted-foreground text-sm mt-1">
+      Select an IPA sound to target. Practice chorusing sentences containing that phoneme.
+    </p>
+  </div>
+
+  <!-- Sound Groups List -->
+  <div class="flex-1 overflow-y-auto px-5 pb-10 pt-2 space-y-6">
+    @if (config().isLoading) {
+      <div class="space-y-6">
+        @for (section of [1, 2]; track section) {
+          <div class="space-y-3">
+            <hlm-skeleton class="h-6 w-32 rounded" />
+            <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-3">
+              @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track i) {
+                <hlm-skeleton class="h-[76px] rounded-xl" />
+              }
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <!-- Vowels Section -->
+      @if (vowels().length > 0) {
+        <div class="space-y-3">
+          <h3 class="text-sm font-semibold text-muted-foreground tracking-wider uppercase font-jakarta">
+            Vowels
+          </h3>
+          <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-3">
+            @for (sound of vowels(); track sound) {
+              <button
+                hlmCard
+                [disabled]="(ipaCounts()[sound] || 0) === 0"
+                (click)="onSelect(sound)"
+                class="flex flex-col items-center justify-center p-3 rounded-xl border text-center transition-all duration-300 sound-tile cursor-pointer disabled:opacity-40 disabled:pointer-events-none"
+              >
+                <span class="text-xl font-bold font-mono text-brand">/{{ sound }}/</span>
+                <span class="text-[10px] text-muted-foreground mt-1 font-sans">
+                  {{ ipaCounts()[sound] || 0 }} phrases
+                </span>
+              </button>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- Semi-Vowels Section -->
+      @if (semiVowels().length > 0) {
+        <div class="space-y-3">
+          <h3 class="text-sm font-semibold text-muted-foreground tracking-wider uppercase font-jakarta">
+            Semi-Vowels
+          </h3>
+          <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-3">
+            @for (sound of semiVowels(); track sound) {
+              <button
+                hlmCard
+                [disabled]="(ipaCounts()[sound] || 0) === 0"
+                (click)="onSelect(sound)"
+                class="flex flex-col items-center justify-center p-3 rounded-xl border text-center transition-all duration-300 sound-tile cursor-pointer disabled:opacity-40 disabled:pointer-events-none"
+              >
+                <span class="text-xl font-bold font-mono text-brand-secondary">/{{ sound }}/</span>
+                <span class="text-[10px] text-muted-foreground mt-1 font-sans">
+                  {{ ipaCounts()[sound] || 0 }} phrases
+                </span>
+              </button>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- Consonants Section -->
+      @if (consonants().length > 0) {
+        <div class="space-y-3">
+          <h3 class="text-sm font-semibold text-muted-foreground tracking-wider uppercase font-jakarta">
+            Consonants
+          </h3>
+          <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-3">
+            @for (sound of consonants(); track sound) {
+              <button
+                hlmCard
+                [disabled]="(ipaCounts()[sound] || 0) === 0"
+                (click)="onSelect(sound)"
+                class="flex flex-col items-center justify-center p-3 rounded-xl border text-center transition-all duration-300 sound-tile cursor-pointer disabled:opacity-40 disabled:pointer-events-none"
+              >
+                <span class="text-xl font-bold font-mono text-pairs">/{{ sound }}/</span>
+                <span class="text-[10px] text-muted-foreground mt-1 font-sans">
+                  {{ ipaCounts()[sound] || 0 }} phrases
+                </span>
+              </button>
+            }
+          </div>
+        </div>
+      }
+    }
+  </div>
+</div>
