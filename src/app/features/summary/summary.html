@@ -50,35 +50,37 @@
     </div>
 
     <!-- Stats -->
-    <div class="grid grid-cols-2 gap-3 mb-8">
-      @if (isPairsQuiz()) {
-        <hlm-card class="p-5 text-center">
-          <div class="text-5xl font-bold text-brand font-jakarta">{{ accuracyPercentage() }}%</div>
-          <div class="text-muted-foreground text-xs mt-1 tracking-widest uppercase">accuracy</div>
-        </hlm-card>
-        <hlm-card class="p-5 text-center">
-          <div class="text-5xl font-bold text-muted-foreground font-jakarta">
-            {{ streakValue() }}
-          </div>
-          <div class="text-muted-foreground text-xs mt-1 tracking-widest uppercase">
-            best streak
-          </div>
-        </hlm-card>
-      } @else {
-        <hlm-card class="p-5 text-center">
-          <div class="text-5xl font-bold text-brand font-jakarta">
-            {{ chorusCumulativeReps() }}
-          </div>
-          <div class="text-muted-foreground text-xs mt-1 tracking-widest uppercase">total reps</div>
-        </hlm-card>
-        <hlm-card class="p-5 text-center">
-          <div class="text-5xl font-bold text-muted-foreground font-jakarta">
-            {{ data.total }}
-          </div>
-          <div class="text-muted-foreground text-xs mt-1 tracking-widest uppercase">phrases</div>
-        </hlm-card>
-      }
-    </div>
+    @if (data.mode !== 'pairs') {
+      <div class="grid grid-cols-2 gap-3 mb-8">
+        @if (isPairsQuiz()) {
+          <hlm-card class="p-5 text-center">
+            <div class="text-5xl font-bold text-brand font-jakarta">{{ accuracyPercentage() }}%</div>
+            <div class="text-muted-foreground text-xs mt-1 tracking-widest uppercase">accuracy</div>
+          </hlm-card>
+          <hlm-card class="p-5 text-center">
+            <div class="text-5xl font-bold text-muted-foreground font-jakarta">
+              {{ streakValue() }}
+            </div>
+            <div class="text-muted-foreground text-xs mt-1 tracking-widest uppercase">
+              best streak
+            </div>
+          </hlm-card>
+        } @else {
+          <hlm-card class="p-5 text-center">
+            <div class="text-5xl font-bold text-brand font-jakarta">
+              {{ chorusCumulativeReps() }}
+            </div>
+            <div class="text-muted-foreground text-xs mt-1 tracking-widest uppercase">total reps</div>
+          </hlm-card>
+          <hlm-card class="p-5 text-center">
+            <div class="text-5xl font-bold text-muted-foreground font-jakarta">
+              {{ data.total }}
+            </div>
+            <div class="text-muted-foreground text-xs mt-1 tracking-widest uppercase">phrases</div>
+          </hlm-card>
+        }
+      </div>
+    }
 
     <!-- Motivational message -->
     <hlm-card class="p-5 mb-8">

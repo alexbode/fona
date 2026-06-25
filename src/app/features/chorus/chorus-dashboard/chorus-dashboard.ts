@@ -8,7 +8,6 @@ import {
   Signal,
   viewChild,
   OnInit,
-  OnDestroy,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { DecimalPipe, TitleCasePipe } from '@angular/common';
@@ -21,33 +20,16 @@ import { Sentence } from '@core/models/sentence';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import { lucideChevronLeft, lucideBookOpen, lucideVolume2, lucideX } from '@ng-icons/lucide';
+import { lucideChevronLeft, lucideBookOpen } from '@ng-icons/lucide';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmBreadcrumbImports } from '@spartan-ng/helm/breadcrumb';
 
 import { ButtonDirective } from '@app/directive/button';
 import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
 import { ProgressBar } from '@app/shared/progress-bar/progress-bar';
+import { IpaDetailsDialog, IpaItem } from '@app/shared/ipa-details-dialog/ipa-details-dialog';
 
-interface ExampleWord {
-  word: string;
-  language: string;
-  accent: string;
-}
 
-interface IpaItem {
-  ipaSymbol: string;
-  ipaNumber: number;
-  vowelOrConsonant: 'vowel' | 'consonant';
-  placeOfArticulation: string | null;
-  mannerOfArticulation: string | null;
-  voicing: string;
-  vowelHeight: string | null;
-  vowelBackness: string | null;
-  howToArticulate: string;
-  soundUrl: string;
-  exampleWords: ExampleWord[];
-}
 
 @Component({
   selector: 'app-chorus-dashboard',
@@ -63,13 +45,12 @@ interface IpaItem {
     HlmBreadcrumbImports,
     HlmSkeleton,
     ProgressBar,
+    IpaDetailsDialog,
   ],
   providers: [
     provideIcons({
       lucideChevronLeft,
       lucideBookOpen,
-      lucideVolume2,
-      lucideX,
     }),
   ],
   templateUrl: './chorus-dashboard.html',
@@ -79,7 +60,7 @@ interface IpaItem {
     '(window:keydown.arrowright)': 'nextSentence()',
   },
 })
-export class ChorusDashboard implements OnInit, OnDestroy {
+export class ChorusDashboard implements OnInit {
   protected readonly AppRoutesHelper = AppRoutesHelper;
   protected readonly dataService = inject(DataService);
   private readonly router = inject(Router);
@@ -120,11 +101,9 @@ export class ChorusDashboard implements OnInit, OnDestroy {
   }
 
   // IPA Dialog state
-  readonly allIpaItems = signal<IpaItem[]>([]);
-  readonly selectedIpaItem = signal<IpaItem | null>(null);
+  readonly selectedIpaSymbol = signal<string | null>(null);
   readonly selectedWordTokens = signal<{ char: string; isClickable: boolean }[] | null>(null);
-  readonly playingIpaSoundUrl = signal<string | null>(null);
-  private currentIpaAudio: HTMLAudioElement | null = null;
+  readonly allIpaItems = signal<IpaItem[]>([]);
 
   async ngOnInit() {
     try {
@@ -138,69 +117,10 @@ export class ChorusDashboard implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
-    if (this.currentIpaAudio) {
-      this.currentIpaAudio.pause();
-      this.currentIpaAudio = null;
-    }
-  }
-
   openIpaDetails(chars: { char: string; isClickable: boolean }[], char: string) {
     this.audioPlayer()?.stopAudio();
     this.selectedWordTokens.set(chars);
-    const item = this.allIpaItems().find((i) => i.ipaSymbol === char);
-    if (item) {
-      this.selectedIpaItem.set(item);
-    }
-  }
-
-  selectIpaToken(char: string) {
-    const item = this.allIpaItems().find((i) => i.ipaSymbol === char);
-    if (item) {
-      this.selectedIpaItem.set(item);
-    }
-  }
-
-  closeIpaDetails() {
-    this.selectedIpaItem.set(null);
-    this.selectedWordTokens.set(null);
-    if (this.currentIpaAudio) {
-      this.currentIpaAudio.pause();
-      this.currentIpaAudio = null;
-    }
-    this.playingIpaSoundUrl.set(null);
-  }
-
-  playIpaSound(url: string, event?: Event) {
-    if (event) {
-      event.stopPropagation();
-    }
-    if (!url) return;
-
-    if (this.currentIpaAudio) {
-      this.currentIpaAudio.pause();
-      this.currentIpaAudio = null;
-    }
-
-    this.playingIpaSoundUrl.set(url);
-    const audio = new Audio(url);
-    this.currentIpaAudio = audio;
-
-    audio
-      .play()
-      .then(() => {
-        audio.onended = () => {
-          if (this.currentIpaAudio === audio) {
-            this.playingIpaSoundUrl.set(null);
-          }
-        };
-      })
-      .catch((err) => {
-        console.error('Failed to play sound', err);
-        if (this.currentIpaAudio === audio) {
-          this.playingIpaSoundUrl.set(null);
-        }
-      });
+    this.selectedIpaSymbol.set(char);
   }
 
   readonly ipaWords = computed(() => {

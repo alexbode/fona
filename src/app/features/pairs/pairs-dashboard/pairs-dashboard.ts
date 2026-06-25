@@ -26,6 +26,7 @@ import { AudioPlayer } from '@app/shared/audio-player/audio-player';
 import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import { ProgressBar } from '@app/shared/progress-bar/progress-bar';
+import { IpaDetailsDialog } from '@app/shared/ipa-details-dialog/ipa-details-dialog';
 
 @Component({
   selector: 'app-pairs-dashboard',
@@ -41,6 +42,7 @@ import { ProgressBar } from '@app/shared/progress-bar/progress-bar';
     HlmSkeleton,
     HlmCardImports,
     ProgressBar,
+    IpaDetailsDialog,
   ],
   providers: [
     provideIcons({
@@ -57,6 +59,7 @@ export class PairsDashboard implements OnDestroy {
   protected readonly accent = input.required<string>();
   protected readonly pairIndex = input.required<number>();
   protected readonly exampleIndex = signal<number>(1);
+  readonly selectedIpaSymbol = signal<string | null>(null);
 
   private readonly dataService = inject(DataService);
   private readonly router = inject(Router);
@@ -220,6 +223,12 @@ export class PairsDashboard implements OnDestroy {
         },
       });
     }
+  }
+
+  openIpaDetails(char: string | undefined) {
+    if (!char) return;
+    this.stopAudio();
+    this.selectedIpaSymbol.set(char);
   }
 
   onBack() {

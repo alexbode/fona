@@ -93,11 +93,13 @@
             class="flex-1 p-4 flex flex-col gap-3 transition-colors duration-200"
             [class.border-brand/60]="playingKey() === 'word-a'"
           >
-            <div
-              class="w-10 h-10 rounded-lg flex items-center justify-center text-xl font-bold bg-brand/10 text-brand font-jakarta"
+            <button
+              (click)="openIpaDetails(pair()?.ipa_a)"
+              class="w-10 h-10 rounded-lg flex items-center justify-center text-xl font-bold bg-brand/10 text-brand font-jakarta hover:bg-brand/20 hover:scale-105 active:scale-95 cursor-pointer transition-all select-none"
+              [title]="'Learn about /' + pair()?.ipa_a + '/'"
             >
-              {{ pair()?.ipa_a }}
-            </div>
+              /{{ pair()?.ipa_a }}/
+            </button>
             <div>
               <div class="text-foreground font-bold text-lg leading-tight font-jakarta">
                 {{ wordAText() }}
@@ -154,11 +156,13 @@
             class="flex-1 p-4 flex flex-col gap-3 transition-colors duration-200"
             [class.border-brand-secondary/60]="playingKey() === 'word-b'"
           >
-            <div
-              class="w-10 h-10 rounded-lg flex items-center justify-center text-xl font-bold bg-brand-secondary/10 text-brand-secondary font-jakarta"
+            <button
+              (click)="openIpaDetails(pair()?.ipa_b)"
+              class="w-10 h-10 rounded-lg flex items-center justify-center text-xl font-bold bg-brand-secondary/10 text-brand-secondary font-jakarta hover:bg-brand-secondary/20 hover:scale-105 active:scale-95 cursor-pointer transition-all select-none"
+              [title]="'Learn about /' + pair()?.ipa_b + '/'"
             >
-              {{ pair()?.ipa_b }}
-            </div>
+              /{{ pair()?.ipa_b }}/
+            </button>
             <div>
               <div class="text-foreground font-bold text-lg leading-tight font-jakarta">
                 {{ wordBText() }}
@@ -285,4 +289,7 @@
       </button>
     </div>
   </div>
+
+  <!-- IPA Detail Overlay Dialog -->
+  <app-ipa-details-dialog [(ipaSymbol)]="selectedIpaSymbol" />
 </div>
