@@ -21,12 +21,7 @@ import { Sentence } from '@core/models/sentence';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import {
-  lucideChevronLeft,
-  lucideBookOpen,
-  lucideVolume2,
-  lucideX,
-} from '@ng-icons/lucide';
+import { lucideChevronLeft, lucideBookOpen, lucideVolume2, lucideX } from '@ng-icons/lucide';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmBreadcrumbImports } from '@spartan-ng/helm/breadcrumb';
 
@@ -133,7 +128,7 @@ export class ChorusDashboard implements OnInit, OnDestroy {
     try {
       const response = await fetch('/ipa.json');
       if (response.ok) {
-        const data = await response.json() as IpaItem[];
+        const data = (await response.json()) as IpaItem[];
         this.allIpaItems.set(data);
       }
     } catch (err) {
@@ -189,7 +184,8 @@ export class ChorusDashboard implements OnInit, OnDestroy {
     const audio = new Audio(url);
     this.currentIpaAudio = audio;
 
-    audio.play()
+    audio
+      .play()
       .then(() => {
         audio.onended = () => {
           if (this.currentIpaAudio === audio) {
@@ -239,7 +235,7 @@ export class ChorusDashboard implements OnInit, OnDestroy {
       }
 
       if (targetIpa) {
-        // Chorus Focus mode: Wait for all sentences to load, then filter by IPA symbol
+        // Focused Chorusing mode: Wait for all sentences to load, then filter by IPA symbol
         const allLoaded = config.chorus.sentences.every(
           (id) => !this.dataService.getSentence(id)().isLoading,
         );

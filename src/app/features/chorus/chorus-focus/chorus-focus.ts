@@ -64,11 +64,7 @@ export class ChorusFocus {
     const cfg = this.config().value;
     if (!cfg) return counts;
 
-    const allSounds = [
-      ...(cfg.vowels || []),
-      ...(cfg.consonants || []),
-      ...(cfg.semiVowels || []),
-    ];
+    const allSounds = [...(cfg.vowels || []), ...(cfg.consonants || []), ...(cfg.semiVowels || [])];
 
     for (const sound of allSounds) {
       counts[sound] = 0;

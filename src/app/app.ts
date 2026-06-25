@@ -37,4 +37,3 @@ export class App {
     return this.appRoutesHelper.authFlowRoutes.map(String).includes(cleanUrl);
   }
 }
-

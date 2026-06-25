@@ -96,29 +96,29 @@ export class Ipa implements OnInit {
   // Unique filter values derived from data
   readonly mannersOfArticulation = computed(() => {
     const values = this.allIpaItems()
-      .filter(item => item.vowelOrConsonant === 'consonant' && item.mannerOfArticulation)
-      .map(item => item.mannerOfArticulation!);
+      .filter((item) => item.vowelOrConsonant === 'consonant' && item.mannerOfArticulation)
+      .map((item) => item.mannerOfArticulation!);
     return ['all', ...Array.from(new Set(values))].sort();
   });
 
   readonly placesOfArticulation = computed(() => {
     const values = this.allIpaItems()
-      .filter(item => item.vowelOrConsonant === 'consonant' && item.placeOfArticulation)
-      .map(item => item.placeOfArticulation!);
+      .filter((item) => item.vowelOrConsonant === 'consonant' && item.placeOfArticulation)
+      .map((item) => item.placeOfArticulation!);
     return ['all', ...Array.from(new Set(values))].sort();
   });
 
   readonly vowelHeights = computed(() => {
     const values = this.allIpaItems()
-      .filter(item => item.vowelOrConsonant === 'vowel' && item.vowelHeight)
-      .map(item => item.vowelHeight!);
+      .filter((item) => item.vowelOrConsonant === 'vowel' && item.vowelHeight)
+      .map((item) => item.vowelHeight!);
     return ['all', ...Array.from(new Set(values))].sort();
   });
 
   readonly vowelBacknesses = computed(() => {
     const values = this.allIpaItems()
-      .filter(item => item.vowelOrConsonant === 'vowel' && item.vowelBackness)
-      .map(item => item.vowelBackness!);
+      .filter((item) => item.vowelOrConsonant === 'vowel' && item.vowelBackness)
+      .map((item) => item.vowelBackness!);
     return ['all', ...Array.from(new Set(values))].sort();
   });
 
@@ -128,7 +128,7 @@ export class Ipa implements OnInit {
     const cat = this.selectedCategory();
     const query = this.searchQuery().toLowerCase().trim();
 
-    return items.filter(item => {
+    return items.filter((item) => {
       // Category check
       if (item.vowelOrConsonant !== cat) return false;
 
@@ -140,27 +140,43 @@ export class Ipa implements OnInit {
         const matchesPlace = item.placeOfArticulation?.toLowerCase().includes(query) || false;
         const matchesHeight = item.vowelHeight?.toLowerCase().includes(query) || false;
         const matchesBackness = item.vowelBackness?.toLowerCase().includes(query) || false;
-        const matchesExamples = item.exampleWords.some(w =>
-          w.word.toLowerCase().includes(query) ||
-          w.language.toLowerCase().includes(query) ||
-          w.accent.toLowerCase().includes(query)
+        const matchesExamples = item.exampleWords.some(
+          (w) =>
+            w.word.toLowerCase().includes(query) ||
+            w.language.toLowerCase().includes(query) ||
+            w.accent.toLowerCase().includes(query),
         );
-        if (!matchesSymbol && !matchesHow && !matchesManner && !matchesPlace && !matchesHeight && !matchesBackness && !matchesExamples) {
+        if (
+          !matchesSymbol &&
+          !matchesHow &&
+          !matchesManner &&
+          !matchesPlace &&
+          !matchesHeight &&
+          !matchesBackness &&
+          !matchesExamples
+        ) {
           return false;
         }
       }
 
       // Detailed Consonant filters
       if (cat === 'consonant') {
-        if (this.consonantManner() !== 'all' && item.mannerOfArticulation !== this.consonantManner()) return false;
-        if (this.consonantPlace() !== 'all' && item.placeOfArticulation !== this.consonantPlace()) return false;
-        if (this.consonantVoicing() !== 'all' && item.voicing !== this.consonantVoicing()) return false;
+        if (
+          this.consonantManner() !== 'all' &&
+          item.mannerOfArticulation !== this.consonantManner()
+        )
+          return false;
+        if (this.consonantPlace() !== 'all' && item.placeOfArticulation !== this.consonantPlace())
+          return false;
+        if (this.consonantVoicing() !== 'all' && item.voicing !== this.consonantVoicing())
+          return false;
       }
 
       // Detailed Vowel filters
       if (cat === 'vowel') {
         if (this.vowelHeight() !== 'all' && item.vowelHeight !== this.vowelHeight()) return false;
-        if (this.vowelBackness() !== 'all' && item.vowelBackness !== this.vowelBackness()) return false;
+        if (this.vowelBackness() !== 'all' && item.vowelBackness !== this.vowelBackness())
+          return false;
       }
 
       return true;
@@ -171,7 +187,7 @@ export class Ipa implements OnInit {
   readonly selectedItem = computed(() => {
     const sym = this.symbol();
     if (!sym) return null;
-    return this.allIpaItems().find(item => item.ipaSymbol === sym) || null;
+    return this.allIpaItems().find((item) => item.ipaSymbol === sym) || null;
   });
 
   async ngOnInit() {
@@ -181,7 +197,7 @@ export class Ipa implements OnInit {
       if (!response.ok) {
         throw new Error(`Failed to load IPA data: ${response.statusText}`);
       }
-      const data = await response.json() as IpaItem[];
+      const data = (await response.json()) as IpaItem[];
       this.allIpaItems.set(data);
     } catch (err: any) {
       this.error.set(err.message || 'An error occurred while loading IPA reference data.');
@@ -219,7 +235,8 @@ export class Ipa implements OnInit {
     const audio = new Audio(url);
     this.currentAudio = audio;
 
-    audio.play()
+    audio
+      .play()
       .then(() => {
         audio.onended = () => {
           if (this.currentAudio === audio) {

@@ -7,6 +7,9 @@ import { CourseConfig } from '@core/models/config';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { lucideChevronRight } from '@ng-icons/lucide';
+import { TitleCasePipe } from '@angular/common';
+import { HlmBreadcrumbImports } from '@spartan-ng/helm/breadcrumb';
+import { ConfettiService } from '@core/services/confetti.service';
 
 export interface SummaryData {
   reps: number;
@@ -29,7 +32,15 @@ import { HlmCardImports } from '@spartan-ng/helm/card';
 
 @Component({
   selector: 'app-summary',
-  imports: [ButtonDirective, HlmCardImports, RouterLink, NgIcon, HlmIcon],
+  imports: [
+    ButtonDirective,
+    HlmCardImports,
+    RouterLink,
+    NgIcon,
+    HlmIcon,
+    HlmBreadcrumbImports,
+    TitleCasePipe,
+  ],
   providers: [
     provideIcons({
       lucideChevronRight,
@@ -41,9 +52,63 @@ export class Summary implements OnInit {
   protected readonly AppRoutesHelper = AppRoutesHelper;
   private readonly router = inject(Router);
   private readonly dataService = inject(DataService);
+  private readonly confettiService = inject(ConfettiService);
 
   readonly language = input.required<string>();
   readonly accent = input.required<string>();
+
+  // Fetch language list to resolve native accent name
+  readonly languagesState = this.dataService.getLanguageList();
+
+  readonly languageObj = computed(() => {
+    const langs = this.languagesState().value;
+    if (!langs) return null;
+    const pathLang = this.language()?.toLowerCase();
+    return langs.find((l) => l.name.toLowerCase() === pathLang) || null;
+  });
+
+  readonly accentObj = computed(() => {
+    const lang = this.languageObj();
+    if (!lang) return null;
+    const pathAccent = this.accent()?.toLowerCase();
+    return lang.accents.find((a) => a.name.toLowerCase() === pathAccent) || null;
+  });
+
+  readonly modeLink = computed(() => {
+    if (this.data.mode === 'pairs_quiz') {
+      return AppRoutesHelper.getPairsQuizRoute(this.language(), this.accent());
+    }
+    if (this.data.mode === 'pairs') {
+      return AppRoutesHelper.getPairsSelectionRoute(this.language(), this.accent());
+    }
+    if (this.data.mode === 'chorus_focus') {
+      if (this.data.ipa) {
+        return AppRoutesHelper.getChorusDashboardRoute(this.language(), this.accent());
+      }
+      return AppRoutesHelper.getChorusFocusSelectionRoute(this.language(), this.accent());
+    }
+    return AppRoutesHelper.getChorusDashboardRoute(this.language(), this.accent());
+  });
+
+  readonly modeQueryParams = computed(() => {
+    if (this.data.mode === 'chorus_focus' && this.data.ipa) {
+      return { ipa: this.data.ipa };
+    }
+    return null;
+  });
+
+  readonly modeName = computed(() => {
+    if (this.data.mode === 'pairs_quiz') {
+      return 'Minimal Pairs Quiz';
+    }
+    if (this.data.mode === 'pairs') {
+      return 'Minimal Pairs';
+    }
+    if (this.data.mode === 'chorus_focus') {
+      return 'Focused Chorusing';
+    }
+    return 'Chorusing';
+  });
 
   // State
   protected data: SummaryData = {
@@ -81,6 +146,15 @@ export class Summary implements OnInit {
     ];
 
     this.message = messages[Math.floor(Math.random() * messages.length)];
+
+    // Trigger celebration
+    setTimeout(() => {
+      this.confettiService.fire({
+        particleCount: 150,
+        spread: 80,
+        origin: { y: 0.6 },
+      });
+    }, 300);
   }
 
   config: Signal<DataState<CourseConfig>> = computed(() => {
@@ -101,7 +175,7 @@ export class Summary implements OnInit {
       return 'Minimal Pairs';
     }
     if (this.data.mode === 'chorus_focus') {
-      return this.data.ipa ? `Chorus Focus (/${this.data.ipa}/)` : 'Chorus Focus';
+      return this.data.ipa ? `Focused Chorusing (/${this.data.ipa}/)` : 'Focused Chorusing';
     }
     return 'Chorusing';
   });
@@ -123,9 +197,7 @@ export class Summary implements OnInit {
     const cfg = this.config().value;
     if (!cfg || !cfg.pairs) return null;
     const index = cfg.pairs.findIndex(
-      (p) =>
-        (p.ipa_a === ipaA && p.ipa_b === ipaB) ||
-        (p.ipa_a === ipaB && p.ipa_b === ipaA),
+      (p) => (p.ipa_a === ipaA && p.ipa_b === ipaB) || (p.ipa_a === ipaB && p.ipa_b === ipaA),
     );
     return index !== -1 ? index + 1 : null;
   }
@@ -155,7 +227,7 @@ export class Summary implements OnInit {
     this.router.navigate(AppRoutesHelper.getChorusDashboardRoute(this.language(), this.accent()));
   }
 
-  onHome() {
-    this.router.navigate(AppRoutesHelper.getLanguagesRoute());
+  onBackToModeSelection() {
+    this.router.navigate(AppRoutesHelper.getModeSelectionRoute(this.language(), this.accent()));
   }
 }

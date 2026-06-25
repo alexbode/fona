@@ -2,7 +2,14 @@ import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AppRoutesHelper } from '@app/app.routes';
 import { AuthService } from '@core/services/auth.service';
-import { FormBuilder, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import {
+  FormBuilder,
+  ReactiveFormsModule,
+  Validators,
+  AbstractControl,
+  ValidationErrors,
+  ValidatorFn,
+} from '@angular/forms';
 import { LoggingService } from '@app/core/services/logging.service';
 import { NotificationService } from '@core/services/notification.service';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
@@ -54,12 +61,15 @@ export class ResetPassword {
   errorMessage = signal<string | null>(null);
 
   // Strongly typed form
-  resetForm = this.fb.nonNullable.group({
-    password: ['', [Validators.required, Validators.minLength(6)]],
-    confirmPassword: ['', [Validators.required]],
-  }, {
-    validators: passwordMatchValidator,
-  });
+  resetForm = this.fb.nonNullable.group(
+    {
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required]],
+    },
+    {
+      validators: passwordMatchValidator,
+    },
+  );
 
   async onSubmit() {
     if (this.resetForm.invalid) return;
