@@ -1,0 +1,17 @@
+<div class="px-5 pb-4 shrink-0">
+  <div class="flex items-center justify-between mb-2">
+    <div class="text-muted-foreground text-xs flex items-center">
+      <span>{{ currentIndex() }} / {{ totalSteps() }}</span>
+      <ng-content select="[leftLabel]"></ng-content>
+    </div>
+    <div class="text-muted-foreground text-xs">
+      <ng-content select="[rightLabel]"></ng-content>
+    </div>
+  </div>
+  <div class="h-[2px] bg-secondary rounded-full overflow-hidden">
+    <div
+      class="h-full bg-primary rounded-full transition-all duration-500"
+      [style.width.%]="totalSteps() > 0 ? (currentIndex() / totalSteps()) * 100 : 0"
+    ></div>
+  </div>
+</div>

@@ -25,6 +25,7 @@ import { DataState } from '@core/models/state';
 import { AudioPlayer } from '@app/shared/audio-player/audio-player';
 import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
 import { HlmCardImports } from '@spartan-ng/helm/card';
+import { ProgressBar } from '@app/shared/progress-bar/progress-bar';
 
 @Component({
   selector: 'app-pairs-dashboard',
@@ -39,6 +40,7 @@ import { HlmCardImports } from '@spartan-ng/helm/card';
     AudioPlayer,
     HlmSkeleton,
     HlmCardImports,
+    ProgressBar,
   ],
   providers: [
     provideIcons({

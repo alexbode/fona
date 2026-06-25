@@ -59,26 +59,15 @@
     </div>
   } @else {
     <!-- Progress Bar -->
-    <div class="px-5 pb-4 shrink-0">
-      <div class="flex items-center justify-between mb-2">
-        <span class="text-muted-foreground text-xs">
-          {{ sentenceIndex() }} / {{ numSentences() }}
-        </span>
-        <span class="text-muted-foreground text-xs">
-          @if (ipa()) {
-            focus: <span class="font-mono font-bold text-brand">/{{ ipa() }}/</span>
-          } @else {
-            phrase
-          }
-        </span>
-      </div>
-      <div class="h-[2px] bg-secondary rounded-full overflow-hidden">
-        <div
-          class="h-full bg-primary rounded-full transition-all duration-500"
-          [style.width.%]="numSentences() > 0 ? (sentenceIndex() / numSentences()) * 100 : 0"
-        ></div>
-      </div>
-    </div>
+    <app-progress-bar [currentIndex]="sentenceIndex()" [totalSteps]="numSentences()">
+      <ng-container rightLabel>
+        @if (ipa()) {
+          focus: <span class="font-mono font-bold text-brand">/{{ ipa() }}/</span>
+        } @else {
+          phrase
+        }
+      </ng-container>
+    </app-progress-bar>
 
     <div class="flex-1 flex flex-col px-5 pb-8 gap-5 overflow-y-auto">
       <!-- Phrase card -->

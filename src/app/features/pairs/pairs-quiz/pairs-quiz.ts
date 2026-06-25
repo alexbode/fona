@@ -35,6 +35,7 @@ interface QuizPair {
 }
 
 import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
+import { ProgressBar } from '@app/shared/progress-bar/progress-bar';
 
 @Component({
   selector: 'app-pairs-quiz',
@@ -47,6 +48,7 @@ import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
     AudioPlayer,
     HlmSkeleton,
     HlmCardImports,
+    ProgressBar,
   ],
   providers: [
     provideIcons({

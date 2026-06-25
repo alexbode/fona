@@ -56,6 +56,13 @@
     </ol>
   </nav>
 
+  <!-- Progress Bar -->
+  <app-progress-bar [currentIndex]="exampleIndex()" [totalSteps]="numExamples()">
+    <ng-container rightLabel>
+      focus: <span class="font-mono font-bold text-brand">/{{ pair()?.ipa_a }}/</span> vs <span class="font-mono font-bold text-brand-secondary">/{{ pair()?.ipa_b }}/</span>
+    </ng-container>
+  </app-progress-bar>
+
   <div class="flex-1 overflow-y-auto px-5 pb-10 space-y-5">
     <!-- Header -->
     <div class="flex items-center justify-center gap-4 py-2">

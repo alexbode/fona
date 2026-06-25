@@ -27,6 +27,7 @@ import { HlmBreadcrumbImports } from '@spartan-ng/helm/breadcrumb';
 
 import { ButtonDirective } from '@app/directive/button';
 import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
+import { ProgressBar } from '@app/shared/progress-bar/progress-bar';
 
 interface ExampleWord {
   word: string;
@@ -61,6 +62,7 @@ interface IpaItem {
     HlmCardImports,
     HlmBreadcrumbImports,
     HlmSkeleton,
+    ProgressBar,
   ],
   providers: [
     provideIcons({
