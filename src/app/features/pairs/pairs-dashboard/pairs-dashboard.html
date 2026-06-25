@@ -79,18 +79,18 @@
       <div class="flex gap-3">
         <!-- Word A Card -->
         @if (wordASentence().isLoading) {
-          <hlm-card size="sm" class="flex-1 p-4 flex flex-col gap-3">
+          <hlm-card size="sm" class="flex-1 p-5 rounded-xl flex flex-col gap-3">
             <hlm-skeleton class="w-10 h-10 rounded-lg" />
             <div class="space-y-2">
               <hlm-skeleton class="h-5 w-24 rounded" />
               <hlm-skeleton class="h-3 w-16 rounded" />
             </div>
-            <hlm-skeleton class="h-8 w-full rounded-lg" />
+            <hlm-skeleton class="h-8 w-full rounded-xl" />
           </hlm-card>
         } @else {
           <hlm-card
             size="sm"
-            class="flex-1 p-4 flex flex-col gap-3 transition-colors duration-200"
+            class="flex-1 p-5 rounded-xl flex flex-col gap-3 transition-all duration-200 shadow-sm"
             [class.border-brand/60]="playingKey() === 'word-a'"
           >
             <button
@@ -101,17 +101,17 @@
               /{{ pair()?.ipa_a }}/
             </button>
             <div>
-              <div class="text-foreground font-bold text-lg leading-tight font-jakarta">
+              <div class="text-foreground font-bold text-xl leading-tight font-jakarta">
                 {{ wordAText() }}
               </div>
-              <div class="text-muted-foreground text-xs mt-0.5 font-sans">
+              <div class="text-muted-foreground text-xs mt-1 font-sans">
                 /{{ wordASentence().value?.ipa }}/
               </div>
             </div>
             <button
               [disabled]="playingKey() === 'word-a' || isAudioPlaying()"
               (click)="playWord('word-a')"
-              class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer disabled:opacity-50 border"
+              class="flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold cursor-pointer disabled:opacity-50 border transition-all duration-200"
               [class.bg-brand-hover/10]="playingKey() === 'word-a'"
               [class.text-brand-hover]="playingKey() === 'word-a'"
               [class.border-brand-hover/30]="playingKey() === 'word-a'"
@@ -142,18 +142,18 @@
 
         <!-- Word B Card -->
         @if (wordBSentence().isLoading) {
-          <hlm-card size="sm" class="flex-1 p-4 flex flex-col gap-3">
+          <hlm-card size="sm" class="flex-1 p-5 rounded-xl flex flex-col gap-3">
             <hlm-skeleton class="w-10 h-10 rounded-lg" />
             <div class="space-y-2">
               <hlm-skeleton class="h-5 w-24 rounded" />
               <hlm-skeleton class="h-3 w-16 rounded" />
             </div>
-            <hlm-skeleton class="h-8 w-full rounded-lg" />
+            <hlm-skeleton class="h-8 w-full rounded-xl" />
           </hlm-card>
         } @else {
           <hlm-card
             size="sm"
-            class="flex-1 p-4 flex flex-col gap-3 transition-colors duration-200"
+            class="flex-1 p-5 rounded-xl flex flex-col gap-3 transition-all duration-200 shadow-sm"
             [class.border-brand-secondary/60]="playingKey() === 'word-b'"
           >
             <button
@@ -164,17 +164,17 @@
               /{{ pair()?.ipa_b }}/
             </button>
             <div>
-              <div class="text-foreground font-bold text-lg leading-tight font-jakarta">
+              <div class="text-foreground font-bold text-xl leading-tight font-jakarta">
                 {{ wordBText() }}
               </div>
-              <div class="text-muted-foreground text-xs mt-0.5 font-sans">
+              <div class="text-muted-foreground text-xs mt-1 font-sans">
                 /{{ wordBSentence().value?.ipa }}/
               </div>
             </div>
             <button
               [disabled]="playingKey() === 'word-b' || isAudioPlaying()"
               (click)="playWord('word-b')"
-              class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer disabled:opacity-50 border"
+              class="flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold cursor-pointer disabled:opacity-50 border transition-all duration-200"
               [class.bg-brand-hover/10]="playingKey() === 'word-b'"
               [class.text-brand-hover]="playingKey() === 'word-b'"
               [class.border-brand-hover/30]="playingKey() === 'word-b'"
@@ -211,16 +211,16 @@
         In context
       </div>
       @if (sentenceObj().isLoading) {
-        <hlm-card class="p-5 space-y-4">
+        <hlm-card class="p-5 space-y-4 rounded-xl">
           <div class="space-y-2">
             <hlm-skeleton class="h-5 w-3/4 rounded" />
             <hlm-skeleton class="h-5 w-1/2 rounded" />
           </div>
-          <hlm-skeleton class="h-8 w-32 rounded-lg" />
+          <hlm-skeleton class="h-8 w-32 rounded-xl" />
         </hlm-card>
       } @else {
-        <hlm-card class="p-5 space-y-3">
-          <p class="text-foreground text-base leading-relaxed font-jakarta">
+        <hlm-card class="p-5 space-y-4 rounded-xl shadow-xs">
+          <p class="text-foreground text-lg font-medium leading-relaxed font-jakarta">
             @for (w of sentenceWords(); track $index) {
               <span
                 [class.text-brand]="w.isA"
@@ -235,7 +235,7 @@
           <button
             [disabled]="playingKey() === 'sentence' || isAudioPlaying()"
             (click)="playWord('sentence')"
-            class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer disabled:opacity-50 border"
+            class="flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold cursor-pointer disabled:opacity-50 border transition-all duration-200"
             [class.bg-brand-hover/10]="playingKey() === 'sentence'"
             [class.text-brand-hover]="playingKey() === 'sentence'"
             [class.border-brand-hover/30]="playingKey() === 'sentence'"
@@ -273,7 +273,7 @@
           variant="secondary"
           size="none"
           (click)="previousExample()"
-          class="flex-1 py-4 rounded text-sm cursor-pointer"
+          class="flex-1 py-4 rounded-xl text-sm font-semibold cursor-pointer transition-all duration-200"
         >
           ← Prev example
         </button>
@@ -283,7 +283,7 @@
         variant="secondary"
         size="none"
         (click)="handleNext()"
-        class="flex-1 py-4 rounded text-sm cursor-pointer"
+        class="flex-1 py-4 rounded-xl text-sm font-semibold cursor-pointer transition-all duration-200"
       >
         {{ exampleIndex() < numExamples() ? 'Next example →' : 'Finish session →' }}
       </button>
